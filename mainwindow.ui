@@ -10,34 +10,36 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>80</horstretch>
+    <verstretch>60</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>681</width>
-      <height>431</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>-1</number>
-    </property>
-    <property name="tabsClosable">
-     <bool>true</bool>
-    </property>
-    <property name="movable">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>0</y>
+      <x>590</x>
+      <y>440</y>
       <width>31</width>
       <height>23</height>
      </rect>
@@ -46,21 +48,11 @@
      <string>+</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>430</y>
-      <width>681</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>0</y>
+      <x>630</x>
+      <y>440</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -68,6 +60,149 @@
     <property name="text">
      <string>PushButton</string>
     </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>500</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Очитстить</string>
+    </property>
+   </widget>
+   <widget class="QSplitter" name="splitter_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>581</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>100</horstretch>
+        <verstretch>255</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>702</width>
+        <height>631</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>206</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>206</width>
+        <height>631</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::WheelFocus</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <row>
+       <property name="text">
+        <string/>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Переменная</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Значение</string>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>a</string>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>10</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextEdit" name="textEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -79,6 +214,63 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+    <addaction name="action_3"/>
+    <addaction name="action_4"/>
+    <addaction name="action_5"/>
+    <addaction name="action_6"/>
+    <addaction name="action_7"/>
+    <addaction name="separator"/>
+    <addaction name="action_9"/>
+    <addaction name="separator"/>
+    <addaction name="action_11"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Правка</string>
+    </property>
+    <addaction name="action_13"/>
+    <addaction name="action_14"/>
+    <addaction name="action_15"/>
+    <addaction name="separator"/>
+    <addaction name="action_17"/>
+    <addaction name="action_18"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <addaction name="action_19"/>
+    <addaction name="action_20"/>
+    <addaction name="action_21"/>
+    <addaction name="separator"/>
+    <addaction name="action_23"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>Программа</string>
+    </property>
+    <addaction name="action_24"/>
+    <addaction name="action_25"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+    <addaction name="action_27"/>
+    <addaction name="action_28"/>
+    <addaction name="action_29"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -89,6 +281,121 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="action">
+   <property name="text">
+    <string>Новый</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>Сохранить как...</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>Сохранить всё</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>Закрыть</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>Закрыть неактивные</string>
+   </property>
+  </action>
+  <action name="action_9">
+   <property name="text">
+    <string>Печать</string>
+   </property>
+  </action>
+  <action name="action_11">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="text">
+    <string>Вырезать</string>
+   </property>
+  </action>
+  <action name="action_14">
+   <property name="text">
+    <string>Копировать</string>
+   </property>
+  </action>
+  <action name="action_15">
+   <property name="text">
+    <string>Вставить</string>
+   </property>
+  </action>
+  <action name="action_17">
+   <property name="text">
+    <string>Найти</string>
+   </property>
+  </action>
+  <action name="action_18">
+   <property name="text">
+    <string>Заменить</string>
+   </property>
+  </action>
+  <action name="action_19">
+   <property name="text">
+    <string>Окно вывода</string>
+   </property>
+  </action>
+  <action name="action_20">
+   <property name="text">
+    <string>Окно ввода</string>
+   </property>
+  </action>
+  <action name="action_21">
+   <property name="text">
+    <string>Окно отладки</string>
+   </property>
+  </action>
+  <action name="action_23">
+   <property name="text">
+    <string>Очистить вывод</string>
+   </property>
+  </action>
+  <action name="action_24">
+   <property name="text">
+    <string>Выполнить</string>
+   </property>
+  </action>
+  <action name="action_25">
+   <property name="text">
+    <string>Завершить</string>
+   </property>
+  </action>
+  <action name="action_27">
+   <property name="text">
+    <string>Содержание</string>
+   </property>
+  </action>
+  <action name="action_28">
+   <property name="text">
+    <string>Примеры</string>
+   </property>
+  </action>
+  <action name="action_29">
+   <property name="text">
+    <string>Об авторе...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

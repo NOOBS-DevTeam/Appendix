@@ -24,6 +24,10 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_lineEdit_returnPressed();
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

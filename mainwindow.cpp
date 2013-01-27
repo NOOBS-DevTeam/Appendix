@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 
-int n=0,cur_tab=0;
-QTextEdit *tabs[10];
+int n=0,cur_tab=0;// кол-во табов, текущий таб
+QTextEdit *tabs[100];
 
 QString strtoint(int a)
 {
@@ -48,4 +48,15 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     cur_tab=index+1;
+}
+
+void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле выхода
+{
+    ui->textEdit->insertPlainText(ui->lineEdit->text()+"\n");
+    ui->lineEdit->clear();
+}
+
+void MainWindow::on_pushButton_3_clicked()//очистить поле вывода
+{
+    ui->textEdit->clear();
 }
