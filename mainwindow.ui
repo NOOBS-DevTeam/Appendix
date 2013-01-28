@@ -32,14 +32,14 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Appendix</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>440</y>
+      <x>750</x>
+      <y>40</y>
       <width>31</width>
       <height>23</height>
      </rect>
@@ -51,8 +51,8 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>440</y>
+      <x>720</x>
+      <y>20</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -64,8 +64,8 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>500</y>
+      <x>720</x>
+      <y>0</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -79,7 +79,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>581</width>
+      <width>701</width>
       <height>541</height>
      </rect>
     </property>

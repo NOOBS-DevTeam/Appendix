@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+	ui->splitter_2->setSizes(QList<int> () << 600 << 200);
+	ui->splitter->setSizes(QList<int> () << 700 << 100 );
 }
 
 MainWindow::~MainWindow()
