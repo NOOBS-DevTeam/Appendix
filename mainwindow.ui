@@ -31,56 +31,20 @@
   <property name="mouseTracking">
    <bool>false</bool>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::CustomContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Appendix</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>40</y>
-      <width>31</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>+</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>20</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>0</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Очитстить</string>
-    </property>
-   </widget>
    <widget class="QSplitter" name="splitter_2">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>701</width>
-      <height>541</height>
+      <width>781</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="orientation">
@@ -285,6 +249,9 @@
    <property name="text">
     <string>Новый</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="action_2">
    <property name="text">
@@ -370,10 +337,16 @@
    <property name="text">
     <string>Очистить вывод</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Del</string>
+   </property>
   </action>
   <action name="action_24">
    <property name="text">
     <string>Выполнить</string>
+   </property>
+   <property name="shortcut">
+    <string>F9</string>
    </property>
   </action>
   <action name="action_25">

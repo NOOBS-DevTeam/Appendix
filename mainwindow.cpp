@@ -30,8 +30,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    delete tabs[index+1];
-    cur_tab--;
+    ui->tabWidget->removeTab(index);
     n--;
 }
 
@@ -44,7 +43,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    ui->textEdit->setText(tabs[cur_tab]->toPlainText());
+
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -52,7 +51,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     cur_tab=index+1;
 }
 
-void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле выхода
+void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
 {
     ui->textEdit->insertPlainText(ui->lineEdit->text()+"\n");
     ui->lineEdit->clear();
@@ -60,5 +59,42 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_pushButton_3_clicked()//очистить поле вывода
 {
+
+}
+
+void MainWindow::on_action_2_activated()
+{
+
+}
+
+void MainWindow::on_action_2_activated(int arg1)
+{
+
+}
+
+void MainWindow::on_action_2_changed()
+{
+
+}
+
+void MainWindow::on_action_2_triggered()
+{
+
+}
+
+void MainWindow::on_action_triggered()
+{
+    n++;
+    tabs[n]= new QTextEdit;
+    ui->tabWidget->addTab(tabs[n],QString("Tab")+QString(strtoint(n)));
+}
+
+void MainWindow::on_action_23_triggered()
+{
     ui->textEdit->clear();
+}
+
+void MainWindow::on_action_24_triggered()
+{
+    ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
 }
