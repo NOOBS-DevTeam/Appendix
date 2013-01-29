@@ -2,10 +2,11 @@
 #include "ui_mainwindow.h"
 #include <string.h>
 #include <stdio.h>
+#include <vector>
 
 
-int n=0,cur_tab=0;// кол-во табов, текущий таб
-QTextEdit *tabs[100];
+int n=0,cur_tab=0; //текущий таб
+std::vector<QTextEdit *> tabs;
 
 QString strtoint(int a)
 {
@@ -31,14 +32,23 @@ MainWindow::~MainWindow()
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
     ui->tabWidget->removeTab(index);
-    n--;
+	delete tabs[index];
+	tabs.erase(tabs.begin()+index);
+//	for (int i=0;i<=100;i++)
+//	{
+//		if (dynamic_cast<QTextEdit*>(tabs[i]))
+//		{
+//			cur_tab=i;
+//			break;
+//		}
+//	}
+//	t++;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    n++;
-    tabs[n]= new QTextEdit;
-    ui->tabWidget->addTab(tabs[n],QString("Tab")+QString(strtoint(n)));
+	//tabs[n]= new QTextEdit;
+	//ui->tabWidget->addTab(tabs[n],QString("Tab")+QString(strtoint(n)));
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -48,7 +58,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    cur_tab=index+1;
+	cur_tab=index;
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -84,9 +94,9 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_triggered()
 {
-    n++;
-    tabs[n]= new QTextEdit;
-    ui->tabWidget->addTab(tabs[n],QString("Tab")+QString(strtoint(n)));
+	tabs.push_back( new QTextEdit);
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	n++;
 }
 
 void MainWindow::on_action_23_triggered()
@@ -96,5 +106,5 @@ void MainWindow::on_action_23_triggered()
 
 void MainWindow::on_action_24_triggered()
 {
-    ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
+	ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
 }
