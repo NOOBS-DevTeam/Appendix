@@ -2,11 +2,34 @@
 #include "ui_mainwindow.h"
 #include <string.h>
 #include <stdio.h>
+#include <strstream>
 #include <vector>
+#include <QFileDialog>
+#include <QFile>
+#include <fstream>
+#include <QTextStream>
 
 
 int n=0,cur_tab=0; //текущий таб
 std::vector<QTextEdit *> tabs;
+
+QString readFile(QString filename) //считывание из файла
+    {
+        QFile file(filename);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+             return NULL;
+
+
+        QByteArray total;
+        QByteArray line;
+        while (!file.atEnd()) {
+           line = file.read(1024);
+           total.append(line);
+        }
+
+        return QString(total);
+     }
+
 
 QString strtoint(int a)
 {
@@ -21,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 	ui->splitter_2->setSizes(QList<int> () << 600 << 200);
-	ui->splitter->setSizes(QList<int> () << 700 << 100 );
+    ui->splitter->setSizes(QList<int> () << 700 << 170 );
 }
 
 MainWindow::~MainWindow()
@@ -90,6 +113,10 @@ void MainWindow::on_action_2_changed()
 void MainWindow::on_action_2_triggered()
 {
 
+    tabs.push_back( new QTextEdit);
+    ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+    n++;
+    tabs[cur_tab]->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
 }
 
 void MainWindow::on_action_triggered()
@@ -106,5 +133,20 @@ void MainWindow::on_action_23_triggered()
 
 void MainWindow::on_action_24_triggered()
 {
-	ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
+    ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
+
+}
+
+void MainWindow::on_action_3_triggered()
+{
+    QString str = tabs[cur_tab]->toPlainText();
+    QString filename;
+     filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
+     QFile file(filename);
+     file.open(QIODevice::Append | QIODevice::Text);
+     QTextStream out(&file);
+     out << str;
+     out << "\n";
+     file.close();
+
 }

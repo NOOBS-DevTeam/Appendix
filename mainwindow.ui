@@ -27,6 +27,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMaximumSize</enum>
+    </property>
     <item>
      <widget class="QSplitter" name="splitter_2">
       <property name="orientation">
@@ -49,12 +52,6 @@
           <height>0</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>702</width>
-          <height>631</height>
-         </size>
-        </property>
         <property name="currentIndex">
          <number>-1</number>
         </property>
@@ -62,7 +59,7 @@
          <bool>true</bool>
         </property>
         <property name="movable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
        <widget class="QTableWidget" name="tableWidget">
@@ -74,18 +71,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>206</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>206</width>
-          <height>631</height>
-         </size>
         </property>
         <property name="sizeIncrement">
          <size>
@@ -108,6 +93,9 @@
         <property name="horizontalScrollBarPolicy">
          <enum>Qt::ScrollBarAsNeeded</enum>
         </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>80</number>
+        </attribute>
         <row>
          <property name="text">
           <string/>
@@ -241,10 +229,16 @@
    <property name="text">
     <string>Открыть</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="action_3">
    <property name="text">
     <string>Сохранить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="action_4">
