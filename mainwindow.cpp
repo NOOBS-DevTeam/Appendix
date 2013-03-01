@@ -1,17 +1,20 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "SyntaxHighlighter.h"
 #include <string.h>
 #include <stdio.h>
 #include <strstream>
 #include <vector>
 #include <QFileDialog>
 #include <QFile>
-#include <fstream>
+#include <QDebug>
 #include <QTextStream>
-
+#include <QProcess>
 
 int n=0,cur_tab=0; //текущий таб
 std::vector<QTextEdit *> tabs;
+QString cpError;
+QProcess *cp;
 
 QString readFile(QString filename) //считывание из файла
     {
@@ -45,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	ui->splitter_2->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
+	cp = new QProcess(this);
+	connect(cp,SIGNAL(readyReadStandardOutput()),SLOT(slotDataOnStdout()));
+	connect(cp,SIGNAL(readyReadStandardError()),SLOT(slotDataOnError()));
 }
 
 MainWindow::~MainWindow()
@@ -57,27 +63,9 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     ui->tabWidget->removeTab(index);
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
-//	for (int i=0;i<=100;i++)
-//	{
-//		if (dynamic_cast<QTextEdit*>(tabs[i]))
-//		{
-//			cur_tab=i;
-//			break;
-//		}
-//	}
-//	t++;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-	//tabs[n]= new QTextEdit;
-	//ui->tabWidget->addTab(tabs[n],QString("Tab")+QString(strtoint(n)));
-}
 
-void MainWindow::on_pushButton_2_clicked()
-{
-
-}
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
@@ -87,13 +75,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
 {
     ui->textEdit->insertPlainText(ui->lineEdit->text()+"\n");
+	cp->write((ui->lineEdit->text().toStdString()+"\n").c_str());
+	cp->waitForBytesWritten();
     ui->lineEdit->clear();
 }
 
-void MainWindow::on_pushButton_3_clicked()//очистить поле вывода
-{
-
-}
 
 void MainWindow::on_action_2_activated()
 {
@@ -123,6 +109,13 @@ void MainWindow::on_action_triggered()
 {
 	tabs.push_back( new QTextEdit);
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	QFont fnt("Consolas",9,QFont::Normal);
+	tabs.back()->document()->setDefaultFont(fnt);
+	new SyntaxHighlighter(tabs[cur_tab]->document());
+	QPalette pal = tabs.back()->palette();
+	pal.setColor(QPalette::Base, Qt::white);
+	pal.setColor(QPalette::Text, Qt::black);
+	tabs.back()->setPalette(pal);
 	n++;
 }
 
@@ -133,7 +126,29 @@ void MainWindow::on_action_23_triggered()
 
 void MainWindow::on_action_24_triggered()
 {
-    ui->textEdit->insertPlainText(tabs[cur_tab]->toPlainText()+"\n");
+	QString str = tabs[cur_tab]->toPlainText();
+	QFile("temp.cpp").remove();
+	QFile file("temp.cpp");
+	file.open(QIODevice::Append | QIODevice::Text);
+	QTextStream out(&file);
+	out << str;
+	out << "\n";
+	file.close();
+	cp->start(("g++ temp.cpp"));
+	cp->waitForFinished();
+	if (!QFile::exists("a.exe"))
+	{
+		qDebug() << "Error";
+		ui->textEdit->append(cpError);
+	}
+	else
+	{
+		cp->start("a.exe");
+		cp->waitForStarted();
+		//cp->waitForFinished();
+		//QFile("a.exe").remove();
+	}
+
 
 }
 
@@ -141,12 +156,29 @@ void MainWindow::on_action_3_triggered()
 {
     QString str = tabs[cur_tab]->toPlainText();
     QString filename;
-     filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
-     QFile file(filename);
-     file.open(QIODevice::Append | QIODevice::Text);
-     QTextStream out(&file);
-     out << str;
-     out << "\n";
-     file.close();
+	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
+	QFont fnt("Consolas",9,QFont::Normal);
+	tabs[cur_tab]->document()->setDefaultFont(fnt);
+	new SyntaxHighlighter(tabs[cur_tab]->document());
+	QPalette pal = tabs[cur_tab]->palette();
+	pal.setColor(QPalette::Base, Qt::white);
+	pal.setColor(QPalette::Text, Qt::black);
+	tabs[cur_tab]->setPalette(pal);
+	QFile file(filename);
+	file.open(QIODevice::Append | QIODevice::Text);
+	QTextStream out(&file);
+	out << str;
+	out << "\n";
+	file.close();
 
+}
+
+void MainWindow::slotDataOnStdout()
+{
+	ui->textEdit->append(cp->readAllStandardOutput());
+}
+
+void MainWindow::slotDataOnError()
+{
+	cpError = QString("ERROR: ")+QString(cp->readAllStandardError());
 }

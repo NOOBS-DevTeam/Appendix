@@ -18,15 +18,9 @@ public:
 private slots:
     void on_tabWidget_tabCloseRequested(int index);
 
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
-
     void on_tabWidget_currentChanged(int index);
 
     void on_lineEdit_returnPressed();
-
-    void on_pushButton_3_clicked();
 
     void on_action_2_activated();
 
@@ -43,6 +37,10 @@ private slots:
     void on_action_24_triggered();
 
     void on_action_3_triggered();
+
+	void slotDataOnStdout();
+
+	void slotDataOnError();
 
 private:
     Ui::MainWindow *ui;
