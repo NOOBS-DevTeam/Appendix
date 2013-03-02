@@ -11,9 +11,9 @@
 #include <QTextStream>
 #include <QProcess>
 
-int n=0,cur_tab=0; //текущий таб
+int n=0,cur_tab=0; //кол-во табов и текущий таб
 std::vector<QTextEdit *> tabs;
-QString cpError;
+QString cpError,sourse="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n    cout << \"Hello world!\" << endl;\n    return 0;\n\}";
 QProcess *cp;
 
 QString readFile(QString filename) //считывание из файла
@@ -70,6 +70,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
+    new SyntaxHighlighter(tabs[cur_tab]->document());
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -108,15 +109,16 @@ void MainWindow::on_action_2_triggered()
 void MainWindow::on_action_triggered()
 {
 	tabs.push_back( new QTextEdit);
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+    ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	QFont fnt("Consolas",9,QFont::Normal);
 	tabs.back()->document()->setDefaultFont(fnt);
-	new SyntaxHighlighter(tabs[cur_tab]->document());
+    new SyntaxHighlighter(tabs[cur_tab]->document());
 	QPalette pal = tabs.back()->palette();
-	pal.setColor(QPalette::Base, Qt::white);
+    pal.setColor(QPalette::Base, QColor(248,248,255));
 	pal.setColor(QPalette::Text, Qt::black);
 	tabs.back()->setPalette(pal);
-	n++;
+    tabs[n]->append(sourse);
+    n++;
 }
 
 void MainWindow::on_action_23_triggered()
@@ -139,7 +141,7 @@ void MainWindow::on_action_24_triggered()
 	if (!QFile::exists("a.exe"))
 	{
 		qDebug() << "Error";
-		ui->textEdit->append(cpError);
+        ui->textEdit->append(cpError);
 	}
 	else
 	{
@@ -158,12 +160,12 @@ void MainWindow::on_action_3_triggered()
     QString filename;
 	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
 	QFont fnt("Consolas",9,QFont::Normal);
-	tabs[cur_tab]->document()->setDefaultFont(fnt);
-	new SyntaxHighlighter(tabs[cur_tab]->document());
-	QPalette pal = tabs[cur_tab]->palette();
-	pal.setColor(QPalette::Base, Qt::white);
-	pal.setColor(QPalette::Text, Qt::black);
-	tabs[cur_tab]->setPalette(pal);
+    tabs[cur_tab]->document()->setDefaultFont(fnt);
+    new SyntaxHighlighter(tabs[cur_tab]->document());
+    QPalette pal = tabs[cur_tab]->palette();
+    pal.setColor(QPalette::Base, Qt::red);
+    pal.setColor(QPalette::Text, Qt::green);
+    tabs[cur_tab]->setPalette(pal);
 	QFile file(filename);
 	file.open(QIODevice::Append | QIODevice::Text);
 	QTextStream out(&file);
