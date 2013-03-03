@@ -25,7 +25,8 @@ QString readFile(QString filename) //считывание из файла
 
         QByteArray total;
         QByteArray line;
-        while (!file.atEnd()) {
+		while (!file.atEnd())
+		{
            line = file.read(1024);
            total.append(line);
         }
@@ -60,7 +61,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    ui->tabWidget->removeTab(index);
+	ui->tabWidget->removeTab(index);
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
 }
@@ -70,7 +71,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
-    new SyntaxHighlighter(tabs[cur_tab]->document());
+	new SyntaxHighlighter(tabs[cur_tab]->document());
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -99,26 +100,34 @@ void MainWindow::on_action_2_changed()
 
 void MainWindow::on_action_2_triggered()
 {
-
-    tabs.push_back( new QTextEdit);
-    ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-    n++;
+	tabs.push_back( new QTextEdit);
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	QFont *fnt= new QFont("Consolas",9,QFont::Normal);
+	tabs.back()->document()->setDefaultFont(*fnt);
+	new SyntaxHighlighter(tabs[cur_tab]->document());
+	QPalette *pal = new QPalette;
+	*pal= tabs.back()->palette();
+	pal->setColor(QPalette::Base, QColor(248,248,255));
+	pal->setColor(QPalette::Text, Qt::black);
+	tabs.back()->setPalette(*pal);
+	n++;
     tabs[cur_tab]->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
 }
 
 void MainWindow::on_action_triggered()
 {
 	tabs.push_back( new QTextEdit);
-    ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	QFont fnt("Consolas",9,QFont::Normal);
-	tabs.back()->document()->setDefaultFont(fnt);
-    new SyntaxHighlighter(tabs[cur_tab]->document());
-	QPalette pal = tabs.back()->palette();
-    pal.setColor(QPalette::Base, QColor(248,248,255));
-	pal.setColor(QPalette::Text, Qt::black);
-	tabs.back()->setPalette(pal);
-    tabs[n]->append(sourse);
-    n++;
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	QFont *fnt= new QFont("Consolas",9,QFont::Normal);
+	tabs.back()->document()->setDefaultFont(*fnt);
+	new SyntaxHighlighter(tabs[cur_tab]->document());
+	QPalette *pal = new QPalette;
+	*pal= tabs.back()->palette();
+	pal->setColor(QPalette::Base, QColor(248,248,255));
+	pal->setColor(QPalette::Text, Qt::black);
+	tabs.back()->setPalette(*pal);
+	tabs.back()->append(sourse);
+	n++;
 }
 
 void MainWindow::on_action_23_triggered()
@@ -159,13 +168,6 @@ void MainWindow::on_action_3_triggered()
     QString str = tabs[cur_tab]->toPlainText();
     QString filename;
 	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
-	QFont fnt("Consolas",9,QFont::Normal);
-    tabs[cur_tab]->document()->setDefaultFont(fnt);
-    new SyntaxHighlighter(tabs[cur_tab]->document());
-    QPalette pal = tabs[cur_tab]->palette();
-    pal.setColor(QPalette::Base, Qt::red);
-    pal.setColor(QPalette::Text, Qt::green);
-    tabs[cur_tab]->setPalette(pal);
 	QFile file(filename);
 	file.open(QIODevice::Append | QIODevice::Text);
 	QTextStream out(&file);
