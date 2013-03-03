@@ -8,7 +8,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) :QSyntaxHighlighter(
 		<< "float"     << "char"    << "delete" << "class"  << "const"
 		<< "virtual"   << "mutable" << "this"   << "struct" << "union"
 		<< "throw"     << "for"     << "if"     << "else"   << "false"
-        << "namespace" << "new"     << "return" << "using"  << "true";
+		<< "namespace" << "new"     << "return" << "using"  << "true";
 }
 
 void SyntaxHighlighter::highlightBlock(const QString& str)
@@ -46,7 +46,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			}
 			else if (str.mid(i,1)=="#")
 			{
-                setFormat(i,str.length()-i, Qt::darkGreen);
+				setFormat(i,str.length()-i, Qt::green);
 				break;
 			}
 			else if (str.at(i).isNumber())

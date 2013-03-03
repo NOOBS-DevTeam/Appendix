@@ -11,35 +11,46 @@
 #include <QTextStream>
 #include <QProcess>
 
-int n=0,cur_tab=0; //кол-во табов и текущий таб
+int n=0,cur_tab=0; //текущий таб
 std::vector<QTextEdit *> tabs;
-QString cpError,sourse="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n    cout << \"Hello world!\" << endl;\n    return 0;\n\}";
+QString cpError;
 QProcess *cp;
-
-QString readFile(QString filename) //считывание из файла
-    {
-        QFile file(filename);
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-             return NULL;
-
-
-        QByteArray total;
-        QByteArray line;
-		while (!file.atEnd())
-		{
-           line = file.read(1024);
-           total.append(line);
-        }
-
-        return QString(total);
-     }
-
 
 QString strtoint(int a)
 {
-    char n[100];
-    sprintf(n,"%d",a);
-    return QString(n);
+	char n[100];
+	sprintf(n,"%d",a);
+	return QString(n);
+}
+
+void MainWindow::initntab()
+{
+	tabs.push_back( new QTextEdit);
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	QFont fnt("Consolas",9,QFont::Normal);
+	tabs.back()->document()->setDefaultFont(fnt);
+	new SyntaxHighlighter(tabs.back()->document());
+	QPalette pal = tabs.back()->palette();
+	pal.setColor(QPalette::Base, Qt::white);
+	pal.setColor(QPalette::Text, Qt::black);
+	tabs.back()->setPalette(pal);
+	n++;
+}
+
+QString readFile(QString filename) //считывание из файла
+{
+	QFile file(filename);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return NULL;
+	QByteArray total;
+	QByteArray line;
+	while (!file.atEnd())
+	{
+		 line = file.read(1024);
+		 total.append(line);
+	}
+
+	return QString(total);
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -61,17 +72,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-	ui->tabWidget->removeTab(index);
+    ui->tabWidget->removeTab(index);
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
 }
 
 
-
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
-	new SyntaxHighlighter(tabs[cur_tab]->document());
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -82,52 +91,15 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
     ui->lineEdit->clear();
 }
 
-
-void MainWindow::on_action_2_activated()
-{
-
-}
-
-void MainWindow::on_action_2_activated(int arg1)
-{
-
-}
-
-void MainWindow::on_action_2_changed()
-{
-
-}
-
 void MainWindow::on_action_2_triggered()
 {
-	tabs.push_back( new QTextEdit);
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	QFont *fnt= new QFont("Consolas",9,QFont::Normal);
-	tabs.back()->document()->setDefaultFont(*fnt);
-	new SyntaxHighlighter(tabs[cur_tab]->document());
-	QPalette *pal = new QPalette;
-	*pal= tabs.back()->palette();
-	pal->setColor(QPalette::Base, QColor(248,248,255));
-	pal->setColor(QPalette::Text, Qt::black);
-	tabs.back()->setPalette(*pal);
-	n++;
+	initntab();
     tabs[cur_tab]->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
 }
 
 void MainWindow::on_action_triggered()
 {
-	tabs.push_back( new QTextEdit);
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	QFont *fnt= new QFont("Consolas",9,QFont::Normal);
-	tabs.back()->document()->setDefaultFont(*fnt);
-	new SyntaxHighlighter(tabs[cur_tab]->document());
-	QPalette *pal = new QPalette;
-	*pal= tabs.back()->palette();
-	pal->setColor(QPalette::Base, QColor(248,248,255));
-	pal->setColor(QPalette::Text, Qt::black);
-	tabs.back()->setPalette(*pal);
-	tabs.back()->append(sourse);
-	n++;
+	initntab();
 }
 
 void MainWindow::on_action_23_triggered()
@@ -150,7 +122,7 @@ void MainWindow::on_action_24_triggered()
 	if (!QFile::exists("a.exe"))
 	{
 		qDebug() << "Error";
-        ui->textEdit->append(cpError);
+		ui->textEdit->append(cpError);
 	}
 	else
 	{

@@ -22,12 +22,6 @@ private slots:
 
     void on_lineEdit_returnPressed();
 
-    void on_action_2_activated();
-
-    void on_action_2_activated(int arg1);
-
-    void on_action_2_changed();
-
     void on_action_2_triggered();
 
     void on_action_triggered();
@@ -41,6 +35,8 @@ private slots:
 	void slotDataOnStdout();
 
 	void slotDataOnError();
+
+	void initntab();
 
 private:
     Ui::MainWindow *ui;
