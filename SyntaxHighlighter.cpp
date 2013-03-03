@@ -1,4 +1,5 @@
 #include <QtCore>
+#include <QColor>
 #include "SyntaxHighlighter.h"
 
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) :QSyntaxHighlighter(parent)
@@ -33,7 +34,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 				if (str.mid(i-1,2)!="\\\"" && str.mid(i-1,2)!="\\\'")
 				{
 					nState = NormalState;
-					setFormat(nStart,i-nStart+1, Qt::cyan);
+                    setFormat(nStart,i-nStart+1,QColor(90,55,202));
 				}
 			}
 		}
@@ -46,12 +47,12 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			}
 			else if (str.mid(i,1)=="#")
 			{
-				setFormat(i,str.length()-i, Qt::green);
+                setFormat(i,str.length()-i, Qt::darkGreen);
 				break;
 			}
 			else if (str.at(i).isNumber())
 			{
-				setFormat(i,1, Qt::cyan);
+                setFormat(i,1, QColor(255,105,180));
 			}
 			else if (str.mid(i,2) == "/*")
 			{
@@ -68,7 +69,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 				QString strKeyword = getKeyword(i,str);
 				if (!strKeyword.isEmpty())
 				{
-					setFormat(nStart, str.length()-nStart, Qt::blue);
+                    setFormat(nStart, str.length()-nStart, Qt::darkBlue);
 					i+= strKeyword.length()-1;
 				}
 			}
@@ -80,7 +81,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 	}
 	if (nState == InsideCString)
 	{
-		setFormat(nStart, str.length() - nStart, Qt::cyan);
+        setFormat(nStart, str.length() - nStart, Qt::cyan);
 	}
 	setCurrentBlockState(nState);
 }

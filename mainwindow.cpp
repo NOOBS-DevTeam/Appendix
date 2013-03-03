@@ -7,13 +7,14 @@
 #include <vector>
 #include <QFileDialog>
 #include <QFile>
+#include <QFont>
 #include <QDebug>
 #include <QTextStream>
 #include <QProcess>
 
 int n=0,cur_tab=0; //текущий таб
 std::vector<QTextEdit *> tabs;
-QString cpError;
+QString cpError,source="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n    cout << \"Hello world!\" << endl;\n    return 0;\n\}";
 QProcess *cp;
 
 QString strtoint(int a)
@@ -34,6 +35,7 @@ void MainWindow::initntab()
 	pal.setColor(QPalette::Base, Qt::white);
 	pal.setColor(QPalette::Text, Qt::black);
 	tabs.back()->setPalette(pal);
+    tabs.back()->append(source);
 	n++;
 }
 
@@ -94,7 +96,7 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 void MainWindow::on_action_2_triggered()
 {
 	initntab();
-    tabs[cur_tab]->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
+    tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
 }
 
 void MainWindow::on_action_triggered()
@@ -156,5 +158,7 @@ void MainWindow::slotDataOnStdout()
 
 void MainWindow::slotDataOnError()
 {
-	cpError = QString("ERROR: ")+QString(cp->readAllStandardError());
+    QString error=QString(cp->readAllStandardError());
+    error.remove(0,(error.lastIndexOf("error:")+6));
+    cpError = QString("ERROR:")+(error);
 }
