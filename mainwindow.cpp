@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
+#include "Editor.h"
 #include <string.h>
 #include <stdio.h>
 #include <strstream>
@@ -13,30 +14,16 @@
 #include <QProcess>
 
 int n=0,cur_tab=0; //текущий таб
-std::vector<QTextEdit *> tabs;
-QString cpError,source="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n    cout << \"Hello world!\" << endl;\n    return 0;\n\}";
+std::vector<Editor*> tabs;
+QString cpError;
 QProcess *cp;
+lang_t cur_lang=CPP;
 
 QString strtoint(int a)
 {
 	char n[100];
 	sprintf(n,"%d",a);
 	return QString(n);
-}
-
-void MainWindow::initntab()
-{
-	tabs.push_back( new QTextEdit);
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	QFont fnt("Consolas",9,QFont::Normal);
-	tabs.back()->document()->setDefaultFont(fnt);
-	new SyntaxHighlighter(tabs.back()->document());
-	QPalette pal = tabs.back()->palette();
-	pal.setColor(QPalette::Base, Qt::white);
-	pal.setColor(QPalette::Text, Qt::black);
-	tabs.back()->setPalette(pal);
-    tabs.back()->append(source);
-	n++;
 }
 
 QString readFile(QString filename) //считывание из файла
@@ -95,46 +82,61 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_action_2_triggered()
 {
-	initntab();
-    tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
+	tabs.push_back(new Editor(CPP));
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	n++;
+	tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
 }
 
 void MainWindow::on_action_triggered()
 {
-	initntab();
+	tabs.push_back(new Editor(cur_lang));
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	n++;
 }
 
 void MainWindow::on_action_23_triggered()
 {
-    ui->textEdit->clear();
+	ui->textEdit->clear();
 }
 
 void MainWindow::on_action_24_triggered()
 {
+	QString format,compiler;
+	switch (tabs[cur_tab]->getLang())
+	{
+	case CPP:
+		format = "cpp";
+		compiler = "g++ temp.cpp";
+		break;
+	case PASCAL:
+		format = "pas";
+		compiler = "fpc temp.pas";
+		break;
+	}
+
 	QString str = tabs[cur_tab]->toPlainText();
-	QFile("temp.cpp").remove();
-	QFile file("temp.cpp");
+	QFile("temp."+format).remove();
+	QFile file("temp."+format);
 	file.open(QIODevice::Append | QIODevice::Text);
 	QTextStream out(&file);
 	out << str;
 	out << "\n";
 	file.close();
-	cp->start(("g++ temp.cpp"));
+	cp->start(compiler);
 	cp->waitForFinished();
-	if (!QFile::exists("a.exe"))
+	if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
 	{
 		qDebug() << "Error";
 		ui->textEdit->append(cpError);
 	}
 	else
 	{
-		cp->start("a.exe");
+		cp->start(cur_lang==CPP?"a.exe":"temp.exe");
 		cp->waitForStarted();
-		//cp->waitForFinished();
-		//QFile("a.exe").remove();
+		cp->waitForFinished();
+		QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
 	}
-
-
 }
 
 void MainWindow::on_action_3_triggered()
@@ -161,4 +163,13 @@ void MainWindow::slotDataOnError()
     QString error=QString(cp->readAllStandardError());
     error.remove(0,(error.lastIndexOf("error:")+6));
     cpError = QString("ERROR:")+(error);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+	if (cur_lang == CPP)
+		cur_lang = PASCAL;
+	else
+		cur_lang = CPP;
+	tabs[cur_tab]->setLang(CPP);
 }

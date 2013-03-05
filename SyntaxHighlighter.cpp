@@ -2,14 +2,35 @@
 #include <QColor>
 #include "SyntaxHighlighter.h"
 
-SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent) :QSyntaxHighlighter(parent)
+SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, lang_t lang) :QSyntaxHighlighter(parent)
 {
-	keywords
-		<< "foreach"   << "bool"    << "int"    << "void"   << "double"
-		<< "float"     << "char"    << "delete" << "class"  << "const"
-		<< "virtual"   << "mutable" << "this"   << "struct" << "union"
-		<< "throw"     << "for"     << "if"     << "else"   << "false"
-		<< "namespace" << "new"     << "return" << "using"  << "true";
+	lng = lang;
+	switch(lng)
+	{
+	case CPP:
+		keywords
+			<< "foreach"   << "bool"    << "int"    << "void"   << "double"
+			<< "float"     << "char"    << "delete" << "class"  << "const"
+			<< "virtual"   << "mutable" << "this"   << "struct" << "union"
+			<< "throw"     << "for"     << "if"     << "else"   << "false"
+			<< "namespace" << "new"     << "return" << "using"  << "true";
+		break;
+	case PASCAL:
+		keywords
+				<< "and"          << "array"     << "as"             << "begin"        << "break"
+				<< "case"         << "class"     << "const"          << "constructor"  << "continue"
+				<< "destructor"   << "div"       << "do"             << "downto"       << "else"
+				<< "end"          << "exit"      << "external"       << "externalsync" << "file"
+				<< "finalization" << "for"       << "forward"        << "function"     << "if"
+				<< "in"           << "inherited" << "initialization" << "is"           << "mod"
+				<< "not"          << "of"        << "or"             << "private"      << "procedure"
+				<< "program"      << "property"  << "protected"      << "public"       << "record"
+				<< "repeat"       << "set"       << "shl"            << "shr"          << "sizeof"
+				<< "string"       << "then"      << "to"             << "type"         << "unit"
+				<< "unit"         << "until"     << "uses"           << "var"          << "while"
+				<< "with"         << "xor";
+		break;
+	}
 }
 
 void SyntaxHighlighter::highlightBlock(const QString& str)
@@ -45,7 +66,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 				setFormat(i,str.length()-i, Qt::darkGray);
 				break;
 			}
-			else if (str.mid(i,1)=="#")
+			else if (str.mid(i,1)=="#" && lng == CPP)
 			{
                 setFormat(i,str.length()-i, Qt::darkGreen);
 				break;
@@ -54,7 +75,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			{
                 setFormat(i,1, QColor(255,105,180));
 			}
-			else if (str.mid(i,2) == "/*")
+			else if (str.mid(i,2) == "/*" && lng == CPP)
 			{
 				nStart = i;
 				nState = InsideCStyleComment;
