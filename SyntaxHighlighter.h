@@ -1,14 +1,15 @@
 #ifndef SYNTAXHIGHLIGHTER_H
 #define SYNTAXHIGHLIGHTER_H
-
 #include <QSyntaxHighlighter>
+#include <QtGui>
 
 class QTextDocument;
 enum lang_t
 {
-	CPP=0,
-	PASCAL
+    CPP,
+    PAS
 };
+
 class SyntaxHighlighter : public QSyntaxHighlighter
 {
 	Q_OBJECT

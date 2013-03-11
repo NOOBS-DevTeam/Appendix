@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "Editor.h"
 #include <QMainWindow>
 
 namespace Ui {

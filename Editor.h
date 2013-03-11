@@ -4,6 +4,8 @@
 #include "mainwindow.h"
 #include "SyntaxHighlighter.h"
 
+
+
 class Editor : public QTextEdit
 {
 	Q_OBJECT

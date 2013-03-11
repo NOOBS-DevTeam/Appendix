@@ -70,6 +70,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
+    ui->toolButton->setStyleSheet("border-image: url(/c/im.bmp) stretch;");
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -109,7 +110,7 @@ void MainWindow::on_action_24_triggered()
 		format = "cpp";
 		compiler = "g++ temp.cpp";
 		break;
-	case PASCAL:
+    case PAS:
 		format = "pas";
 		compiler = "fpc temp.pas";
 		break;
@@ -168,7 +169,7 @@ void MainWindow::slotDataOnError()
 void MainWindow::on_pushButton_clicked()
 {
 	if (cur_lang == CPP)
-		cur_lang = PASCAL;
+        cur_lang = PAS;
 	else
 		cur_lang = CPP;
 	tabs[cur_tab]->setLang(CPP);

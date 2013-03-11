@@ -17,7 +17,7 @@ Editor::Editor(lang_t lng)
 	this->setPalette(pal);
 	if (lang == CPP)
 		this->append(src_cpp);
-	if (lang == PASCAL)
+    if (lang == PAS)
 		this->append(src_pas);
 }
 

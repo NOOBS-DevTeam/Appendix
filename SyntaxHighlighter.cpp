@@ -2,6 +2,7 @@
 #include <QColor>
 #include "SyntaxHighlighter.h"
 
+
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, lang_t lang) :QSyntaxHighlighter(parent)
 {
 	lng = lang;
@@ -15,7 +16,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, lang_t lang) :QSynta
 			<< "throw"     << "for"     << "if"     << "else"   << "false"
 			<< "namespace" << "new"     << "return" << "using"  << "true";
 		break;
-	case PASCAL:
+    case PAS:
 		keywords
 				<< "and"          << "array"     << "as"             << "begin"        << "break"
 				<< "case"         << "class"     << "const"          << "constructor"  << "continue"
