@@ -38,6 +38,8 @@ private slots:
 
 	void on_pushButton_clicked();
 
+	void writeTweaks();
+
 private:
     Ui::MainWindow *ui;
 };

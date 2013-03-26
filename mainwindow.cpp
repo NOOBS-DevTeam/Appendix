@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
+#include "settingsdialog.h"
 #include "Editor.h"
 #include <string.h>
 #include <stdio.h>
@@ -12,34 +13,38 @@
 #include <QDebug>
 #include <QTextStream>
 #include <QProcess>
+#include <QSettings>
 
 int n=0,cur_tab=0; //текущий таб
 std::vector<Editor*> tabs;
 QString cpError;
 QProcess *cp;
 lang_t cur_lang=CPP;
+QSettings tweaks("NOOBS-DevTeam","Appendix");
 
-QString strtoint(int a)
+QString strtoint(int a);
+QString readFile(QString filename);
+
+void readTweaks()
 {
-	char n[100];
-	sprintf(n,"%d",a);
-	return QString(n);
+
 }
 
-QString readFile(QString filename) //считывание из файла
+void MainWindow::writeTweaks()
 {
-	QFile file(filename);
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return NULL;
-	QByteArray total;
-	QByteArray line;
-	while (!file.atEnd())
-	{
-		 line = file.read(1024);
-		 total.append(line);
-	}
-
-	return QString(total);
+	tweaks.beginGroup("/Settings");
+		tweaks.beginGroup("/Session");
+			tweaks.beginGroup("/geometry");
+				tweaks.setValue("x",this->geometry().x());
+				tweaks.setValue("y",this->geometry().y());
+				tweaks.setValue("w",this->geometry().width());
+				tweaks.setValue("h",this->geometry().height());
+			tweaks.endGroup();
+			tweaks.beginGroup("/tabs");
+				//TODO: Сохранение вкладок
+			tweaks.endGroup();
+		tweaks.endGroup();
+	tweaks.endGroup();
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -47,8 +52,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+	SettingsDialog *sd = new SettingsDialog;
+	sd->show();
 	ui->splitter_2->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
+	tweaks.beginGroup("/Settings/Session/geometry");
+	this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
+	tweaks.endGroup();
 	cp = new QProcess(this);
 	connect(cp,SIGNAL(readyReadStandardOutput()),SLOT(slotDataOnStdout()));
 	connect(cp,SIGNAL(readyReadStandardError()),SLOT(slotDataOnError()));
@@ -56,7 +66,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	this->writeTweaks();
+	delete ui;
 }
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
@@ -65,7 +76,6 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
 }
-
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
