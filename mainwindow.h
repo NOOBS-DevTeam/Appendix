@@ -40,8 +40,20 @@ private slots:
 
 	void writeTweaks();
 
+    void on_action_10_triggered();
+
+    void on_toolButton_clicked();
+
+    void on_toolButton_3_clicked();
+
+    void on_toolButton_5_clicked();
+
+    void on_toolButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H
+
+

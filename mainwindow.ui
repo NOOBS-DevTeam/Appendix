@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>512</height>
+    <height>526</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -42,159 +42,295 @@
     <property name="geometry">
      <rect>
       <x>9</x>
-      <y>51</y>
+      <y>40</y>
       <width>722</width>
-      <height>370</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
-    <widget class="QSplitter" name="splitter">
+    <widget class="QSplitter" name="splitter_4">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Vertical</enum>
      </property>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>100</horstretch>
-        <verstretch>255</verstretch>
-       </sizepolicy>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="sizeIncrement">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="baseSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::WheelFocus</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>80</number>
-      </attribute>
-      <row>
-       <property name="text">
-        <string/>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>100</horstretch>
+         <verstretch>255</verstretch>
+        </sizepolicy>
        </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>Переменная</string>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Значение</string>
+       <property name="currentIndex">
+        <number>-1</number>
        </property>
-      </column>
-      <item row="0" column="0">
-       <property name="text">
-        <string>a</string>
+       <property name="tabsClosable">
+        <bool>true</bool>
        </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>10</string>
+       <property name="movable">
+        <bool>false</bool>
        </property>
-      </item>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QTextEdit" name="textEdit">
-        <property name="readOnly">
-         <bool>true</bool>
+      </widget>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>80</number>
+       </attribute>
+       <row>
+        <property name="text">
+         <string/>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit"/>
-      </item>
-     </layout>
+       </row>
+       <column>
+        <property name="text">
+         <string>Переменная</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Значение</string>
+        </property>
+       </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string>a</string>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string>10</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QTextEdit" name="textEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>427</y>
-      <width>174</width>
-      <height>23</height>
+      <x>0</x>
+      <y>20</y>
+      <width>771</width>
+      <height>21</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Сменить язык (пока только так)</string>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QSplitter" name="splitter_3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>591</width>
-      <height>31</height>
+      <y>0</y>
+      <width>231</width>
+      <height>21</height>
      </rect>
     </property>
-    <property name="title">
-     <string/>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="handleWidth">
+     <number>20</number>
     </property>
     <widget class="QToolButton" name="toolButton">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>10</y>
-       <width>25</width>
-       <height>19</height>
-      </rect>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="text">
-      <string>...</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/new.ico</normaloff>../../Users/Владимир/Desktop/new.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_2">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/save.ico</normaloff>../../Users/Владимир/Desktop/save.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_3">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/save_as.ico</normaloff>../../Users/Владимир/Desktop/save_as.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_4">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/open.ico</normaloff>../../Users/Владимир/Desktop/open.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_5">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/play.ico</normaloff>../../Users/Владимир/Desktop/play.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_6">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../Users/Владимир/Desktop/stop.ico</normaloff>../../Users/Владимир/Desktop/stop.ico</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>200</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -214,8 +350,8 @@
     </property>
     <addaction name="action"/>
     <addaction name="action_2"/>
-    <addaction name="action_3"/>
     <addaction name="action_4"/>
+    <addaction name="action_3"/>
     <addaction name="action_5"/>
     <addaction name="action_6"/>
     <addaction name="action_7"/>
@@ -251,6 +387,8 @@
     </property>
     <addaction name="action_24"/>
     <addaction name="action_25"/>
+    <addaction name="separator"/>
+    <addaction name="action_10"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
@@ -293,7 +431,7 @@
   </action>
   <action name="action_3">
    <property name="text">
-    <string>Сохранить</string>
+    <string>Сохранить как...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -301,7 +439,7 @@
   </action>
   <action name="action_4">
    <property name="text">
-    <string>Сохранить как...</string>
+    <string>Сохранить</string>
    </property>
   </action>
   <action name="action_5">
@@ -403,6 +541,17 @@
   <action name="action_29">
    <property name="text">
     <string>Об авторе...</string>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Сменить язык</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

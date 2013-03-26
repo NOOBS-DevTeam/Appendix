@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	SettingsDialog *sd = new SettingsDialog;
 	sd->show();
-	ui->splitter_2->setSizes(QList<int> () << 600 << 200);
+    ui->splitter_2->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
 	tweaks.beginGroup("/Settings/Session/geometry");
 	this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
@@ -176,11 +176,34 @@ void MainWindow::slotDataOnError()
     cpError = QString("ERROR:")+(error);
 }
 
-void MainWindow::on_pushButton_clicked()
+
+void MainWindow::on_toolButton_clicked()
 {
-	if (cur_lang == CPP)
+    ui->action->trigger();
+
+}
+
+void MainWindow::on_toolButton_3_clicked()
+{
+    ui->action_3->trigger();
+
+}
+
+void MainWindow::on_toolButton_4_clicked()
+{
+  ui->action_2->trigger();
+}
+
+void MainWindow::on_toolButton_5_clicked()
+{
+    ui->action_24->trigger();
+}
+
+void MainWindow::on_action_10_triggered()
+{
+    if (cur_lang == CPP)
         cur_lang = PAS;
-	else
-		cur_lang = CPP;
-	tabs[cur_tab]->setLang(CPP);
+    else
+        cur_lang = CPP;
+    tabs[cur_tab]->setLang(CPP);
 }
