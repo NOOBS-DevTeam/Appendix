@@ -385,10 +385,18 @@
     <property name="title">
      <string>Программа</string>
     </property>
+    <widget class="QMenu" name="menu_6">
+     <property name="title">
+      <string>Сменить язык</string>
+     </property>
+     <addaction name="actionPascal"/>
+     <addaction name="actionC"/>
+     <addaction name="actionAppendix"/>
+    </widget>
     <addaction name="action_24"/>
     <addaction name="action_25"/>
     <addaction name="separator"/>
-    <addaction name="action_10"/>
+    <addaction name="menu_6"/>
     <addaction name="action_8"/>
    </widget>
    <widget class="QMenu" name="menu_5">
@@ -544,20 +552,24 @@
     <string>Об авторе...</string>
    </property>
   </action>
-  <action name="action_10">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Сменить язык</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+L</string>
-   </property>
-  </action>
   <action name="action_8">
    <property name="text">
     <string>Настройки</string>
+   </property>
+  </action>
+  <action name="actionPascal">
+   <property name="text">
+    <string>Pascal</string>
+   </property>
+  </action>
+  <action name="actionC">
+   <property name="text">
+    <string>C++</string>
+   </property>
+  </action>
+  <action name="actionAppendix">
+   <property name="text">
+    <string>Appendix</string>
    </property>
   </action>
  </widget>

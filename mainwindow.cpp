@@ -204,9 +204,16 @@ void MainWindow::on_action_8_triggered()
 }
 void MainWindow::on_action_10_triggered()
 {
-    if (cur_lang == CPP)
-        cur_lang = PAS;
-    else
-        cur_lang = CPP;
+}
+
+void MainWindow::on_actionPascal_triggered()
+{
+   cur_lang = PAS;
+   tabs[cur_tab]->setLang(CPP);
+}
+
+void MainWindow::on_actionC_triggered()
+{
+    cur_lang = CPP;
     tabs[cur_tab]->setLang(CPP);
 }

@@ -50,6 +50,10 @@ private slots:
 
 	void on_action_8_triggered();
 
+    void on_actionPascal_triggered();
+
+    void on_actionC_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
