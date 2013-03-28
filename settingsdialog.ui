@@ -29,16 +29,6 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QListView" name="listView">
-   <property name="geometry">
-    <rect>
-     <x>5</x>
-     <y>11</y>
-     <width>211</width>
-     <height>431</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
@@ -49,7 +39,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page_3">
     <widget class="QLabel" name="label">
@@ -87,6 +77,16 @@
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>256</width>
+     <height>421</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

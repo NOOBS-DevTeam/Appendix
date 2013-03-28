@@ -389,6 +389,7 @@
     <addaction name="action_25"/>
     <addaction name="separator"/>
     <addaction name="action_10"/>
+    <addaction name="action_8"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
@@ -552,6 +553,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="action_8">
+   <property name="text">
+    <string>Настройки</string>
    </property>
   </action>
  </widget>

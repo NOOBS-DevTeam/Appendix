@@ -52,12 +52,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-	SettingsDialog *sd = new SettingsDialog;
-	sd->show();
-    ui->splitter_2->setSizes(QList<int> () << 600 << 200);
+	ui->splitter_4->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
 	tweaks.beginGroup("/Settings/Session/geometry");
-	this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
+		this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
 	tweaks.endGroup();
 	cp = new QProcess(this);
 	connect(cp,SIGNAL(readyReadStandardOutput()),SLOT(slotDataOnStdout()));
@@ -199,6 +197,11 @@ void MainWindow::on_toolButton_5_clicked()
     ui->action_24->trigger();
 }
 
+void MainWindow::on_action_8_triggered()
+{
+	SettingsDialog *sd = new SettingsDialog;
+	sd->show();
+}
 void MainWindow::on_action_10_triggered()
 {
     if (cur_lang == CPP)

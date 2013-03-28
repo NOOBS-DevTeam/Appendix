@@ -25,3 +25,11 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     settingsdialog.ui
+
+OTHER_FILES += \
+    stop.ico \
+    save_as.ico \
+    save.ico \
+    play.ico \
+    open.ico \
+    new.ico

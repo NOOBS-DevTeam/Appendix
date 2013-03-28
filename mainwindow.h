@@ -36,8 +36,6 @@ private slots:
 
 	void slotDataOnError();
 
-	void on_pushButton_clicked();
-
 	void writeTweaks();
 
     void on_action_10_triggered();
@@ -50,10 +48,13 @@ private slots:
 
     void on_toolButton_4_clicked();
 
+	void on_action_8_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H
+
 
 
