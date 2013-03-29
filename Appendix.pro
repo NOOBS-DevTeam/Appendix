@@ -31,5 +31,7 @@ OTHER_FILES += \
     save_as.ico \
     save.ico \
     play.ico \
-    open.ico \
-    new.ico
+    open.ico
+
+RESOURCES += \
+    resources.qrc

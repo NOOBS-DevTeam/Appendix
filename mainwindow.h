@@ -55,7 +55,7 @@ private slots:
     void on_actionC_triggered();
 
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

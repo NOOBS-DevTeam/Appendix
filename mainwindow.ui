@@ -63,8 +63,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/new.ico</normaloff>../../Users/Владимир/Desktop/new.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/new.ico</normaloff>:/res/ico/new.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -77,6 +77,18 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="popupMode">
+          <enum>QToolButton::DelayedPopup</enum>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+         <property name="arrowType">
+          <enum>Qt::NoArrow</enum>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_2">
@@ -87,8 +99,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/play.ico</normaloff>../../Users/Владимир/Desktop/play.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/play.ico</normaloff>:/res/ico/play.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -101,6 +113,9 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_3">
@@ -111,8 +126,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/open.ico</normaloff>../../Users/Владимир/Desktop/open.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/open.ico</normaloff>:/res/ico/open.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -125,6 +140,9 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_4">
@@ -135,8 +153,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/stop.ico</normaloff>../../Users/Владимир/Desktop/stop.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/stop.ico</normaloff>:/res/ico/stop.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -149,6 +167,9 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_5">
@@ -159,8 +180,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/save.ico</normaloff>../../Users/Владимир/Desktop/save.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/save.ico</normaloff>:/res/ico/save.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -173,6 +194,9 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_6">
@@ -183,8 +207,8 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>../../Users/Владимир/Desktop/save_as.ico</normaloff>../../Users/Владимир/Desktop/save_as.ico</iconset>
+          <iconset resource="resources.qrc">
+           <normaloff>:/res/ico/save_as.ico</normaloff>:/res/ico/save_as.ico</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -197,6 +221,9 @@
          </property>
          <property name="autoExclusive">
           <bool>false</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
        </widget>
@@ -574,6 +601,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
