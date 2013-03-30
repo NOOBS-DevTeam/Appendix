@@ -14,6 +14,7 @@
 #include <QTextStream>
 #include <QProcess>
 #include <QSettings>
+#include <QMessageBox>
 
 int n=0,cur_tab=0; //текущий таб
 std::vector<Editor*> tabs;
@@ -91,7 +92,7 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_action_2_triggered()
 {
-	tabs.push_back(new Editor(CPP));
+    tabs.push_back(new Editor(CPP));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
 	tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
@@ -99,7 +100,7 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_triggered()
 {
-	tabs.push_back(new Editor(cur_lang));
+    tabs.push_back(new Editor(cur_lang));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
 }
@@ -111,41 +112,46 @@ void MainWindow::on_action_23_triggered()
 
 void MainWindow::on_action_24_triggered()
 {
-	QString format,compiler;
-	switch (tabs[cur_tab]->getLang())
-	{
-	case CPP:
-		format = "cpp";
-		compiler = "g++ temp.cpp";
-		break;
-    case PAS:
-		format = "pas";
-		compiler = "fpc temp.pas";
-		break;
-	}
+    if (n)
+    {
+        QString format,compiler;
+        switch (tabs[cur_tab]->getLang())
+        {
+        case CPP:
+            format = "cpp";
+            compiler = "g++ temp.cpp";
+            break;
+        case PAS:
+            format = "pas";
+            compiler = "fpc temp.pas";
+            break;
+        }
 
-	QString str = tabs[cur_tab]->toPlainText();
-	QFile("temp."+format).remove();
-	QFile file("temp."+format);
-	file.open(QIODevice::Append | QIODevice::Text);
-	QTextStream out(&file);
-	out << str;
-	out << "\n";
-	file.close();
-	cp->start(compiler);
-	cp->waitForFinished();
-	if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
-	{
-		qDebug() << "Error";
-		ui->textEdit->append(cpError);
-	}
-	else
-	{
-		cp->start(cur_lang==CPP?"a.exe":"temp.exe");
-		cp->waitForStarted();
-		cp->waitForFinished();
-		QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
-	}
+        QString str = tabs[cur_tab]->toPlainText();
+        QFile("temp."+format).remove();
+        QFile file("temp."+format);
+        file.open(QIODevice::Append | QIODevice::Text);
+        QTextStream out(&file);
+        out << str;
+        out << "\n";
+        file.close();
+        cp->start(compiler);
+        cp->waitForFinished();
+        if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
+        {
+            qDebug() << "Error";
+            ui->textEdit->append(cpError);
+        }
+        else
+        {
+            cp->start(cur_lang==CPP?"a.exe":"temp.exe");
+            cp->waitForStarted();
+            cp->waitForFinished();
+            QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
+        }
+    }
+    else
+        QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
 void MainWindow::on_action_3_triggered()
@@ -189,7 +195,7 @@ void MainWindow::on_toolButton_3_clicked()
 
 void MainWindow::on_toolButton_4_clicked()
 {
-  ui->action_2->trigger();
+
 }
 
 void MainWindow::on_toolButton_5_clicked()
@@ -216,4 +222,10 @@ void MainWindow::on_actionC_triggered()
 {
     cur_lang = CPP;
     tabs[cur_tab]->setLang(CPP);
+}
+
+void MainWindow::on_toolButton_2_clicked()
+{
+    ui->action_2->trigger();
+
 }

@@ -128,8 +128,8 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 		{
 			if (str.mid(i,2)=="//")
 			{
-				setFormat(i,str.length()-i, Qt::darkGray);
-				break;
+                setFormat(i,str.length()-i,what_color(lng,2));
+                break;
 			}
 			else if (str.mid(i,1)=="#" && lng == CPP)
 			{

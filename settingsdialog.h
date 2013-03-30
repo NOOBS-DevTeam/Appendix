@@ -36,6 +36,10 @@ private slots:
 
 	void on_pushButton_9_clicked();
 
+    void on_pushButton_10_clicked();
+
+    void on_buttonBox_accepted();
+
 private:
 	void init_colors();
 	Ui::SettingsDialog *ui;

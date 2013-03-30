@@ -54,6 +54,8 @@ private slots:
 
     void on_actionC_triggered();
 
+    void on_toolButton_2_clicked();
+
 private:
 	Ui::MainWindow *ui;
 };

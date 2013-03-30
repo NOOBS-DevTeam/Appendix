@@ -1,11 +1,16 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
+#include "SyntaxHighlighter.h"
+#include "Editor.h"
 #include <QtGui>
 #include <QSettings>
 #include <QColorDialog>
 #include <QDebug>
 
+
 QSettings tweaks2("NOOBS-DevTeam","Appendix");
+
+Editor* E;
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
 	QDialog(parent),
@@ -26,47 +31,47 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 }
 void SettingsDialog::init_colors()
 {
-	//1ая страница
-	QVariant qv1 = tweaks2.value("/Settings/SyntaxH/C++/prepr",QColor(Qt::darkGreen));
-	qv1.convert(QVariant::Color);
-	QColor qc1 = qv1.value<QColor>();
-	QVariant qv2 = tweaks2.value("/Settings/SyntaxH/C++/string",QColor(90,55,202));
-	qv2.convert(QVariant::Color);
-	QColor qc2 = qv2.value<QColor>();
-	QVariant qv3 = tweaks2.value("/Settings/SyntaxH/C++/comment",QColor(Qt::darkGray));
-	qv3.convert(QVariant::Color);
-	QColor qc3 = qv3.value<QColor>();
-	QVariant qv4 = tweaks2.value("/Settings/SyntaxH/C++/number",QColor(255,105,180));
-	qv4.convert(QVariant::Color);
-	QColor qc4 = qv4.value<QColor>();
-	QVariant qv5 = tweaks2.value("/Settings/SyntaxH/C++/keyword",QColor(Qt::darkBlue));
-	qv5.convert(QVariant::Color);
-	QColor qc5 = qv5.value<QColor>();
-	ui->plainTextEdit->setPalette(QPalette(qc1));
-	ui->plainTextEdit_2->setPalette(QPalette(qc2));
-	ui->plainTextEdit_3->setPalette(QPalette(qc3));
-	ui->plainTextEdit_4->setPalette(QPalette(qc4));
-	ui->plainTextEdit_5->setPalette(QPalette(qc5));
+    //1ая страница
+    QVariant qv1 = tweaks2.value("/Settings/SyntaxH/C++/prepr",QColor(Qt::darkGreen));
+    qv1.convert(QVariant::Color);
+    QColor qc1 = qv1.value<QColor>();
+    QVariant qv2 = tweaks2.value("/Settings/SyntaxH/C++/string",QColor(90,55,202));
+    qv2.convert(QVariant::Color);
+    QColor qc2 = qv2.value<QColor>();
+    QVariant qv3 = tweaks2.value("/Settings/SyntaxH/C++/comment",QColor(Qt::darkGray));
+    qv3.convert(QVariant::Color);
+    QColor qc3 = qv3.value<QColor>();
+    QVariant qv4 = tweaks2.value("/Settings/SyntaxH/C++/number",QColor(255,105,180));
+    qv4.convert(QVariant::Color);
+    QColor qc4 = qv4.value<QColor>();
+    QVariant qv5 = tweaks2.value("/Settings/SyntaxH/C++/keyword",QColor(Qt::darkBlue));
+    qv5.convert(QVariant::Color);
+    QColor qc5 = qv5.value<QColor>();
+    ui->plainTextEdit->setPalette(QPalette(qc1));
+    ui->plainTextEdit_2->setPalette(QPalette(qc2));
+    ui->plainTextEdit_3->setPalette(QPalette(qc3));
+    ui->plainTextEdit_4->setPalette(QPalette(qc4));
+    ui->plainTextEdit_5->setPalette(QPalette(qc5));
 
-	// 2ая страница
-	QVariant qv6 = tweaks2.value("/Settings/SyntaxH/PAS/string",QColor(90,55,202));
-	qv1.convert(QVariant::Color);
-	QColor qc6 = qv6.value<QColor>();
-	QVariant qv7 = tweaks2.value("/Settings/SyntaxH/PAS/comment",QColor(Qt::darkGray));
-	qv2.convert(QVariant::Color);
-	QColor qc7 = qv7.value<QColor>();
-	QVariant qv8 = tweaks2.value("/Settings/SyntaxH/PAS/number",QColor(255,105,180));
-	qv8.convert(QVariant::Color);
-	QColor qc8 = qv8.value<QColor>();
-	QVariant qv9 = tweaks2.value("/Settings/SyntaxH/PAS/keyword",QColor(Qt::darkBlue));
-	qv4.convert(QVariant::Color);
-	QColor qc9 = qv9.value<QColor>();
-	ui->plainTextEdit_6->setPalette(QPalette(qc6));
-	ui->plainTextEdit_7->setPalette(QPalette(qc7));
-	ui->plainTextEdit_8->setPalette(QPalette(qc8));
-	ui->plainTextEdit_9->setPalette(QPalette(qc9));
+    // 2ая страница
+    QVariant qv6 = tweaks2.value("/Settings/SyntaxH/PAS/string",QColor(90,55,202));
+    qv1.convert(QVariant::Color);
+    QColor qc6 = qv6.value<QColor>();
+    QVariant qv7 = tweaks2.value("/Settings/SyntaxH/PAS/comment",QColor(Qt::darkGray));
+    qv2.convert(QVariant::Color);
+    QColor qc7 = qv7.value<QColor>();
+    QVariant qv8 = tweaks2.value("/Settings/SyntaxH/PAS/number",QColor(255,105,180));
+    qv8.convert(QVariant::Color);
+    QColor qc8 = qv8.value<QColor>();
+    QVariant qv9 = tweaks2.value("/Settings/SyntaxH/PAS/keyword",QColor(Qt::darkBlue));
+    qv4.convert(QVariant::Color);
+    QColor qc9 = qv9.value<QColor>();
+    ui->plainTextEdit_6->setPalette(QPalette(qc6));
+    ui->plainTextEdit_7->setPalette(QPalette(qc7));
+    ui->plainTextEdit_8->setPalette(QPalette(qc8));
+    ui->plainTextEdit_9->setPalette(QPalette(qc9));
 
-	//
+    //
 }
 
 SettingsDialog::~SettingsDialog()
@@ -159,4 +164,8 @@ void SettingsDialog::on_pushButton_9_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_9->setPalette(pal);
 	tweaks2.setValue("/Settings/SyntaxH/PAS/keyword",col);
+}
+
+void SettingsDialog::on_pushButton_10_clicked()
+{
 }
