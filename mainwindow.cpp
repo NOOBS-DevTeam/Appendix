@@ -3,6 +3,7 @@
 #include "SyntaxHighlighter.h"
 #include "settingsdialog.h"
 #include "newfiledialog.h"
+#include <QInputDialog>
 #include "Editor.h"
 #include <string.h>
 #include <stdio.h>
@@ -101,8 +102,18 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_triggered()
 {
-    newfiledialog *fd = new newfiledialog;
-    fd->show();
+    QStringList city;
+    city << tr("C++") << tr("Pascal") << tr("Appendix");
+    bool ok;
+    QString item = QInputDialog::getItem(this, tr("getItem()"),tr("Выбор языка"), city, 0, false, &ok);
+    if (ok && !item.isEmpty())
+       {
+        if (item=="C++")
+            cur_lang=CPP;
+        if (item=="Pascal")
+            cur_lang=PAS;
+        //-----------------
+       }
     tabs.push_back(new Editor(cur_lang));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
