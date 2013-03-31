@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
 #include "settingsdialog.h"
+#include "newfiledialog.h"
 #include "Editor.h"
 #include <string.h>
 #include <stdio.h>
@@ -100,6 +101,8 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_triggered()
 {
+    newfiledialog *fd = new newfiledialog;
+    fd->show();
     tabs.push_back(new Editor(cur_lang));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
@@ -227,5 +230,10 @@ void MainWindow::on_actionC_triggered()
 void MainWindow::on_toolButton_2_clicked()
 {
     ui->action_2->trigger();
+
+}
+
+void MainWindow::on_action_29_triggered()
+{
 
 }

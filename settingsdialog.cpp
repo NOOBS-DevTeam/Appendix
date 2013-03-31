@@ -169,3 +169,8 @@ void SettingsDialog::on_pushButton_9_clicked()
 void SettingsDialog::on_pushButton_10_clicked()
 {
 }
+
+void SettingsDialog::on_buttonBox_accepted()
+{
+
+}
