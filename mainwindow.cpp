@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
 #include "settingsdialog.h"
-#include "newfiledialog.h"
 #include <QInputDialog>
 #include "Editor.h"
 #include <string.h>
@@ -10,6 +9,7 @@
 #include <strstream>
 #include <vector>
 #include <QFileDialog>
+#include <QTabWidget>
 #include <QFile>
 #include <QFont>
 #include <QDebug>
@@ -105,7 +105,7 @@ void MainWindow::on_action_triggered()
     QStringList city;
     city << tr("C++") << tr("Pascal") << tr("Appendix");
     bool ok;
-    QString item = QInputDialog::getItem(this, tr("getItem()"),tr("Выбор языка"), city, 0, false, &ok);
+    QString item = QInputDialog::getItem(this, tr("Выбор языка"),tr("Выбор языка"), city, 0, false, &ok);
     if (ok && !item.isEmpty())
        {
         if (item=="C++")
@@ -179,6 +179,8 @@ void MainWindow::on_action_3_triggered()
 	out << str;
 	out << "\n";
 	file.close();
+    ui->tabWidget->insertTab(cur_tab,tabs[cur_tab],filename);
+    ui->tabWidget->setCurrentIndex(cur_tab);
 
 }
 
