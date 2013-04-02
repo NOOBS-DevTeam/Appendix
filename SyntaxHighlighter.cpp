@@ -154,10 +154,45 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			{
 				QString strKeyword = getKeyword(i,str);
 				if (!strKeyword.isEmpty())
-				{
-					setFormat(nStart, str.length()-nStart, what_color(lng,4));//darkBlue
-					i+= strKeyword.length()-1;
-				}
+					if (i && i!=str.length()-1)
+					{
+						if (i+strKeyword.length()<str.length())
+							if (str[i-1]==' ' && str[i+strKeyword.length()]==' ')
+							{
+								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								i+= strKeyword.length()-1;
+							}
+						else
+						{
+							if (str[i-1]==' ')
+							{
+								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								i+= strKeyword.length()-1;
+							}
+						}
+					}
+					else if (!i)
+					{
+						if (i+strKeyword.length()<str.length())
+							if (str[i+strKeyword.length()]==' ' || str[i+strKeyword.length()]=='\n')
+							{
+								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								i+= strKeyword.length()-1;
+							}
+						else
+							{
+								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								i+= strKeyword.length()-1;
+							}
+					}
+					else
+					{
+						if (str[i-1]==' ')
+						{
+							setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+							i+= strKeyword.length()-1;
+						}
+					}
 			}
 		}
 	}

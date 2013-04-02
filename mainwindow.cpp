@@ -94,7 +94,7 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_action_2_triggered()
 {
-    tabs.push_back(new Editor(CPP));
+	tabs.push_back(new Editor(0,CPP));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
 	tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
@@ -114,7 +114,7 @@ void MainWindow::on_action_triggered()
             cur_lang=PAS;
         //-----------------
        }
-    tabs.push_back(new Editor(cur_lang));
+	tabs.push_back(new Editor(0,cur_lang));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
 }

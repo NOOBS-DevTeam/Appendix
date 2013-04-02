@@ -13,7 +13,7 @@ private:
 	SyntaxHighlighter* syntax;
 	lang_t lang;
 public:
-	Editor(lang_t lang);
+	explicit Editor(QWidget *parent = 0,lang_t lang = CPP);
 	void setLang(lang_t lng);
 	void refresh();
 	lang_t getLang();

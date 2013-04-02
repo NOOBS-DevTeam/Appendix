@@ -5,7 +5,7 @@
 
 QString src_cpp="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n    cout << \"Hello world!\" << endl;\n    return 0;\n}";
 QString src_pas="program hello_world;\n\nbegin\n  writeln('HELLO WORLD!');\nend.";
-Editor::Editor(lang_t lng)
+Editor::Editor(QWidget *parent,lang_t lng)
 {
 	lang = lng;
 	syntax = new SyntaxHighlighter(this->document(),this->lang);
