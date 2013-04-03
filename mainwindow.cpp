@@ -76,6 +76,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     ui->tabWidget->removeTab(index);
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
+    n--;
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index)
@@ -113,10 +114,10 @@ void MainWindow::on_action_triggered()
         if (item=="Pascal")
             cur_lang=PAS;
         //-----------------
+        tabs.push_back(new Editor(0,cur_lang));
+        ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+        n++;
        }
-	tabs.push_back(new Editor(0,cur_lang));
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	n++;
 }
 
 void MainWindow::on_action_23_triggered()
@@ -168,6 +169,20 @@ void MainWindow::on_action_24_triggered()
         QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
+QString findentry(QString s)
+{
+    QString str="";
+    for (int i=s.length();i>0;i--)
+    {
+        if (s[i]=='/')
+        {
+            for (int j=i+1;j<s.length();j++)
+                str+=s[j];
+            return str;
+        }
+    }
+}
+
 void MainWindow::on_action_3_triggered()
 {
     QString str = tabs[cur_tab]->toPlainText();
@@ -179,7 +194,7 @@ void MainWindow::on_action_3_triggered()
 	out << str;
 	out << "\n";
 	file.close();
-    ui->tabWidget->insertTab(cur_tab,tabs[cur_tab],filename);
+    ui->tabWidget->insertTab(cur_tab,tabs[cur_tab],findentry(filename));
     ui->tabWidget->setCurrentIndex(cur_tab);
 
 }
