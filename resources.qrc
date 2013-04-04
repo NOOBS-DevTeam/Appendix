@@ -6,5 +6,6 @@
         <file>res/ico/save.ico</file>
         <file>res/ico/save_as.ico</file>
         <file>res/ico/stop.ico</file>
+        <file>res/apx.exe</file>
     </qresource>
 </RCC>

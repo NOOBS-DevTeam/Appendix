@@ -53,7 +53,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -324,6 +324,12 @@ p, li { white-space: pre-wrap; }
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>29</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>110</width>
@@ -350,6 +356,12 @@ p, li { white-space: pre-wrap; }
                   <widget class="QPlainTextEdit" name="plainTextEdit_7">
                    <property name="enabled">
                     <bool>false</bool>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>29</height>
+                    </size>
                    </property>
                    <property name="maximumSize">
                     <size>
@@ -385,6 +397,12 @@ p, li { white-space: pre-wrap; }
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>29</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>110</width>
@@ -411,6 +429,12 @@ p, li { white-space: pre-wrap; }
                   <widget class="QPlainTextEdit" name="plainTextEdit_9">
                    <property name="enabled">
                     <bool>false</bool>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>29</height>
+                    </size>
                    </property>
                    <property name="maximumSize">
                     <size>
@@ -464,6 +488,179 @@ p, li { white-space: pre-wrap; }
           <attribute name="title">
            <string>APX</string>
           </attribute>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="1" column="0">
+              <widget class="Editor" name="textEdit_3">
+               <property name="html">
+                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;int main()&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;//comment&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;{&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	let int i;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	while i&amp;lt;10 do {&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;		out (i);&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;		i = i+1;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	if i==5 then&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;		return 1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	};&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;	return 0&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;}&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_7">
+               <item row="0" column="0">
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <item>
+                    <widget class="QPlainTextEdit" name="plainTextEdit_10">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="plainText">
+                      <string>    Строка</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_11">
+                     <property name="text">
+                      <string>Сменить</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <widget class="QPlainTextEdit" name="plainTextEdit_11">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="plainText">
+                      <string>    Комментарий</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_12">
+                     <property name="text">
+                      <string>Сменить</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item row="0" column="1">
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QPlainTextEdit" name="plainTextEdit_12">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="plainText">
+                      <string>Числ. литерал</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_13">
+                     <property name="text">
+                      <string>Сменить</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_13">
+                   <item>
+                    <widget class="QPlainTextEdit" name="plainTextEdit_13">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>110</width>
+                       <height>29</height>
+                      </size>
+                     </property>
+                     <property name="plainText">
+                      <string>Ключ. слово</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_14">
+                     <property name="text">
+                      <string>Сменить</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>

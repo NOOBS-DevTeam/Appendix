@@ -113,6 +113,8 @@ void MainWindow::on_action_triggered()
             cur_lang=CPP;
         if (item=="Pascal")
             cur_lang=PAS;
+		if (item=="Appendix")
+			cur_lang=APX;
         //-----------------
         tabs.push_back(new Editor(0,cur_lang));
         ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
@@ -140,6 +142,10 @@ void MainWindow::on_action_24_triggered()
             format = "pas";
             compiler = "fpc temp.pas";
             break;
+		case APX:
+			format = "apx";
+			compiler = "apx temp.apx";
+			break;
         }
 
         QString str = tabs[cur_tab]->toPlainText();
@@ -161,8 +167,8 @@ void MainWindow::on_action_24_triggered()
         {
             cp->start(cur_lang==CPP?"a.exe":"temp.exe");
             cp->waitForStarted();
-            cp->waitForFinished();
-            QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
+			//cp->waitForFinished();
+			QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
         }
     }
     else
@@ -201,14 +207,16 @@ void MainWindow::on_action_3_triggered()
 
 void MainWindow::slotDataOnStdout()
 {
-	ui->textEdit->append(cp->readAllStandardOutput());
+	ui->textEdit->append(cp->readAllStandardOutput().data());
+	ui->textEdit->append(cp->readAllStandardError().data());
 }
 
 void MainWindow::slotDataOnError()
 {
-    QString error=QString(cp->readAllStandardError());
-    error.remove(0,(error.lastIndexOf("error:")+6));
-    cpError = QString("ERROR:")+(error);
+	ui->textEdit->append(cp->readAllStandardError().data());
+	//QString error=QString(cp->readAllStandardError());
+	//error.remove(0,(error.lastIndexOf("error:")+6));
+	//cpError = QString("ERROR:")+(error);
 }
 
 

@@ -7,7 +7,8 @@ class QTextDocument;
 enum lang_t
 {
     CPP,
-    PAS
+	PAS,
+	APX
 };
 
 class SyntaxHighlighter : public QSyntaxHighlighter

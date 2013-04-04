@@ -7,33 +7,63 @@ QSettings tweaks3("NOOBS-DevTeam","Appendix");
 
 QColor what_color(lang_t l,int i)
 {
+	//================================
 	QVariant qv0 = tweaks3.value("/Settings/SyntaxH/C++/prepr",QColor(Qt::darkGreen));
 	qv0.convert(QVariant::Color);
 	QColor qc0 = qv0.value<QColor>();
+	//--------------------------------
 	QVariant qv1 = tweaks3.value("/Settings/SyntaxH/C++/string",QColor(90,55,202));
 	qv1.convert(QVariant::Color);
 	QColor qc1 = qv1.value<QColor>();
+	//--------------------------------
 	QVariant qv2 = tweaks3.value("/Settings/SyntaxH/C++/comment",QColor(Qt::darkGray));
 	qv2.convert(QVariant::Color);
 	QColor qc2 = qv2.value<QColor>();
+	//--------------------------------
 	QVariant qv3 = tweaks3.value("/Settings/SyntaxH/C++/number",QColor(255,105,180));
 	qv3.convert(QVariant::Color);
 	QColor qc3 = qv3.value<QColor>();
+	//--------------------------------
 	QVariant qv4 = tweaks3.value("/Settings/SyntaxH/C++/keyword",QColor(Qt::darkBlue));
 	qv4.convert(QVariant::Color);
 	QColor qc4 = qv4.value<QColor>();
+	//--------------------------------
+
+	//================================
 	QVariant qv5 = tweaks3.value("/Settings/SyntaxH/PAS/string",QColor(90,55,202));
 	qv5.convert(QVariant::Color);
 	QColor qc5 = qv5.value<QColor>();
+	//--------------------------------
 	QVariant qv6 = tweaks3.value("/Settings/SyntaxH/PAS/comment",QColor(Qt::darkGray));
 	qv6.convert(QVariant::Color);
 	QColor qc6 = qv6.value<QColor>();
+	//--------------------------------
 	QVariant qv7 = tweaks3.value("/Settings/SyntaxH/PAS/number",QColor(255,105,180));
 	qv7.convert(QVariant::Color);
 	QColor qc7 = qv7.value<QColor>();
+	//--------------------------------
 	QVariant qv8 = tweaks3.value("/Settings/SyntaxH/PAS/keyword",QColor(Qt::darkBlue));
 	qv8.convert(QVariant::Color);
 	QColor qc8 = qv8.value<QColor>();
+	//--------------------------------
+
+	//================================
+	QVariant qv9 = tweaks3.value("/Settings/SyntaxH/APX/string",QColor(90,55,202));
+	qv9.convert(QVariant::Color);
+	QColor qc9 = qv9.value<QColor>();
+	//--------------------------------
+	QVariant qv10 = tweaks3.value("/Settings/SyntaxH/APX/comment",QColor(Qt::darkGray));
+	qv10.convert(QVariant::Color);
+	QColor qc10 = qv10.value<QColor>();
+	//----------------------------------
+	QVariant qv11 = tweaks3.value("/Settings/SyntaxH/APX/number",QColor(255,105,180));
+	qv11.convert(QVariant::Color);
+	QColor qc11 = qv11.value<QColor>();
+	//----------------------------------
+	QVariant qv12 = tweaks3.value("/Settings/SyntaxH/APX/keyword",QColor(Qt::darkBlue));
+	qv12.convert(QVariant::Color);
+	QColor qc12 = qv12.value<QColor>();
+	//----------------------------------
 	switch (l)
 	{
 	case CPP:
@@ -62,6 +92,19 @@ QColor what_color(lang_t l,int i)
 			return qc7;
 		case 4:
 			return qc8;
+		}
+		break;
+	case APX:
+		switch (i)
+		{
+		case 1:
+			return qc9;
+		case 2:
+			return qc10;
+		case 3:
+			return qc11;
+		case 4:
+			return qc12;
 		}
 		break;
 	}
@@ -95,6 +138,12 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, lang_t lang) :QSynta
 				<< "unit"         << "until"     << "uses"           << "var"          << "while"
 				<< "with"         << "xor";
 		break;
+	case APX:
+		keywords
+				<< "let"  << "int"  << "double" << "void" << "if"
+				<< "then" << "else" << "while"  << "do"   << "out"
+				<< "in"   << "return";
+		break;
 	}
 }
 
@@ -109,7 +158,7 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			if (str.mid(i,2)=="*/")
 			{
 				nState = NormalState;
-				setFormat(nStart,i-nStart+2,what_color(lng,2));//darkGrey
+				setFormat(nStart,i-nStart+2,what_color(lng,2));
 				i++;
 			}
 		}
@@ -133,12 +182,12 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			}
 			else if (str.mid(i,1)=="#" && lng == CPP)
 			{
-				setFormat(i,str.length()-i,what_color(lng,0));//darkGreen
+				setFormat(i,str.length()-i,what_color(lng,0));
 				break;
 			}
 			else if (str.at(i).isNumber())
 			{
-				setFormat(i,1, what_color(lng,3));//QColor(255,105,180)
+				setFormat(i,1, what_color(lng,3));
 			}
 			else if (str.mid(i,2) == "/*" && lng == CPP)
 			{
@@ -157,16 +206,16 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 					if (i && i!=str.length()-1)
 					{
 						if (i+strKeyword.length()<str.length())
-							if (str[i-1]==' ' && str[i+strKeyword.length()]==' ')
+							if (isspace((str[i-1]).toLatin1()) && isspace((str[i+strKeyword.length()]).toLatin1()))
 							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								setFormat(i, strKeyword.length(), what_color(lng,4));
 								i+= strKeyword.length()-1;
 							}
 						else
 						{
-							if (str[i-1]==' ')
+							if (isspace((str[i-1]).toLatin1()))
 							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								setFormat(i, strKeyword.length(), what_color(lng,4));
 								i+= strKeyword.length()-1;
 							}
 						}
@@ -174,22 +223,22 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 					else if (!i)
 					{
 						if (i+strKeyword.length()<str.length())
-							if (str[i+strKeyword.length()]==' ' || str[i+strKeyword.length()]=='\n')
+							if (isspace((str[i+strKeyword.length()]).toLatin1()))
 							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								setFormat(i, strKeyword.length(), what_color(lng,4));
 								i+= strKeyword.length()-1;
 							}
 						else
 							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+								setFormat(i, strKeyword.length(), what_color(lng,4));
 								i+= strKeyword.length()-1;
 							}
 					}
 					else
 					{
-						if (str[i-1]==' ')
+						if (isspace((str[i-1]).toLatin1()))
 						{
-							setFormat(i, strKeyword.length(), what_color(lng,4));//darkBlue
+							setFormat(i, strKeyword.length(), what_color(lng,4));
 							i+= strKeyword.length()-1;
 						}
 					}
@@ -198,11 +247,11 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 	}
 	if (nState == InsideCStyleComment)
 	{
-		setFormat(nStart, str.length() - nStart, what_color(lng,2));//darkGrey
+		setFormat(nStart, str.length() - nStart, what_color(lng,2));
 	}
 	if (nState == InsideCString)
 	{
-		setFormat(nStart, str.length() - nStart, what_color(lng,1));//cyan
+		setFormat(nStart, str.length() - nStart, what_color(lng,1));
 	}
 	setCurrentBlockState(nState);
 }
