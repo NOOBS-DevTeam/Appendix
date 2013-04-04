@@ -89,7 +89,6 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 {
     ui->textEdit->insertPlainText(ui->lineEdit->text()+"\n");
 	cp->write((ui->lineEdit->text().toStdString()+"\n").c_str());
-	cp->waitForBytesWritten();
     ui->lineEdit->clear();
 }
 

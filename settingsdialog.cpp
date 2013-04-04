@@ -27,6 +27,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 		//pitem->setIcon();
 	}
 	init_colors();
+    rfrshclrs();
 }
 
 QColor GetOptimalBkColor(QColor AColor)
@@ -133,11 +134,7 @@ void SettingsDialog::on_pushButton_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/C++/prepr",col);
 }
 
@@ -147,11 +144,7 @@ void SettingsDialog::on_pushButton_2_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_2->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_2->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_2->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/C++/string",col);
 }
 
@@ -161,11 +154,7 @@ void SettingsDialog::on_pushButton_3_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_3->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_3->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_3->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/C++/comment",col);
 }
 
@@ -175,11 +164,7 @@ void SettingsDialog::on_pushButton_4_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_4->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_4->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_4->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/C++/number",col);
 }
 
@@ -189,11 +174,7 @@ void SettingsDialog::on_pushButton_5_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_5->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_5->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_5->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/C++/keyword",col);
 }
 
@@ -203,11 +184,7 @@ void SettingsDialog::on_pushButton_6_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_6->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_6->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_6->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/PAS/string",col);
 }
 
@@ -217,11 +194,7 @@ void SettingsDialog::on_pushButton_7_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_7->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_7->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_7->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/PAS/comment",col);
 }
 
@@ -231,11 +204,7 @@ void SettingsDialog::on_pushButton_8_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_8->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_8->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_8->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/PAS/number",col);
 }
 
@@ -245,11 +214,7 @@ void SettingsDialog::on_pushButton_9_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_9->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_9->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_9->setPalette(pal2);
+    rfrshclrs();
 	tweaks2.setValue("/Settings/SyntaxH/PAS/keyword",col);
 }
 
@@ -269,12 +234,9 @@ void SettingsDialog::on_pushButton_11_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_10->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_10->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_10->setPalette(pal2);
-	tweaks2.setValue("/Settings/SyntaxH/APX/string",col);
+    rfrshclrs();
+    tweaks2.setValue("/Settings/SyntaxH/APX/string",col);
+
 }
 
 void SettingsDialog::on_pushButton_12_clicked()
@@ -283,12 +245,9 @@ void SettingsDialog::on_pushButton_12_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_11->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_11->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_11->setPalette(pal2);
-	tweaks2.setValue("/Settings/SyntaxH/APX/comment",col);
+    rfrshclrs();
+    tweaks2.setValue("/Settings/SyntaxH/APX/comment",col);
+
 }
 
 void SettingsDialog::on_pushButton_13_clicked()
@@ -297,12 +256,9 @@ void SettingsDialog::on_pushButton_13_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_12->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_12->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_12->setPalette(pal2);
-	tweaks2.setValue("/Settings/SyntaxH/APX/number",col);
+    rfrshclrs();
+    tweaks2.setValue("/Settings/SyntaxH/APX/number",col);
+
 }
 
 void SettingsDialog::on_pushButton_14_clicked()
@@ -311,10 +267,92 @@ void SettingsDialog::on_pushButton_14_clicked()
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_13->setPalette(pal);
-	QPalette pal2 = ui->plainTextEdit_13->palette();
-	QColor col2 = pal2.text().color();
-	col2=GetOptimalBkColor(col2);
-	pal2.setColor(QPalette::Text,col2);
-	ui->plainTextEdit_13->setPalette(pal2);
-	tweaks2.setValue("/Settings/SyntaxH/APX/keyword",col);
+    rfrshclrs();
+    tweaks2.setValue("/Settings/SyntaxH/APX/keyword",col);
+
 }
+
+void SettingsDialog::rfrshclrs()
+{
+    QPalette pal2 = ui->plainTextEdit_13->palette();
+    QColor col2 = pal2.base().color();
+    col2=GetOptimalBkColor(col2);
+    pal2.setColor(QPalette::Text,col2);
+    ui->plainTextEdit_13->setPalette(pal2);
+
+
+    QPalette pal3 = ui->plainTextEdit_12->palette();
+    QColor col3 = pal3.base().color();
+    col3=GetOptimalBkColor(col3);
+    pal3.setColor(QPalette::Text,col3);
+    ui->plainTextEdit_12->setPalette(pal3);
+
+
+    QPalette pal4 = ui->plainTextEdit_11->palette();
+    QColor col4 = pal4.base().color();
+    col4=GetOptimalBkColor(col4);
+    pal4.setColor(QPalette::Text,col4);
+    ui->plainTextEdit_11->setPalette(pal4);
+
+
+    QPalette pal5 = ui->plainTextEdit_10->palette();
+    QColor col5 = pal5.base().color();
+    col5=GetOptimalBkColor(col5);
+    pal5.setColor(QPalette::Text,col5);
+    ui->plainTextEdit_10->setPalette(pal5);
+
+    QPalette pal6 = ui->plainTextEdit_9->palette();
+    QColor col6 = pal6.base().color();
+    col6=GetOptimalBkColor(col6);
+    pal2.setColor(QPalette::Text,col6);
+    ui->plainTextEdit_9->setPalette(pal6);
+
+    QPalette pal7 = ui->plainTextEdit_8->palette();
+    QColor col7 = pal7.base().color();
+    col7=GetOptimalBkColor(col7);
+    pal7.setColor(QPalette::Text,col7);
+    ui->plainTextEdit_8->setPalette(pal7);
+
+    QPalette pal8 = ui->plainTextEdit_7->palette();
+    QColor col8 = pal8.base().color();
+    col8=GetOptimalBkColor(col8);
+    pal8.setColor(QPalette::Text,col8);
+    ui->plainTextEdit_7->setPalette(pal8);
+
+    QPalette pal9 = ui->plainTextEdit_6->palette();
+    QColor col9 = pal9.base().color();
+    col9=GetOptimalBkColor(col9);
+    pal9.setColor(QPalette::Text,col9);
+    ui->plainTextEdit_6->setPalette(pal9);
+
+    QPalette pal10 = ui->plainTextEdit_5->palette();
+    QColor col10 = pal10.base().color();
+    col10=GetOptimalBkColor(col10);
+    pal10.setColor(QPalette::Text,col10);
+    ui->plainTextEdit_5->setPalette(pal10);
+
+    QPalette pal11 = ui->plainTextEdit_4->palette();
+    QColor col11 = pal11.base().color();
+    col11=GetOptimalBkColor(col11);
+    pal11.setColor(QPalette::Text,col11);
+    ui->plainTextEdit_4->setPalette(pal11);
+
+    QPalette pal12 = ui->plainTextEdit_3->palette();
+    QColor col12 = pal12.base().color();
+    col12=GetOptimalBkColor(col12);
+    pal12.setColor(QPalette::Text,col12);
+    ui->plainTextEdit_3->setPalette(pal12);
+
+    QPalette pal13 = ui->plainTextEdit_2->palette();
+    QColor col13 = pal13.base().color();
+    col13=GetOptimalBkColor(col13);
+    pal13.setColor(QPalette::Text,col13);
+    ui->plainTextEdit_2->setPalette(pal13);
+
+    QPalette pal14 = ui->plainTextEdit->palette();
+    QColor col14 = pal14.base().color();
+    col14=GetOptimalBkColor(col14);
+    pal14.setColor(QPalette::Text,col14);
+    ui->plainTextEdit->setPalette(pal14);
+}
+

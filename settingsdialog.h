@@ -48,6 +48,8 @@ private slots:
 
 	void on_pushButton_14_clicked();
 
+    void rfrshclrs();
+
 private:
 	void init_colors();
 	Ui::SettingsDialog *ui;
