@@ -57,7 +57,8 @@ private slots:
     void on_toolButton_2_clicked();
 
     void on_action_29_triggered();
-
+public slots:
+	void refreshAllTabs();
 private:
 	Ui::MainWindow *ui;
 };

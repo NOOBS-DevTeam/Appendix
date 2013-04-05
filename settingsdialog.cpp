@@ -3,8 +3,10 @@
 #include "SyntaxHighlighter.h"
 #include "Editor.h"
 #include <QtGui>
+#include <QObject>
 #include <QSettings>
 #include <QColorDialog>
+#include <QFontDialog>
 #include <QDebug>
 #include <QColor>
 
@@ -26,6 +28,15 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 		pitem = new QListWidgetItem(str,ui->listWidget);
 		//pitem->setIcon();
 	}
+	ui->spinBox->setValue(tweaks2.value("/Settings/Text/TabSize",QVariant(26)).toInt());
+	QVariant qv = tweaks2.value("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
+	qv.convert(QVariant::Font);
+	QFont fnt = qv.value<QFont>();
+	qDebug() << fnt;
+	ui->textEdit_4->document()->setDefaultFont(fnt);
+	ui->textEdit_4->setText("Example text preview...");
+	ui->textEdit_2->setLang(PAS);
+	ui->textEdit_3->setLang(APX);
 	init_colors();
     rfrshclrs();
 }
@@ -115,6 +126,11 @@ void SettingsDialog::init_colors()
 	ui->plainTextEdit_12->setPalette(QPalette(qc11));
 	ui->plainTextEdit_13->setPalette(QPalette(qc12));
 
+	QVariant qv13 = tweaks2.value("/Settings/Text/BaseColor",QColor(Qt::white));
+	qv13.convert(QVariant::Color);
+	QColor qc13 = qv13.value<QColor>();
+	ui->plainTextEdit_14->setPalette(QPalette(qc13));
+	//----------------------------------
 }
 
 SettingsDialog::~SettingsDialog()
@@ -225,7 +241,9 @@ void SettingsDialog::on_pushButton_10_clicked()
 
 void SettingsDialog::on_buttonBox_accepted()
 {
-
+	//tweaks2.setValue("/Settings/Text/Font",ui->fontComboBox->);
+	tweaks2.setValue("/Settings/Text/TabSize",ui->spinBox->value());
+	emit smthChanged();
 }
 
 void SettingsDialog::on_pushButton_11_clicked()
@@ -356,3 +374,26 @@ void SettingsDialog::rfrshclrs()
     ui->plainTextEdit->setPalette(pal14);
 }
 
+
+void SettingsDialog::on_pushButton_15_clicked()
+{
+	QPalette pal = ui->plainTextEdit_14->palette();
+	QColor col = QColorDialog::getColor();
+	pal.setColor(QPalette::Base,col);
+	tweaks2.setValue("/Settings/Text/BaseColor",QVariant(col));
+	ui->plainTextEdit_14->setPalette(pal);
+}
+
+void SettingsDialog::on_pushButton_16_clicked()
+{
+	bool bok;
+	QVariant qv = tweaks2.value("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
+	qv.convert(QVariant::Font);
+	QFont initial = qv.value<QFont>();
+	QFont fnt= QFontDialog::getFont(&bok,initial,this,"Выбирите шрифт");
+	if (bok)
+	{
+		tweaks2.setValue("/Settings/Text/Font",fnt);
+		ui->textEdit_4->document()->setDefaultFont(fnt);
+	}
+}

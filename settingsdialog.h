@@ -50,6 +50,13 @@ private slots:
 
     void rfrshclrs();
 
+	void on_pushButton_15_clicked();
+
+	void on_pushButton_16_clicked();
+/*public slots:
+	void refreshAllTabs();*/
+signals:
+	void smthChanged();
 private:
 	void init_colors();
 	Ui::SettingsDialog *ui;

@@ -79,10 +79,16 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     n--;
 }
 
+void MainWindow::refreshAllTabs()
+{
+	for (int i=0;i<tabs.size();i++)
+		if (dynamic_cast<Editor*> (tabs[i]))
+			tabs[i]->refresh();
+}
+
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
-    ui->toolButton->setStyleSheet("border-image: url(/c/im.bmp) stretch;");
 }
 
 void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
@@ -155,23 +161,31 @@ void MainWindow::on_action_24_triggered()
         out << str;
         out << "\n";
         file.close();
-        cp->start(compiler);
-        cp->waitForFinished();
-        if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
-        {
-            qDebug() << "Error";
-            ui->textEdit->append(cpError);
-        }
-        else
-        {
-            cp->start(cur_lang==CPP?"a.exe":"temp.exe");
-            cp->waitForStarted();
-			//cp->waitForFinished();
-			QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
-        }
-    }
-    else
-        QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
+		if (tabs[cur_tab]->getLang()==APX)
+		{
+			cp->start(compiler);
+			cp->waitForStarted();
+		}
+		else
+		{
+			cp->start(compiler);
+			cp->waitForFinished();
+			if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
+			{
+				qDebug() << "Error";
+				ui->textEdit->append(cpError);
+			}
+			else
+			{
+				cp->start(cur_lang==CPP?"a.exe":"temp.exe");
+				cp->waitForStarted();
+				//cp->waitForFinished();
+				QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
+			}
+		}
+	}
+	else
+		QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
 QString findentry(QString s)
@@ -244,6 +258,7 @@ void MainWindow::on_toolButton_5_clicked()
 void MainWindow::on_action_8_triggered()
 {
 	SettingsDialog *sd = new SettingsDialog;
+	connect(sd,SIGNAL(smthChanged()),this,SLOT(refreshAllTabs()));
 	sd->show();
 }
 void MainWindow::on_action_10_triggered()
