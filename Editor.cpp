@@ -5,7 +5,7 @@
 #include <QTextDocument>
 QString src_cpp="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n\tcout << \"Hello world!\" << endl;\n\treturn 0;\n}";
 QString src_pas="program hello_world;\n\nbegin\n\twriteln('HELLO WORLD!');\nend.";
-QString src_apx="int main()\n{\n\tout (\"Hello world!\");\n\treturn 0;\n}";
+QString src_apx="int main()\n{\n\tout (\"Hello world!\");\n\treturn 0\n}";
 QSettings tweaks4("NOOBS-DevTeam","Appendix");
 Editor::Editor(QWidget *parent,lang_t lng)
 {

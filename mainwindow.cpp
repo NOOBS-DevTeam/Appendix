@@ -18,12 +18,14 @@
 #include <QSettings>
 #include <QMessageBox>
 
-int n=0,cur_tab=0; //текущий таб
+int n=0,cur_tab=0;//текущий таб
+QString allErrors;
 std::vector<Editor*> tabs;
 QString cpError;
 QProcess *cp;
 lang_t cur_lang=CPP;
 QSettings tweaks("NOOBS-DevTeam","Appendix");
+bool comp_in_progress = false;
 
 QString strtoint(int a);
 QString readFile(QString filename);
@@ -63,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	cp = new QProcess(this);
 	connect(cp,SIGNAL(readyReadStandardOutput()),SLOT(slotDataOnStdout()));
 	connect(cp,SIGNAL(readyReadStandardError()),SLOT(slotDataOnError()));
+	connect(cp,SIGNAL(finished(int)),this,SLOT(switchRun()));
 }
 
 MainWindow::~MainWindow()
@@ -163,23 +166,24 @@ void MainWindow::on_action_24_triggered()
         file.close();
 		if (tabs[cur_tab]->getLang()==APX)
 		{
+			switchRun();
 			cp->start(compiler);
 			cp->waitForStarted();
 		}
 		else
 		{
+			comp_in_progress = true;
 			cp->start(compiler);
 			cp->waitForFinished();
-			if (!(QFile::exists("a.exe")||QFile::exists("temp.exe")))
-			{
-				qDebug() << "Error";
-				ui->textEdit->append(cpError);
-			}
-			else
+			comp_in_progress = false;
+			if (cp->exitCode())
+				ui->textEdit->append(allErrors);
+			allErrors = "";
+			if (!cp->exitCode())
 			{
 				cp->start(cur_lang==CPP?"a.exe":"temp.exe");
 				cp->waitForStarted();
-				//cp->waitForFinished();
+				switchRun();
 				QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
 			}
 		}
@@ -220,8 +224,14 @@ void MainWindow::on_action_3_triggered()
 
 void MainWindow::slotDataOnStdout()
 {
-	ui->textEdit->append(cp->readAllStandardOutput().data());
-	ui->textEdit->append(cp->readAllStandardError().data());
+	if (comp_in_progress)
+	{
+		allErrors += cp->readAllStandardOutput();
+	}
+	else
+	{
+		ui->textEdit->append(cp->readAllStandardOutput());
+	}
 }
 
 void MainWindow::slotDataOnError()
@@ -283,7 +293,26 @@ void MainWindow::on_toolButton_2_clicked()
 
 }
 
+void MainWindow::on_action_25_triggered()
+{
+	cp->kill();
+}
+
+
+void MainWindow::on_toolButton_6_clicked()
+{
+	ui->action_25->trigger();
+}
+
 void MainWindow::on_action_29_triggered()
 {
 
+}
+
+void MainWindow::switchRun()
+{
+	if (comp_in_progress)
+		return;
+	ui->toolButton_5->setEnabled(!ui->toolButton_5->isEnabled());
+	ui->toolButton_6->setEnabled(!ui->toolButton_6->isEnabled());
 }

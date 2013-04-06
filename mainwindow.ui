@@ -206,6 +206,9 @@
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_6">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
