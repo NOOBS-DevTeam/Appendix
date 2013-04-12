@@ -106,7 +106,14 @@ void MainWindow::on_action_2_triggered()
 	tabs.push_back(new Editor(0,CPP));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
-	tabs.back()->setText(readFile(QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx)")))+'\n');
+	QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx,*.pas,*.cpp)"))+"\n";
+	tabs.back()->setText(readFile(filename));
+	if (filename.mid(filename.length()-4,3)=="cpp")
+		tabs.back()->setLang(CPP);
+	if (filename.mid(filename.length()-4,3)=="pas")
+		tabs.back()->setLang(PAS);
+	if (filename.mid(filename.length()-4,3)=="apx")
+		tabs.back()->setLang(APX);
 }
 
 void MainWindow::on_action_triggered()
@@ -210,7 +217,21 @@ void MainWindow::on_action_3_triggered()
 {
     QString str = tabs[cur_tab]->toPlainText();
     QString filename;
-	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents (*.apx)") );
+	QString format;
+	switch (cur_tab)
+	{
+	case CPP:
+		format = ".cpp";
+		break;
+	case PAS:
+		format = ".pas";
+		break;
+	case APX:
+		format = ".apx";
+		break;
+	}
+
+	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents")+format);
 	QFile file(filename);
 	file.open(QIODevice::Append | QIODevice::Text);
 	QTextStream out(&file);

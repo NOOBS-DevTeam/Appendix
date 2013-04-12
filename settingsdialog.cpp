@@ -236,7 +236,46 @@ void SettingsDialog::on_pushButton_9_clicked()
 
 void SettingsDialog::on_pushButton_10_clicked()
 {
-	ui->textEdit_3->show();
+	tweaks2.beginGroup("/Settings");
+		tweaks2.beginGroup("/SyntaxH");
+			tweaks2.beginGroup("/PAS");
+				tweaks2.setValue("/string",QColor(90,55,202));
+				tweaks2.setValue("/comment",QColor(Qt::darkGray));
+				tweaks2.setValue("/number",QColor(255,105,180));
+				tweaks2.setValue("/keyword",QColor(Qt::darkBlue));
+			tweaks2.endGroup();
+			tweaks2.beginGroup("/C++");
+				tweaks2.setValue("/prepr",QColor(Qt::darkGreen));
+				tweaks2.setValue("/string",QColor(90,55,202));
+				tweaks2.setValue("/comment",QColor(Qt::darkGray));
+				tweaks2.setValue("/number",QColor(255,105,180));
+				tweaks2.setValue("/keyword",QColor(Qt::darkBlue));
+			tweaks2.endGroup();
+			tweaks2.beginGroup("/APX");
+				tweaks2.setValue("/string",QColor(90,55,202));
+				tweaks2.setValue("/comment",QColor(Qt::darkGray));
+				tweaks2.setValue("/number",QColor(255,105,180));
+				tweaks2.setValue("/keyword",QColor(Qt::darkBlue));
+			tweaks2.endGroup();
+		tweaks2.endGroup();
+		tweaks2.beginGroup("/Session");
+			tweaks2.beginGroup("/geometry");
+				tweaks2.setValue("x",500);
+				tweaks2.setValue("y",500);
+				tweaks2.setValue("w",740);
+				tweaks2.setValue("h",512);
+			tweaks2.endGroup();
+			tweaks2.beginGroup("/tabs");
+				//TODO: Сохранение вкладок
+			tweaks2.endGroup();
+		tweaks2.endGroup();
+		tweaks2.beginGroup("/Text");
+			tweaks2.setValue("/TabSize",26);
+			tweaks2.setValue("/BaseColor",QColor(Qt::white));
+			tweaks2.setValue("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
+		tweaks2.endGroup();
+	tweaks2.endGroup();
+	delete this;
 }
 
 void SettingsDialog::on_buttonBox_accepted()
