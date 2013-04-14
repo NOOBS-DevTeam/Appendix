@@ -361,7 +361,7 @@ void SettingsDialog::rfrshclrs()
     QPalette pal6 = ui->plainTextEdit_9->palette();
     QColor col6 = pal6.base().color();
     col6=GetOptimalBkColor(col6);
-    pal2.setColor(QPalette::Text,col6);
+    pal6.setColor(QPalette::Text,col6);
     ui->plainTextEdit_9->setPalette(pal6);
 
     QPalette pal7 = ui->plainTextEdit_8->palette();

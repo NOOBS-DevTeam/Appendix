@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	ui->splitter_4->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
+    ui->action_25->setEnabled(false);
 	tweaks.beginGroup("/Settings/Session/geometry");
 		this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
 	tweaks.endGroup();
@@ -106,14 +107,14 @@ void MainWindow::on_action_2_triggered()
 	tabs.push_back(new Editor(0,CPP));
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	n++;
-	QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx,*.pas,*.cpp)"))+"\n";
+    QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"))+"\n";
 	tabs.back()->setText(readFile(filename));
-	if (filename.mid(filename.length()-4,3)=="cpp")
+    if (filename.mid(filename.length()-4,3)=="cpp")
 		tabs.back()->setLang(CPP);
 	if (filename.mid(filename.length()-4,3)=="pas")
 		tabs.back()->setLang(PAS);
 	if (filename.mid(filename.length()-4,3)=="apx")
-		tabs.back()->setLang(APX);
+        tabs.back()->setLang(APX);
 }
 
 void MainWindow::on_action_triggered()
@@ -218,7 +219,7 @@ void MainWindow::on_action_3_triggered()
     QString str = tabs[cur_tab]->toPlainText();
     QString filename;
 	QString format;
-	switch (cur_tab)
+    switch (tabs[cur_tab]->getLang())
 	{
 	case CPP:
 		format = ".cpp";
@@ -231,7 +232,7 @@ void MainWindow::on_action_3_triggered()
 		break;
 	}
 
-	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"sdfsdf",tr("Documents")+format);
+    filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
 	QFile file(filename);
 	file.open(QIODevice::Append | QIODevice::Text);
 	QTextStream out(&file);
@@ -334,6 +335,6 @@ void MainWindow::switchRun()
 {
 	if (comp_in_progress)
 		return;
-	ui->toolButton_5->setEnabled(!ui->toolButton_5->isEnabled());
-	ui->toolButton_6->setEnabled(!ui->toolButton_6->isEnabled());
+    ui->action_25->setEnabled(!ui->action_25->isEnabled());
+    ui->action_24->setEnabled(!ui->action_24->isEnabled());
 }
