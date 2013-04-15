@@ -10,9 +10,13 @@ QString strtoint(int a)
 
 QString readFile(QString filename) //считывание из файла
 {
+	qDebug() << "Открываем ебучий " << filename;
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return NULL;
+	{
+		qDebug() << "Файл, блять, не открылся!";
+		//return NULL;
+	}
 	QByteArray total;
 	QByteArray line;
 	while (!file.atEnd())

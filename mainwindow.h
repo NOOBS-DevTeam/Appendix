@@ -61,6 +61,8 @@ private slots:
 
 	void on_toolButton_6_clicked();
 
+	void on_action_27_triggered();
+
 public slots:
 
 	void refreshAllTabs();

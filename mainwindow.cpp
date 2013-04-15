@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
 #include "settingsdialog.h"
+#include "helpdialog.h"
 #include <QInputDialog>
 #include "Editor.h"
 #include <string.h>
@@ -104,17 +105,18 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_action_2_triggered()
 {
-	tabs.push_back(new Editor(0,CPP));
-	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	n++;
     QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"))+"\n";
-	tabs.back()->setText(readFile(filename));
-    if (filename.mid(filename.length()-4,3)=="cpp")
-		tabs.back()->setLang(CPP);
+	qDebug() << filename.mid(filename.length()-4,3);
+	if (filename.mid(filename.length()-4,3)=="cpp")
+		tabs.push_back(new Editor(0,CPP));
 	if (filename.mid(filename.length()-4,3)=="pas")
-		tabs.back()->setLang(PAS);
+		tabs.push_back(new Editor(0,PAS));;
 	if (filename.mid(filename.length()-4,3)=="apx")
-        tabs.back()->setLang(APX);
+		tabs.push_back(new Editor(0,APX));
+	n++;
+	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	tabs.back()->setText(readFile(filename));
+	qDebug() << readFile(filename);
 }
 
 void MainWindow::on_action_triggered()
@@ -337,4 +339,10 @@ void MainWindow::switchRun()
 		return;
     ui->action_25->setEnabled(!ui->action_25->isEnabled());
     ui->action_24->setEnabled(!ui->action_24->isEnabled());
+}
+
+void MainWindow::on_action_27_triggered()
+{
+	helpdialog *help = new helpdialog;
+	help->show();
 }

@@ -16,15 +16,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     SyntaxHighlighter.cpp \
     Editor.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    helpdialog.cpp
 
 HEADERS  += mainwindow.h \
     SyntaxHighlighter.h \
     Editor.h \
-    settingsdialog.h
+    settingsdialog.h \
+    helpdialog.h
 
 FORMS    += mainwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    helpdialog.ui
 
 OTHER_FILES += \
     stop.ico \

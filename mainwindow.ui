@@ -194,7 +194,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="action"/>
    <addaction name="action_2"/>
@@ -344,7 +344,10 @@
   </action>
   <action name="action_27">
    <property name="text">
-    <string>Содержание</string>
+    <string>Справка</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
   <action name="action_28">
