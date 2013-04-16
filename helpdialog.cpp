@@ -18,6 +18,8 @@ helpdialog::helpdialog(QWidget *parent) :
 	ui->textBrowser->setSearchPaths(QStringList() << ":/doc");
 	ui->textBrowser->setSource(QUrl("index.html"));
 	qDebug()<< ui->textBrowser->source();
+    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(close()));
+
 }
 
 helpdialog::~helpdialog()

@@ -8,5 +8,9 @@
         <file>res/ico/stop.ico</file>
         <file>res/apx.exe</file>
         <file>doc/index.html</file>
+        <file>res/ico/save_all.ico</file>
+        <file>res/ico/close.ico</file>
+        <file>res/ico/print.ico</file>
+        <file>res/ico/exit.ico</file>
     </qresource>
 </RCC>

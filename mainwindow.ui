@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
-    <height>297</height>
+    <width>689</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -106,7 +106,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>418</width>
+     <width>689</width>
      <height>21</height>
     </rect>
    </property>
@@ -249,11 +249,19 @@
    </property>
   </action>
   <action name="action_5">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/save_all.ico</normaloff>:/res/ico/save_all.ico</iconset>
+   </property>
    <property name="text">
     <string>Сохранить всё</string>
    </property>
   </action>
   <action name="action_6">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/close.ico</normaloff>:/res/ico/close.ico</iconset>
+   </property>
    <property name="text">
     <string>Закрыть</string>
    </property>
@@ -264,11 +272,19 @@
    </property>
   </action>
   <action name="action_9">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/print.ico</normaloff>:/res/ico/print.ico</iconset>
+   </property>
    <property name="text">
     <string>Печать</string>
    </property>
   </action>
   <action name="action_11">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/exit.ico</normaloff>:/res/ico/exit.ico</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>
