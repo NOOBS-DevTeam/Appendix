@@ -12,5 +12,18 @@
         <file>res/ico/close.ico</file>
         <file>res/ico/print.ico</file>
         <file>res/ico/exit.ico</file>
+        <file>res/ico/about.ico</file>
+        <file>res/ico/chng.ico</file>
+        <file>res/ico/copy.ico</file>
+        <file>res/ico/cut.ico</file>
+        <file>res/ico/example.ico</file>
+        <file>res/ico/find.ico</file>
+        <file>res/ico/help.ico</file>
+        <file>res/ico/in.ico</file>
+        <file>res/ico/out.ico</file>
+        <file>res/ico/paste.ico</file>
+        <file>res/ico/sttngs.ico</file>
+        <file>res/ico/replace.ico</file>
+        <file>res/ico/clear.ico</file>
     </qresource>
 </RCC>

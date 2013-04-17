@@ -143,7 +143,6 @@
     </property>
     <addaction name="action_19"/>
     <addaction name="action_20"/>
-    <addaction name="action_21"/>
     <addaction name="separator"/>
     <addaction name="action_23"/>
    </widget>
@@ -290,36 +289,64 @@
    </property>
   </action>
   <action name="action_13">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/cut.ico</normaloff>:/res/ico/cut.ico</iconset>
+   </property>
    <property name="text">
     <string>Вырезать</string>
    </property>
   </action>
   <action name="action_14">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/copy.ico</normaloff>:/res/ico/copy.ico</iconset>
+   </property>
    <property name="text">
     <string>Копировать</string>
    </property>
   </action>
   <action name="action_15">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/paste.ico</normaloff>:/res/ico/paste.ico</iconset>
+   </property>
    <property name="text">
     <string>Вставить</string>
    </property>
   </action>
   <action name="action_17">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/find.ico</normaloff>:/res/ico/find.ico</iconset>
+   </property>
    <property name="text">
     <string>Найти</string>
    </property>
   </action>
   <action name="action_18">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/replace.ico</normaloff>:/res/ico/replace.ico</iconset>
+   </property>
    <property name="text">
     <string>Заменить</string>
    </property>
   </action>
   <action name="action_19">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/out.ico</normaloff>:/res/ico/out.ico</iconset>
+   </property>
    <property name="text">
     <string>Окно вывода</string>
    </property>
   </action>
   <action name="action_20">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/in.ico</normaloff>:/res/ico/in.ico</iconset>
+   </property>
    <property name="text">
     <string>Окно ввода</string>
    </property>
@@ -330,6 +357,10 @@
    </property>
   </action>
   <action name="action_23">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/clear.ico</normaloff>:/res/ico/clear.ico</iconset>
+   </property>
    <property name="text">
     <string>Очистить вывод</string>
    </property>
@@ -359,6 +390,10 @@
    </property>
   </action>
   <action name="action_27">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/help.ico</normaloff>:/res/ico/help.ico</iconset>
+   </property>
    <property name="text">
     <string>Справка</string>
    </property>
@@ -367,16 +402,28 @@
    </property>
   </action>
   <action name="action_28">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/example.ico</normaloff>:/res/ico/example.ico</iconset>
+   </property>
    <property name="text">
     <string>Примеры</string>
    </property>
   </action>
   <action name="action_29">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/about.ico</normaloff>:/res/ico/about.ico</iconset>
+   </property>
    <property name="text">
     <string>Об авторе...</string>
    </property>
   </action>
   <action name="action_8">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/res/ico/sttngs.ico</normaloff>:/res/ico/sttngs.ico</iconset>
+   </property>
    <property name="text">
     <string>Настройки</string>
    </property>
