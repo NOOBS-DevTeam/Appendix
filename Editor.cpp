@@ -3,6 +3,9 @@
 #include "SyntaxHighlighter.h"
 #include <QFont>
 #include <QTextDocument>
+#include <QObject>
+#include <QFile>
+
 QString src_cpp="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n\tcout << \"Hello world!\" << endl;\n\treturn 0;\n}";
 QString src_pas="program hello_world;\n\nbegin\n\twriteln('HELLO WORLD!');\nend.";
 QString src_apx="int main()\n{\n\tout (\"Hello world!\");\n\treturn 0\n}";
@@ -10,6 +13,7 @@ QSettings tweaks4("NOOBS-DevTeam","Appendix");
 Editor::Editor(QWidget *parent,lang_t lng)
 {
 	lang = lng;
+	changed =false;
 	syntax = new SyntaxHighlighter(this->document(),this->lang);
 	QVariant qvt = tweaks4.value("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
 	qvt.convert(QVariant::Font);
@@ -29,6 +33,7 @@ Editor::Editor(QWidget *parent,lang_t lng)
 		this->append(src_pas);
 	if (lang == APX)
 		this->append(src_apx);
+	connect(this,SIGNAL(textChanged()),this,SLOT(change()));
 }
 
 void Editor::refresh()
@@ -58,4 +63,15 @@ void Editor::setLang(lang_t lng)
 lang_t Editor::getLang()
 {
 	return this->lang;
+}
+
+void Editor::change()
+{
+	changed=true;
+	tabw->setTabText(cur_tab,'*'+findentry(filename));
+}
+
+void Editor::saved()
+{
+	changed = false;
 }

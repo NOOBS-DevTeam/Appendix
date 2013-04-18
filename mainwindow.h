@@ -3,9 +3,13 @@
 #include "Editor.h"
 #include <QMainWindow>
 
+extern int cur_tab;
+extern QTabWidget *tabw;
 namespace Ui {
 class MainWindow;
 }
+
+QString findentry(QString filename);
 
 class MainWindow : public QMainWindow
 {

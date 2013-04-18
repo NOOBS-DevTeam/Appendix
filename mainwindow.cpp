@@ -20,6 +20,7 @@
 #include <QMessageBox>
 
 int n=0,cur_tab=0;//текущий таб
+QTabWidget *tabw;
 QString allErrors;
 std::vector<Editor*> tabs;
 QString cpError;
@@ -58,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+	tabw = ui->tabWidget;
 	ui->splitter_4->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
     ui->action_25->setEnabled(false);
@@ -72,7 +74,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+	/*for (int i=0;i<tabs.size();i++)
+		if (dynamic_cast<Editor*> (tabs[i]))
+			if (tabs[i]->changed)
+			{
+
+			}*/
 	this->writeTweaks();
+	ui->tabWidget->tabCloseRequested(0);
 	delete ui;
 }
 
@@ -82,6 +91,29 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 	delete tabs[index];
 	tabs.erase(tabs.begin()+index);
     n--;
+	if (tabs[index]->changed)
+	{
+		QMessageBox msgBox;
+			msgBox.setWindowTitle("My Message Box"); // Заголовок окна сообщения
+			msgBox.setText("Testing.."); // Заголовок сообщения
+			msgBox.setIcon(QMessageBox::Information); // Тип иконки сообщения
+			msgBox.setInformativeText("Just show infornation."); // Основное сообщение Message Box
+			msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel); // Добавление реагирования на софт клавиши
+			msgBox.setDefaultButton(QMessageBox::Ok); // На какой кнопке фокусироваться по умолчанию
+			int ret = msgBox.exec(); // Запускаем QMessageBox. После выполнения, в ret будет лежать значение кнопки, на которую нажали - это необходимо для дальнейшей обработки событий
+
+			 switch (ret) { // Собственно вот этот case и отвечает за обработку событий
+			   case QMessageBox::Save:
+				   // Сюда пишем обработку события Cancel
+				   break;
+			   case QMessageBox::Ok:
+				   // Сюда пишем обработку события Ok
+				   break;
+			   default:
+				   // Сюда пишем обработку события по умолчанию
+				   break;
+			 };
+	}
 }
 
 void MainWindow::refreshAllTabs()
@@ -241,8 +273,10 @@ void MainWindow::on_action_3_triggered()
 	out << str;
 	out << "\n";
 	file.close();
-    ui->tabWidget->insertTab(cur_tab,tabs[cur_tab],findentry(filename));
+	ui->tabWidget->setTabText(cur_tab,findentry(filename));
     ui->tabWidget->setCurrentIndex(cur_tab);
+	tabs[cur_tab]->saved();
+	tabs[cur_tab]->filename=filename;
 
 }
 
