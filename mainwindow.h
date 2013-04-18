@@ -70,6 +70,8 @@ private slots:
 
 	void saveTab(int i);
 
+    void on_action_9_triggered();
+
 public slots:
 
 	void refreshAllTabs();

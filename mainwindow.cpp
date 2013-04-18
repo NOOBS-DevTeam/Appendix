@@ -20,6 +20,8 @@
 #include <QMessageBox>
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
+
+
 int n=0,cur_tab=0;//текущий таб
 QTabWidget *tabw;
 QString allErrors;
@@ -382,4 +384,33 @@ void MainWindow::on_action_27_triggered()
 {
 	helpdialog *help = new helpdialog;
 	help->show();
+}
+
+void MainWindow::on_action_9_triggered()
+{
+    if (n!=0)
+    {
+        QApplication a(int argc, char *argv[]);
+
+        QString text =tabs[cur_tab]->toPlainText();
+
+           QPrinter printer;
+
+           QPrintDialog *dialog = new QPrintDialog(&printer);
+           dialog->setWindowTitle("Print Document");
+
+           if (dialog->exec() != QDialog::Accepted);
+           else
+           {
+
+           QPainter painter;
+           painter.begin(&printer);
+
+           painter.drawText(100, 100, 500, 500, Qt::AlignLeft|Qt::AlignTop, text);
+
+           painter.end();
+    }
+       }
+    else
+        QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
