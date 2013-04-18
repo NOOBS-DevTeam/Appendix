@@ -61,11 +61,14 @@ private slots:
     void on_toolButton_2_clicked();
 
     void on_action_29_triggered();
+
 	void on_action_25_triggered();
 
 	void on_toolButton_6_clicked();
 
 	void on_action_27_triggered();
+
+	void saveTab(int i);
 
 public slots:
 

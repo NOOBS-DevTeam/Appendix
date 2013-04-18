@@ -18,7 +18,8 @@
 #include <QProcess>
 #include <QSettings>
 #include <QMessageBox>
-
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 int n=0,cur_tab=0;//текущий таб
 QTabWidget *tabw;
 QString allErrors;
@@ -28,13 +29,42 @@ QProcess *cp;
 lang_t cur_lang=CPP;
 QSettings tweaks("NOOBS-DevTeam","Appendix");
 bool comp_in_progress = false;
-
 QString strtoint(int a);
 QString readFile(QString filename);
 
 void readTweaks()
 {
 
+}
+
+void MainWindow::saveTab(int i)
+{
+	QString str = tabs[i]->toPlainText();
+	QString filename;
+	QString format;
+	switch (tabs[i]->getLang())
+	{
+	case CPP:
+		format = ".cpp";
+		break;
+	case PAS:
+		format = ".pas";
+		break;
+	case APX:
+		format = ".apx";
+		break;
+	}
+	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
+	QFile file(filename);
+	file.open(QIODevice::Append | QIODevice::Text);
+	QTextStream out(&file);
+	out << str;
+	out << "\n";
+	file.close();
+	ui->tabWidget->setTabText(cur_tab,findentry(filename));
+	ui->tabWidget->setCurrentIndex(cur_tab);
+	tabs[cur_tab]->saved();
+	tabs[cur_tab]->filename=filename;
 }
 
 void MainWindow::writeTweaks()
@@ -74,45 +104,45 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-	/*for (int i=0;i<tabs.size();i++)
-		if (dynamic_cast<Editor*> (tabs[i]))
-			if (tabs[i]->changed)
-			{
-
-			}*/
 	this->writeTweaks();
-	ui->tabWidget->tabCloseRequested(0);
+	for (int i=0;i<n;i++)
+		if (dynamic_cast<Editor*> (tabs[i]))
+			ui->tabWidget->tabCloseRequested(i);
 	delete ui;
 }
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    ui->tabWidget->removeTab(index);
-	delete tabs[index];
-	tabs.erase(tabs.begin()+index);
-    n--;
 	if (tabs[index]->changed)
 	{
 		QMessageBox msgBox;
-			msgBox.setWindowTitle("My Message Box"); // Заголовок окна сообщения
-			msgBox.setText("Testing.."); // Заголовок сообщения
-			msgBox.setIcon(QMessageBox::Information); // Тип иконки сообщения
-			msgBox.setInformativeText("Just show infornation."); // Основное сообщение Message Box
-			msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel); // Добавление реагирования на софт клавиши
-			msgBox.setDefaultButton(QMessageBox::Ok); // На какой кнопке фокусироваться по умолчанию
-			int ret = msgBox.exec(); // Запускаем QMessageBox. После выполнения, в ret будет лежать значение кнопки, на которую нажали - это необходимо для дальнейшей обработки событий
+		msgBox.setWindowTitle("Сохранить изменения");
+		msgBox.setText("Вы хотите сохранить изменения?");
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setInformativeText("Just show infornation.");
+		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+		msgBox.setDefaultButton(QMessageBox::Cancel);
+		msgBox.exec();
+		int ret = msgBox.result();
+		switch (ret)
+		{
+		case QMessageBox::Discard:
+			ui->tabWidget->removeTab(index);
+			delete tabs[index];
+			tabs.erase(tabs.begin()+index);
+			n--;
+			break;
+		case QMessageBox::Save:
+			saveTab(index);
+			ui->tabWidget->removeTab(index);
+			delete tabs[index];
+			tabs.erase(tabs.begin()+index);
+			n--;
+			break;
+		case QMessageBox::Cancel:
 
-			 switch (ret) { // Собственно вот этот case и отвечает за обработку событий
-			   case QMessageBox::Save:
-				   // Сюда пишем обработку события Cancel
-				   break;
-			   case QMessageBox::Ok:
-				   // Сюда пишем обработку события Ok
-				   break;
-			   default:
-				   // Сюда пишем обработку события по умолчанию
-				   break;
-			 };
+			break;
+		}
 	}
 }
 
@@ -250,34 +280,7 @@ QString findentry(QString s)
 
 void MainWindow::on_action_3_triggered()
 {
-    QString str = tabs[cur_tab]->toPlainText();
-    QString filename;
-	QString format;
-    switch (tabs[cur_tab]->getLang())
-	{
-	case CPP:
-		format = ".cpp";
-		break;
-	case PAS:
-		format = ".pas";
-		break;
-	case APX:
-		format = ".apx";
-		break;
-	}
-
-    filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
-	QFile file(filename);
-	file.open(QIODevice::Append | QIODevice::Text);
-	QTextStream out(&file);
-	out << str;
-	out << "\n";
-	file.close();
-	ui->tabWidget->setTabText(cur_tab,findentry(filename));
-    ui->tabWidget->setCurrentIndex(cur_tab);
-	tabs[cur_tab]->saved();
-	tabs[cur_tab]->filename=filename;
-
+	saveTab(cur_tab);
 }
 
 void MainWindow::slotDataOnStdout()

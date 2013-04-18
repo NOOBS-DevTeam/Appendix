@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QtPrintSupport/QPrinter>
 
 QString strtoint(int a)
 {
