@@ -121,7 +121,6 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 		msgBox.setWindowTitle("Сохранить изменения");
 		msgBox.setText("Вы хотите сохранить изменения?");
 		msgBox.setIcon(QMessageBox::Warning);
-		msgBox.setInformativeText("Just show infornation.");
 		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 		msgBox.setDefaultButton(QMessageBox::Cancel);
 		msgBox.exec();
@@ -179,7 +178,7 @@ void MainWindow::on_action_2_triggered()
 		tabs.push_back(new Editor(0,APX));
 	n++;
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
-	tabs.back()->setText(readFile(filename));
+	tabs.back()->setPlainText(readFile(filename));
 	qDebug() << readFile(filename);
 }
 
