@@ -1,3 +1,34 @@
+/**
+	The Appendix project is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  (Проект Appendix - свободная программа: вы можете перераспространять ее и/или изменять
+   ее на условиях Стандартной общественной лицензии GNU в том виде, в каком
+   она была опубликована Фондом свободного программного обеспечения; либо
+   версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.
+
+   Эта программа распространяется в надежде, что она будет полезной,
+   но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
+   или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Стандартной
+   общественной лицензии GNU.
+
+   Вы должны были получить копию Стандартной общественной лицензии GNU
+   вместе с этой программой. Если это не так, см.
+   <http://www.gnu.org/licenses/>.)
+**/
+
+///Copyright 2013 Miloserdov Vladimir (MiloserdOFF) Shabanov Vladimir (ment-ru)
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "SyntaxHighlighter.h"
@@ -21,24 +52,20 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 
-
 int n=0,cur_tab=0;//текущий таб
+QString allErrors; //???
 QTabWidget *tabw;
-QString allErrors;
-std::vector<Editor*> tabs;
-QString cpError;
-QProcess *cp;
-lang_t cur_lang=CPP;
-QSettings tweaks("NOOBS-DevTeam","Appendix");
-bool comp_in_progress = false;
-QString strtoint(int a);
-QString readFile(QString filename);
+std::vector<Editor*> tabs; //Табы
+QString cpError; //Ошибка комп.
+QProcess *cp; //Процесс (компилятора/apx'a)
+lang_t cur_lang=CPP; // Язык тек. вкладки
+QSettings tweaks("NOOBS-DevTeam","Appendix"); //Собсна настройки
+bool comp_in_progress = false; //Компиляция в процессе?
 
-void readTweaks()
-{
+QString strtoint(int a); //Строку в число
+QString readFile(QString filename); //Чтение файла
 
-}
-
+//Сохранение таба
 void MainWindow::saveTab(int i)
 {
 	QString str = tabs[i]->toPlainText();
@@ -69,6 +96,7 @@ void MainWindow::saveTab(int i)
 	tabs[cur_tab]->filename=filename;
 }
 
+//Запись настроек
 void MainWindow::writeTweaks()
 {
 	tweaks.beginGroup("/Settings");
@@ -86,6 +114,7 @@ void MainWindow::writeTweaks()
 	tweaks.endGroup();
 }
 
+//Конструктор главного окна
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -95,24 +124,29 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->splitter_4->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
     ui->action_25->setEnabled(false);
+
+	//Грузим геометрию окна
 	tweaks.beginGroup("/Settings/Session/geometry");
 		this->setGeometry(tweaks.value("/x",500).toInt(),tweaks.value("/y",500).toInt(),tweaks.value("/w",740).toInt(),tweaks.value("/h",512).toInt());
 	tweaks.endGroup();
-	cp = new QProcess(this);
+
+	cp = new QProcess(this); //Создаем бездействующий процесс
 	connect(cp,SIGNAL(readyReadStandardOutput()),SLOT(slotDataOnStdout()));
 	connect(cp,SIGNAL(readyReadStandardError()),SLOT(slotDataOnError()));
 	connect(cp,SIGNAL(finished(int)),this,SLOT(switchRun()));
 }
 
+//Деструктор окна
 MainWindow::~MainWindow()
 {
-	this->writeTweaks();
+	this->writeTweaks(); //Сэйвим геометрию окна
 	for (int i=0;i<n;i++)
-		if (dynamic_cast<Editor*> (tabs[i]))
-			ui->tabWidget->tabCloseRequested(i);
+		if (dynamic_cast<Editor*> (tabs[i])) //Если вкладка существует
+			ui->tabWidget->tabCloseRequested(i); //То закрываем!
 	delete ui;
 }
 
+//Закрытие таба
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
 	if (tabs[index]->changed)
@@ -147,25 +181,29 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 	}
 }
 
+//Обновление всех табов
 void MainWindow::refreshAllTabs()
 {
-	for (int i=0;i<tabs.size();i++)
+	for (unsigned i=0;i<tabs.size();i++)
 		if (dynamic_cast<Editor*> (tabs[i]))
 			tabs[i]->refresh();
 }
 
+//Смена текущего таба
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
 	cur_tab=index;
 }
 
-void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода в поле вывода
+//Ввод из поля ввода в поле вывода
+void MainWindow::on_lineEdit_returnPressed()
 {
     ui->textEdit->insertPlainText(ui->lineEdit->text()+"\n");
 	cp->write((ui->lineEdit->text().toStdString()+"\n").c_str());
     ui->lineEdit->clear();
 }
 
+//Открытие файла
 void MainWindow::on_action_2_triggered()
 {
 	QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"));
@@ -180,14 +218,15 @@ void MainWindow::on_action_2_triggered()
 	tabs.back()->setPlainText(readFile(filename));
 }
 
+//Создание нового таба
 void MainWindow::on_action_triggered()
 {
-    QStringList city;
-    city << tr("C++") << tr("Pascal") << tr("Appendix");
+	QStringList lst;
+	lst << tr("C++") << tr("Pascal") << tr("Appendix");
     bool ok;
-    QString item = QInputDialog::getItem(this, tr("Выбор языка"),tr("Выбор языка"), city, 0, false, &ok);
+	QString item = QInputDialog::getItem(this, tr("Выбор языка"),tr("Выбор языка"), lst, 0, false, &ok);
     if (ok && !item.isEmpty())
-       {
+	{
         if (item=="C++")
             cur_lang=CPP;
         if (item=="Pascal")
@@ -198,17 +237,19 @@ void MainWindow::on_action_triggered()
         tabs.push_back(new Editor(0,cur_lang));
         ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
         n++;
-       }
+	}
 }
 
+//Очистка вывода
 void MainWindow::on_action_23_triggered()
 {
 	ui->textEdit->clear();
 }
 
+//Запуск программы юзера
 void MainWindow::on_action_24_triggered()
 {
-    if (n)
+	if (n) //Если вкадки открыты
     {
         QString format,compiler;
         switch (tabs[cur_tab]->getLang())
@@ -228,29 +269,36 @@ void MainWindow::on_action_24_triggered()
         }
 
         QString str = tabs[cur_tab]->toPlainText();
-        QFile("temp."+format).remove();
+
+		//Запись текста таба во временный файл
+		QFile("temp."+format).remove();
         QFile file("temp."+format);
         file.open(QIODevice::Append | QIODevice::Text);
         QTextStream out(&file);
         out << str;
         out << "\n";
         file.close();
+
 		if (tabs[cur_tab]->getLang()==APX)
 		{
+			//Запуск интерпретатора (если апх)
 			switchRun();
 			cp->start(compiler);
 			cp->waitForStarted();
 		}
 		else
 		{
+			//Компилируем
 			comp_in_progress = true;
 			cp->start(compiler);
 			cp->waitForFinished();
 			comp_in_progress = false;
+
 			if (cp->exitCode())
 				ui->textEdit->append(allErrors);
 			allErrors = "";
-			if (!cp->exitCode())
+
+			if (!cp->exitCode()) //Если успешно скомпилилось
 			{
 				cp->start(cur_lang==CPP?"a.exe":"temp.exe");
 				cp->waitForStarted();
@@ -263,6 +311,7 @@ void MainWindow::on_action_24_triggered()
 		QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
+//Возвращает подстроку после слеша
 QString findentry(QString s)
 {
     QString str="";
@@ -277,11 +326,13 @@ QString findentry(QString s)
     }
 }
 
+//Сохрание тек. таба
 void MainWindow::on_action_3_triggered()
 {
 	saveTab(cur_tab);
 }
 
+//Чтение стандартного потока запущенного процесса
 void MainWindow::slotDataOnStdout()
 {
 	if (comp_in_progress)
@@ -294,81 +345,90 @@ void MainWindow::slotDataOnStdout()
 	}
 }
 
+//Чтение потока ошибок запущенного процесса
 void MainWindow::slotDataOnError()
 {
 	ui->textEdit->append(cp->readAllStandardError().data());
-	//QString error=QString(cp->readAllStandardError());
-	//error.remove(0,(error.lastIndexOf("error:")+6));
-	//cpError = QString("ERROR:")+(error);
 }
 
-
+//Создание новой вкладки
 void MainWindow::on_toolButton_clicked()
 {
     ui->action->trigger();
-
 }
 
+//Сейв тек. вкладки
 void MainWindow::on_toolButton_3_clicked()
 {
     ui->action_3->trigger();
 
 }
 
+//???
 void MainWindow::on_toolButton_4_clicked()
 {
 
 }
 
+//
 void MainWindow::on_toolButton_5_clicked()
 {
     ui->action_24->trigger();
 }
 
+//Вызов диалога настроек
 void MainWindow::on_action_8_triggered()
 {
 	SettingsDialog *sd = new SettingsDialog;
 	connect(sd,SIGNAL(smthChanged()),this,SLOT(refreshAllTabs()));
 	sd->show();
 }
+
+//???
 void MainWindow::on_action_10_triggered()
 {
+
 }
 
+//Переключение языка вкладки на PAS
 void MainWindow::on_actionPascal_triggered()
 {
    cur_lang = PAS;
-   tabs[cur_tab]->setLang(CPP);
+   tabs[cur_tab]->setLang(PAS);
 }
 
+//Переключение языка вкладки на CPP
 void MainWindow::on_actionC_triggered()
 {
     cur_lang = CPP;
     tabs[cur_tab]->setLang(CPP);
 }
 
+// Открытие файла
 void MainWindow::on_toolButton_2_clicked()
 {
     ui->action_2->trigger();
-
 }
 
+//Остановка запущеной программы
 void MainWindow::on_action_25_triggered()
 {
 	cp->kill();
 }
 
-
+//Кнопка "стоп"
 void MainWindow::on_toolButton_6_clicked()
 {
 	ui->action_25->trigger();
 }
 
+//???
 void MainWindow::on_action_29_triggered()
 {
 
 }
 
+//Переключение кнопок выполнить/остановить
 void MainWindow::switchRun()
 {
 	if (comp_in_progress)
@@ -377,37 +437,32 @@ void MainWindow::switchRun()
     ui->action_24->setEnabled(!ui->action_24->isEnabled());
 }
 
+//Вызов диалога справки
 void MainWindow::on_action_27_triggered()
 {
 	helpdialog *help = new helpdialog;
 	help->show();
 }
 
+//Вызов диалога печати
 void MainWindow::on_action_9_triggered()
 {
-    if (n!=0)
+	/// TODO:
+	/// Добавь комменты!!!
+	if (n!=0)
     {
-        QApplication a(int argc, char *argv[]);
-
         QString text =tabs[cur_tab]->toPlainText();
-
-           QPrinter printer;
-
-           QPrintDialog *dialog = new QPrintDialog(&printer);
-           dialog->setWindowTitle("Print Document");
-
-           if (dialog->exec() != QDialog::Accepted);
-           else
-           {
-
-           QPainter painter;
-           painter.begin(&printer);
-
-           painter.drawText(100, 100, 500, 500, Qt::AlignLeft|Qt::AlignTop, text);
-
-           painter.end();
-    }
-       }
+		QPrinter printer;
+		QPrintDialog *dialog = new QPrintDialog(&printer);
+		dialog->setWindowTitle("Print Document");
+		if (dialog->exec() == QDialog::Accepted)
+		{
+			QPainter painter;
+			painter.begin(&printer);
+			painter.drawText(100, 100, 500, 500, Qt::AlignLeft|Qt::AlignTop, text);
+			painter.end();
+		}
+	}
     else
         QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
