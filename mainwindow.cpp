@@ -168,18 +168,16 @@ void MainWindow::on_lineEdit_returnPressed()// ввод из поля ввода
 
 void MainWindow::on_action_2_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"))+"\n";
-	qDebug() << filename.mid(filename.length()-4,3);
-	if (filename.mid(filename.length()-4,3)=="cpp")
-		tabs.push_back(new Editor(0,CPP));
-	if (filename.mid(filename.length()-4,3)=="pas")
-		tabs.push_back(new Editor(0,PAS));;
-	if (filename.mid(filename.length()-4,3)=="apx")
-		tabs.push_back(new Editor(0,APX));
+	QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"));
+	if (filename.mid(filename.length()-3,3)=="cpp")
+		tabs.push_back(new Editor(this,CPP));
+	if (filename.mid(filename.length()-3,3)=="pas")
+		tabs.push_back(new Editor(this,PAS));;
+	if (filename.mid(filename.length()-3,3)=="apx")
+		tabs.push_back(new Editor(this,APX));
 	n++;
 	ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	tabs.back()->setPlainText(readFile(filename));
-	qDebug() << readFile(filename);
 }
 
 void MainWindow::on_action_triggered()

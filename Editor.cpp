@@ -37,12 +37,9 @@ Editor::Editor(QWidget *parent,lang_t lng) : QPlainTextEdit(parent)
 		this->setPlainText(src_apx);
 
 	lineNumSpace = new LineNumSpace(this);
-	//updateLineNumSpaceWidth(0);
 	highlightCurrentLine();
 	this->setLineWrapMode(QPlainTextEdit::NoWrap);
 	connect(this,SIGNAL(textChanged()), this, SLOT(change()));
-	connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updatelineNumSpaceWidth(int)));
-	connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updatelineNumSpace(QRect,int)));
 	connect(this,SIGNAL(updateRequest(QRect,int)),this,SLOT(change()));
 	setViewportMargins(30, 0, 0, 0);
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
@@ -57,7 +54,6 @@ void Editor::refresh()
 	QFont fnt = qvt.value<QFont>();
 	this->document()->setDefaultFont(fnt);
 	QPalette pal = this->palette();
-	//pal.setColor(QPalette::Base, Qt::white);
 	QVariant qv13 = tweaks4.value("/Settings/Text/BaseColor",QColor(Qt::white));
 	qv13.convert(QVariant::Color);
 	QColor qc13 = qv13.value<QColor>();
@@ -165,10 +161,3 @@ void Editor::lineNumSpacePaintEvent(QPaintEvent *event)
 		blockNumber++;
 	}
 }
-
-/*void Editor::scrollContentsBy(int, int)
-{
-	viewport()->update();
-	emit SIGNAL(scrolled());
-	//scroll();
-}*/
