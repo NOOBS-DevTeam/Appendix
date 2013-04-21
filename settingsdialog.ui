@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Основные настройки</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/res/ico/main.ico</normaloff>:/res/ico/main.ico</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
     <widget class="QListWidget" name="listWidget">
@@ -794,7 +798,9 @@ p, li { white-space: pre-wrap; }
    <header location="global">Editor.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

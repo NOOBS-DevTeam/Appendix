@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>Appendix</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/res/ico/main.ico</normaloff>:/res/ico/main.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">

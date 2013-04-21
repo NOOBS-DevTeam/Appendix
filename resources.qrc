@@ -25,5 +25,6 @@
         <file>res/ico/sttngs.ico</file>
         <file>res/ico/replace.ico</file>
         <file>res/ico/clear.ico</file>
+        <file>res/ico/main.ico</file>
     </qresource>
 </RCC>
