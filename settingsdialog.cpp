@@ -54,7 +54,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 	QStringList lst;
 	QListWidgetItem *pitem = 0;
 	ui->listWidget->setIconSize(QSize(48,48));
-	lst << "Option_1" << "Option_2" << "Option_3";
+    lst << "Подсветка синтаксиса" << "Настройки редактора" << "Option_3";
 	foreach (QString str, lst)
 	{
 		pitem = new QListWidgetItem(str,ui->listWidget);
