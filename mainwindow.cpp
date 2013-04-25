@@ -90,10 +90,11 @@ void MainWindow::saveTab(int i)
 	out << str;
 	out << "\n";
 	file.close();
-	ui->tabWidget->setTabText(cur_tab,findentry(filename));
+    //ui->tabWidget->setTabText(cur_tab,findentry(filename));
 	ui->tabWidget->setCurrentIndex(cur_tab);
-	tabs[cur_tab]->saved();
+    tabs[cur_tab]->saved();
 	tabs[cur_tab]->filename=filename;
+    ui->tabWidget->setTabText(cur_tab,findentry(filename));
 }
 
 //Запись настроек
@@ -204,7 +205,7 @@ void MainWindow::on_lineEdit_returnPressed()
 }
 
 //Открытие файла
-void MainWindow::on_action_2_triggered()
+void MainWindow::on_open_triggered()
 {
 	QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"));
 	if (filename.mid(filename.length()-3,3)=="cpp")
@@ -219,7 +220,7 @@ void MainWindow::on_action_2_triggered()
 }
 
 //Создание нового таба
-void MainWindow::on_action_triggered()
+void MainWindow::on_new_2_triggered()
 {
 	QStringList lst;
 	lst << tr("C++") << tr("Pascal") << tr("Appendix");
@@ -237,6 +238,7 @@ void MainWindow::on_action_triggered()
         tabs.push_back(new Editor(0,cur_lang));
         ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
         n++;
+        tabs.back()->filename=QString("@@@/Tab")+QString(strtoint(n));
 	}
 }
 
@@ -247,7 +249,7 @@ void MainWindow::on_action_23_triggered()
 }
 
 //Запуск программы юзера
-void MainWindow::on_action_24_triggered()
+void MainWindow::run_triggered()
 {
 	if (n) //Если вкадки открыты
     {
@@ -327,7 +329,7 @@ QString findentry(QString s)
 }
 
 //Сохрание тек. таба
-void MainWindow::on_action_3_triggered()
+void MainWindow::save_as_triggered()
 {
 	saveTab(cur_tab);
 }
@@ -341,7 +343,7 @@ void MainWindow::slotDataOnStdout()
 	}
 	else
 	{
-		ui->textEdit->append(cp->readAllStandardOutput());
+        ui->textEdit->append(cp->readAllStandardOutput());
 	}
 }
 
@@ -352,9 +354,9 @@ void MainWindow::slotDataOnError()
 }
 
 //Создание новой вкладки
-void MainWindow::on_toolButton_clicked()
+void MainWindow::new_toolButton_clicked()
 {
-    ui->action->trigger();
+    ui->new_2->trigger();
 }
 
 //Сейв тек. вкладки
@@ -370,14 +372,14 @@ void MainWindow::on_toolButton_4_clicked()
 
 }
 
-//
+//???
 void MainWindow::on_toolButton_5_clicked()
 {
     ui->action_24->trigger();
 }
 
 //Вызов диалога настроек
-void MainWindow::on_action_8_triggered()
+void MainWindow::settings_triggered()
 {
 	SettingsDialog *sd = new SettingsDialog;
 	connect(sd,SIGNAL(smthChanged()),this,SLOT(refreshAllTabs()));
@@ -407,11 +409,11 @@ void MainWindow::on_actionC_triggered()
 // Открытие файла
 void MainWindow::on_toolButton_2_clicked()
 {
-    ui->action_2->trigger();
+    ui->open->trigger();
 }
 
 //Остановка запущеной программы
-void MainWindow::on_action_25_triggered()
+void MainWindow::stop_triggered()
 {
 	cp->kill();
 }
@@ -438,14 +440,14 @@ void MainWindow::switchRun()
 }
 
 //Вызов диалога справки
-void MainWindow::on_action_27_triggered()
+void MainWindow::help_triggered()
 {
 	helpdialog *help = new helpdialog;
 	help->show();
 }
 
 //Вызов диалога печати
-void MainWindow::on_action_9_triggered()
+void MainWindow::print_triggered()
 {
 	/// TODO:
 	/// Добавь комменты!!!
@@ -465,4 +467,60 @@ void MainWindow::on_action_9_triggered()
 	}
     else
         QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
+}
+
+void MainWindow::save_triggered()
+{
+
+}
+
+void MainWindow::save_all_triggered()
+{
+
+}
+
+void MainWindow::close_triggered()
+{
+
+}
+
+void MainWindow::close_inactive_triggered()
+{
+
+}
+
+void MainWindow::exit_triggered()
+{
+
+}
+
+void MainWindow::on_action_4_triggered()
+{
+    std::string fn;
+    QString fn2=tabs[cur_tab]->filename;
+    QString str = tabs[cur_tab]->toPlainText();
+    fn=tabs[cur_tab]->filename.toStdString();
+    if (fn.find("@@@")>fn.length())
+    {
+        QFile file2(fn2);
+        file2.open(QIODevice::Append | QIODevice::Text);
+        QTextStream out(&file2);
+        out << str;
+        out << "\n";
+        file2.close();
+
+    }
+    else
+        saveTab(cur_tab);
+
+}
+
+void MainWindow::on_action_triggered()
+{
+
+}
+
+void MainWindow::on_on_open_triggered()
+{
+
 }

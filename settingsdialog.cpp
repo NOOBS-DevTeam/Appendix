@@ -307,6 +307,7 @@ void SettingsDialog::on_pushButton_10_clicked()
 			tweaks2.setValue("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
 		tweaks2.endGroup();
 	tweaks2.endGroup();
+    emit smthChanged();
 	delete this;
 }
 
