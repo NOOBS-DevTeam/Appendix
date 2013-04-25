@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	tabw = ui->tabWidget;
 	ui->splitter_4->setSizes(QList<int> () << 600 << 200);
     ui->splitter->setSizes(QList<int> () << 700 << 170 );
-    ui->action_25->setEnabled(false);
+    ui->stop->setEnabled(false);
 
 	//Грузим геометрию окна
 	tweaks.beginGroup("/Settings/Session/geometry");
@@ -249,7 +249,7 @@ void MainWindow::on_action_23_triggered()
 }
 
 //Запуск программы юзера
-void MainWindow::run_triggered()
+void MainWindow::on_run_triggered()
 {
 	if (n) //Если вкадки открыты
     {
@@ -329,7 +329,7 @@ QString findentry(QString s)
 }
 
 //Сохрание тек. таба
-void MainWindow::save_as_triggered()
+void MainWindow::on_save_as_triggered()
 {
 	saveTab(cur_tab);
 }
@@ -362,7 +362,7 @@ void MainWindow::new_toolButton_clicked()
 //Сейв тек. вкладки
 void MainWindow::on_toolButton_3_clicked()
 {
-    ui->action_3->trigger();
+    ui->save_as->trigger();
 
 }
 
@@ -375,7 +375,7 @@ void MainWindow::on_toolButton_4_clicked()
 //???
 void MainWindow::on_toolButton_5_clicked()
 {
-    ui->action_24->trigger();
+    ui->run->trigger();
 }
 
 //Вызов диалога настроек
@@ -413,7 +413,7 @@ void MainWindow::on_toolButton_2_clicked()
 }
 
 //Остановка запущеной программы
-void MainWindow::stop_triggered()
+void MainWindow::on_stop_triggered()
 {
 	cp->kill();
 }
@@ -421,7 +421,7 @@ void MainWindow::stop_triggered()
 //Кнопка "стоп"
 void MainWindow::on_toolButton_6_clicked()
 {
-	ui->action_25->trigger();
+    ui->stop->trigger();
 }
 
 //???
@@ -435,8 +435,8 @@ void MainWindow::switchRun()
 {
 	if (comp_in_progress)
 		return;
-    ui->action_25->setEnabled(!ui->action_25->isEnabled());
-    ui->action_24->setEnabled(!ui->action_24->isEnabled());
+    ui->stop->setEnabled(!ui->stop->isEnabled());
+    ui->run->setEnabled(!ui->run->isEnabled());
 }
 
 //Вызов диалога справки
@@ -447,7 +447,7 @@ void MainWindow::help_triggered()
 }
 
 //Вызов диалога печати
-void MainWindow::print_triggered()
+void MainWindow::on_print_triggered()
 {
 	/// TODO:
 	/// Добавь комменты!!!
@@ -474,7 +474,7 @@ void MainWindow::save_triggered()
 
 }
 
-void MainWindow::save_all_triggered()
+void MainWindow::on_save_all_triggered()
 {
 
 }
@@ -494,7 +494,7 @@ void MainWindow::exit_triggered()
 
 }
 
-void MainWindow::on_action_4_triggered()
+void MainWindow::on_save_triggered()
 {
     std::string fn;
     QString fn2=tabs[cur_tab]->filename;

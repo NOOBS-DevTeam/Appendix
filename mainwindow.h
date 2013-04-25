@@ -64,9 +64,9 @@ private slots:
 
     void on_action_23_triggered();
 
-    void run_triggered();
+    void on_run_triggered();
 
-    void save_as_triggered();
+    void on_save_as_triggered();
 
 	void slotDataOnStdout();
 
@@ -94,7 +94,7 @@ private slots:
 
     void on_action_29_triggered();
 
-    void stop_triggered();
+    void on_stop_triggered();
 
 	void on_toolButton_6_clicked();
 
@@ -102,11 +102,11 @@ private slots:
 
 	void saveTab(int i);
 
-    void print_triggered();
+    void on_print_triggered();
 
     void save_triggered();
 
-    void save_all_triggered();
+    void on_save_all_triggered();
 
     void close_triggered();
 
@@ -114,7 +114,7 @@ private slots:
 
     void exit_triggered();
 
-    void on_action_4_triggered();
+    void on_save_triggered();
 
     void on_action_triggered();
 
