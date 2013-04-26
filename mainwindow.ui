@@ -123,23 +123,23 @@
     <addaction name="save"/>
     <addaction name="save_as"/>
     <addaction name="save_all"/>
-    <addaction name="action_6"/>
-    <addaction name="action_7"/>
+    <addaction name="close"/>
+    <addaction name="close_inactive"/>
     <addaction name="separator"/>
     <addaction name="print"/>
     <addaction name="separator"/>
-    <addaction name="action_11"/>
+    <addaction name="exit"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>Правка</string>
     </property>
-    <addaction name="action_13"/>
-    <addaction name="action_14"/>
-    <addaction name="action_15"/>
+    <addaction name="cut"/>
+    <addaction name="copy"/>
+    <addaction name="paste"/>
     <addaction name="separator"/>
-    <addaction name="action_17"/>
-    <addaction name="action_18"/>
+    <addaction name="find"/>
+    <addaction name="replace"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -166,15 +166,15 @@
     <addaction name="stop"/>
     <addaction name="separator"/>
     <addaction name="menu_6"/>
-    <addaction name="action_8"/>
+    <addaction name="settings"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
      <string>Помощь</string>
     </property>
-    <addaction name="action_27"/>
-    <addaction name="action_28"/>
-    <addaction name="action_29"/>
+    <addaction name="help"/>
+    <addaction name="examples"/>
+    <addaction name="about"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -260,7 +260,7 @@
     <string>Сохранить всё</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="close">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/close.ico</normaloff>:/res/ico/close.ico</iconset>
@@ -269,7 +269,7 @@
     <string>Закрыть</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="close_inactive">
    <property name="text">
     <string>Закрыть неактивные</string>
    </property>
@@ -283,7 +283,7 @@
     <string>Печать</string>
    </property>
   </action>
-  <action name="action_11">
+  <action name="exit">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/exit.ico</normaloff>:/res/ico/exit.ico</iconset>
@@ -292,7 +292,7 @@
     <string>Выход</string>
    </property>
   </action>
-  <action name="action_13">
+  <action name="cut">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/cut.ico</normaloff>:/res/ico/cut.ico</iconset>
@@ -301,7 +301,7 @@
     <string>Вырезать</string>
    </property>
   </action>
-  <action name="action_14">
+  <action name="copy">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/copy.ico</normaloff>:/res/ico/copy.ico</iconset>
@@ -310,7 +310,7 @@
     <string>Копировать</string>
    </property>
   </action>
-  <action name="action_15">
+  <action name="paste">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/paste.ico</normaloff>:/res/ico/paste.ico</iconset>
@@ -319,7 +319,7 @@
     <string>Вставить</string>
    </property>
   </action>
-  <action name="action_17">
+  <action name="find">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/find.ico</normaloff>:/res/ico/find.ico</iconset>
@@ -328,7 +328,7 @@
     <string>Найти</string>
    </property>
   </action>
-  <action name="action_18">
+  <action name="replace">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/replace.ico</normaloff>:/res/ico/replace.ico</iconset>
@@ -353,11 +353,6 @@
    </property>
    <property name="text">
     <string>Окно ввода</string>
-   </property>
-  </action>
-  <action name="action_21">
-   <property name="text">
-    <string>Окно отладки</string>
    </property>
   </action>
   <action name="clear">
@@ -393,7 +388,7 @@
     <string>Завершить</string>
    </property>
   </action>
-  <action name="action_27">
+  <action name="help">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/help.ico</normaloff>:/res/ico/help.ico</iconset>
@@ -405,7 +400,7 @@
     <string>F1</string>
    </property>
   </action>
-  <action name="action_28">
+  <action name="examples">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/example.ico</normaloff>:/res/ico/example.ico</iconset>
@@ -414,7 +409,7 @@
     <string>Примеры</string>
    </property>
   </action>
-  <action name="action_29">
+  <action name="about">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/about.ico</normaloff>:/res/ico/about.ico</iconset>
@@ -423,7 +418,7 @@
     <string>Об авторе...</string>
    </property>
   </action>
-  <action name="action_8">
+  <action name="settings">
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/res/ico/sttngs.ico</normaloff>:/res/ico/sttngs.ico</iconset>

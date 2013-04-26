@@ -84,8 +84,6 @@ private slots:
 
     void on_toolButton_4_clicked();
 
-    void settings_triggered();
-
     void on_actionPascal_triggered();
 
     void on_actionC_triggered();
@@ -98,27 +96,27 @@ private slots:
 
 	void on_toolButton_6_clicked();
 
-    void help_triggered();
-
 	void saveTab(int i);
 
     void on_print_triggered();
 
-    void save_triggered();
-
     void on_save_all_triggered();
-
-    void close_triggered();
-
-    void close_inactive_triggered();
-
-    void exit_triggered();
 
     void on_save_triggered();
 
     void on_action_triggered();
 
     void on_on_open_triggered();
+
+	void on_actionAppendix_triggered();
+
+	void on_settings_triggered();
+
+	void on_help_triggered();
+
+	void on_close_triggered();
+
+	void on_exit_triggered();
 
 public slots:
 
@@ -131,4 +129,3 @@ private:
 };
 
 #endif // MAINWINDOW_H
-

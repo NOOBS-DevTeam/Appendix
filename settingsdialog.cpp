@@ -65,8 +65,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 	qv.convert(QVariant::Font);
 	QFont fnt = qv.value<QFont>();
 	qDebug() << fnt;
-	ui->textEdit_4->document()->setDefaultFont(fnt);
-	ui->textEdit_4->setText("Example text preview...");
+	ui->plainTextEdit_4->document()->setDefaultFont(fnt);
+	ui->plainTextEdit_4->setPlainText("Example text preview...");
 	ui->textEdit_2->setLang(PAS);
 	ui->textEdit_3->setLang(APX);
 	init_colors();
@@ -466,6 +466,11 @@ void SettingsDialog::on_pushButton_16_clicked()
 	if (bok)
 	{
 		tweaks2.setValue("/Settings/Text/Font",fnt);
-		ui->textEdit_4->document()->setDefaultFont(fnt);
+		ui->plainTextEdit_4->document()->setDefaultFont(fnt);
 	}
+}
+
+void SettingsDialog::on_spinBox_valueChanged(int arg1)
+{
+	ui->plainTextEdit_15->setTabStopWidth(arg1);
 }

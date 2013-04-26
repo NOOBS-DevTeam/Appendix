@@ -39,3 +39,4 @@ OTHER_FILES += \
 RESOURCES += \
     resources.qrc
 
+RC_FILE = ico.rc

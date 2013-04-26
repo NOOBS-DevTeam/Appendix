@@ -379,7 +379,7 @@ void MainWindow::on_toolButton_5_clicked()
 }
 
 //Вызов диалога настроек
-void MainWindow::settings_triggered()
+void MainWindow::on_settings_triggered()
 {
 	SettingsDialog *sd = new SettingsDialog;
 	connect(sd,SIGNAL(smthChanged()),this,SLOT(refreshAllTabs()));
@@ -404,6 +404,13 @@ void MainWindow::on_actionC_triggered()
 {
     cur_lang = CPP;
     tabs[cur_tab]->setLang(CPP);
+}
+
+//Переключение языка вкладки на APX
+void MainWindow::on_actionAppendix_triggered()
+{
+	cur_lang = APX;
+	tabs[cur_tab]->setLang(APX);
 }
 
 // Открытие файла
@@ -440,7 +447,7 @@ void MainWindow::switchRun()
 }
 
 //Вызов диалога справки
-void MainWindow::help_triggered()
+void MainWindow::on_help_triggered()
 {
 	helpdialog *help = new helpdialog;
 	help->show();
@@ -469,27 +476,17 @@ void MainWindow::on_print_triggered()
         QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
-void MainWindow::save_triggered()
-{
-
-}
-
 void MainWindow::on_save_all_triggered()
 {
 
 }
 
-void MainWindow::close_triggered()
+void MainWindow::on_close_triggered()
 {
 
 }
 
-void MainWindow::close_inactive_triggered()
-{
-
-}
-
-void MainWindow::exit_triggered()
+void MainWindow::on_exit_triggered()
 {
 
 }

@@ -87,6 +87,8 @@ private slots:
 	void on_pushButton_16_clicked();
 /*public slots:
 	void refreshAllTabs();*/
+	void on_spinBox_valueChanged(int arg1);
+
 signals:
 	void smthChanged();
 private:
