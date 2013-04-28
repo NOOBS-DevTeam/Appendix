@@ -38,6 +38,7 @@
 #include "Editor.h"
 #include <string.h>
 #include <stdio.h>
+#include <fstream>
 #include <strstream>
 #include <vector>
 #include <QFileDialog>
@@ -84,16 +85,13 @@ void MainWindow::saveTab(int i)
 		break;
 	}
 	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
-	QFile file(filename);
-	file.open(QIODevice::Append | QIODevice::Text);
-	QTextStream out(&file);
-	out << str;
+	std::ofstream out(filename.toStdString().c_str());
+	out << str.toStdString();
 	out << "\n";
-	file.close();
-    //ui->tabWidget->setTabText(cur_tab,findentry(filename));
-	ui->tabWidget->setCurrentIndex(cur_tab);
-    tabs[cur_tab]->saved();
+	out.close();
 	tabs[cur_tab]->filename=filename;
+	ui->tabWidget->setCurrentIndex(cur_tab);
+	tabs[cur_tab]->saved();
     ui->tabWidget->setTabText(cur_tab,findentry(filename));
 }
 
@@ -239,6 +237,7 @@ void MainWindow::on_new_2_triggered()
         ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
         n++;
         tabs.back()->filename=QString("@@@/Tab")+QString(strtoint(n));
+		ui->tabWidget->setTabText(cur_tab,findentry(tabs.back()->filename));
 	}
 }
 
@@ -274,12 +273,10 @@ void MainWindow::on_run_triggered()
 
 		//Запись текста таба во временный файл
 		QFile("temp."+format).remove();
-        QFile file("temp."+format);
-        file.open(QIODevice::Append | QIODevice::Text);
-        QTextStream out(&file);
-        out << str;
+		std::ofstream out(std::string("temp."+format.toStdString()).c_str());
+		out << str.toStdString();
         out << "\n";
-        file.close();
+		out.close();
 
 		if (tabs[cur_tab]->getLang()==APX)
 		{
@@ -302,10 +299,18 @@ void MainWindow::on_run_triggered()
 
 			if (!cp->exitCode()) //Если успешно скомпилилось
 			{
+			#ifdef Q_OS_LINUX
+				switchRun();
+				cp->start(cur_lang==CPP?"./a.out":"./temp.out");
+				cp->waitForStarted();
+				QFile(cur_lang==CPP?"./a.out":"./temp.out").remove();//Для Linux
+			#endif
+			#ifdef Q_WS_WIN
+				switchRun();
 				cp->start(cur_lang==CPP?"a.exe":"temp.exe");
 				cp->waitForStarted();
-				switchRun();
-				QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();
+				QFile(cur_lang==CPP?"a.exe":"temp.exe").remove();//Для Windows
+			#endif
 			}
 		}
 	}
@@ -363,7 +368,6 @@ void MainWindow::new_toolButton_clicked()
 void MainWindow::on_toolButton_3_clicked()
 {
     ui->save_as->trigger();
-
 }
 
 //???
@@ -499,16 +503,17 @@ void MainWindow::on_save_triggered()
     fn=tabs[cur_tab]->filename.toStdString();
     if (fn.find("@@@")>fn.length())
     {
-        QFile file2(fn2);
-        file2.open(QIODevice::Append | QIODevice::Text);
-        QTextStream out(&file2);
-        out << str;
+		std::ofstream out;
+		out.open(fn.c_str());
+		out << str.toStdString();
         out << "\n";
-        file2.close();
-
+		out.close();
+		ui->tabWidget->setCurrentIndex(cur_tab);
+		tabs[cur_tab]->saved();
+		ui->tabWidget->setTabText(cur_tab,findentry(fn2));
     }
     else
-        saveTab(cur_tab);
+		saveTab(cur_tab);
 
 }
 
