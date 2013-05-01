@@ -58,6 +58,7 @@ QString readFile(QString filename) //считывание из файла
 
 	return QString(total);
 }
+//asdasdaslkd
 
 int main(int argc, char *argv[])
 {

@@ -86,17 +86,26 @@ void MainWindow::saveTab(int i)
         format = ".apx";
         break;
     }
-    filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
-    QFile file(filename);
+	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
+	if (filename.isEmpty())
+		return;
+#ifdef Q_OS_UNIX
+	std::ofstream out(filename.toStdString().c_str());
+	out << str.toStdString();
+	out << "\n";
+	out.close();
+#elif Q_OS_WIN
+	QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
     out << str;
     out << "\n";
     file.close();
-    tabs[cur_tab]->filename=filename;
-    ui->tabWidget->setCurrentIndex(cur_tab);
+#endif
+	tabs[cur_tab]->filename=filename;
+	//ui->tabWidget->setCurrentIndex(cur_tab);
     tabs[cur_tab]->saved();
-    ui->tabWidget->setTabText(cur_tab,findentry(filename));
+	//ui->tabWidget->setTabText(cur_tab,findentry(filename));
 }
 
 //Запись настроек
@@ -182,6 +191,13 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
             break;
         }
     }
+	else
+	{
+		ui->tabWidget->removeTab(index);
+		delete tabs[index];
+		tabs.erase(tabs.begin()+index);
+		n--;
+	}
 }
 
 //Обновление всех табов
@@ -210,6 +226,8 @@ void MainWindow::on_lineEdit_returnPressed()
 void MainWindow::on_open_triggered()
 {
     QString filename = QFileDialog::getOpenFileName(this,("Открыть файл"), "", ("Файл Appendix(*.apx *.pas *.cpp)"));
+	if (filename.isEmpty())
+		return;
     if (filename.mid(filename.length()-3,3)=="cpp")
         tabs.push_back(new Editor(this,CPP));
     if (filename.mid(filename.length()-3,3)=="pas")
@@ -218,7 +236,9 @@ void MainWindow::on_open_triggered()
         tabs.push_back(new Editor(this,APX));
     n++;
     ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+	tabs.back()->filename=filename;
     tabs.back()->setPlainText(readFile(filename));
+	tabs.back()->saved();
 }
 
 //Создание нового таба
@@ -241,14 +261,7 @@ void MainWindow::on_new_2_triggered()
         ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
         n++;
         tabs.back()->filename=QString("@@@/Tab")+QString(strtoint(n));
-        ui->tabWidget->setTabText(cur_tab,findentry(tabs.back()->filename));
     }
-}
-
-//Очистка вывода
-void MainWindow::on_action_23_triggered()
-{
-    ui->textEdit->clear();
 }
 
 //Запуск программы юзера
@@ -303,7 +316,7 @@ void MainWindow::on_run_triggered()
 
             if (!cp->exitCode()) //Если успешно скомпилилось
             {
-            #ifdef Q_OS_LINUX
+			#ifdef Q_OS_UNIX
                 switchRun();
                 cp->start(cur_lang==CPP?"./a.out":"./temp.out");
                 cp->waitForStarted();
@@ -335,6 +348,7 @@ QString findentry(QString s)
             return str;
         }
     }
+	return str;
 }
 
 //Сохрание тек. таба
@@ -362,42 +376,12 @@ void MainWindow::slotDataOnError()
     ui->textEdit->append(cp->readAllStandardError().data());
 }
 
-//Создание новой вкладки
-void MainWindow::new_toolButton_clicked()
-{
-    ui->new_2->trigger();
-}
-
-//Сейв тек. вкладки
-void MainWindow::on_toolButton_3_clicked()
-{
-    ui->save_as->trigger();
-}
-
-//???
-void MainWindow::on_toolButton_4_clicked()
-{
-
-}
-
-//???
-void MainWindow::on_toolButton_5_clicked()
-{
-    ui->run->trigger();
-}
-
 //Вызов диалога настроек
 void MainWindow::on_settings_triggered()
 {
     SettingsDialog *sd = new SettingsDialog;
     connect(sd,SIGNAL(smthChanged()),this,SLOT(refreshAllTabs()));
     sd->show();
-}
-
-//???
-void MainWindow::on_action_10_triggered()
-{
-
 }
 
 //Переключение языка вкладки на PAS
@@ -421,28 +405,10 @@ void MainWindow::on_actionAppendix_triggered()
     tabs[cur_tab]->setLang(APX);
 }
 
-// Открытие файла
-void MainWindow::on_toolButton_2_clicked()
-{
-    ui->open->trigger();
-}
-
 //Остановка запущеной программы
 void MainWindow::on_stop_triggered()
 {
     cp->kill();
-}
-
-//Кнопка "стоп"
-void MainWindow::on_toolButton_6_clicked()
-{
-    ui->stop->trigger();
-}
-
-//???
-void MainWindow::on_action_29_triggered()
-{
-
 }
 
 //Переключение кнопок выполнить/остановить
@@ -501,31 +467,30 @@ void MainWindow::on_exit_triggered()
 
 void MainWindow::on_save_triggered()
 {
-    std::string fn;
     QString fn2=tabs[cur_tab]->filename;
     QString str = tabs[cur_tab]->toPlainText();
-    fn=tabs[cur_tab]->filename.toStdString();
-    if (fn.find("@@@")>fn.length())
+	if (fn2.toStdString().find("@@@")>(size_t)fn2.length())
     {
-        QFile file(fn2);
+	#ifdef Q_OS_UNIX
+		std::ofstream out(fn2.toStdString().c_str());
+		out << str.toStdString();
+		out << "\n";
+		out.close();
+	#elif Q_OS_WIN
+		QFile file(fn2);
         file.open(QIODevice::WriteOnly | QIODevice::Text);
         QTextStream out(&file);
         out << str;
         out << "\n";
         file.close();
+	#endif
         tabs[cur_tab]->saved();
     }
     else
         saveTab(cur_tab);
-
 }
 
-void MainWindow::on_action_triggered()
+void MainWindow::on_clear_triggered()
 {
-
-}
-
-void MainWindow::on_on_open_triggered()
-{
-
+	ui->textEdit->clear();
 }

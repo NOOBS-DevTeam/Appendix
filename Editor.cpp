@@ -72,7 +72,7 @@ Editor::Editor(QWidget *parent,lang_t lng) : QPlainTextEdit(parent)
 	highlightCurrentLine();
 	this->setLineWrapMode(QPlainTextEdit::NoWrap);
 	connect(this,SIGNAL(textChanged()), this, SLOT(change()));
-	connect(this,SIGNAL(updateRequest(QRect,int)),this,SLOT(change()));
+	//connect(this,SIGNAL(updateRequest(QRect,int)),this,SLOT(change()));
 	setViewportMargins(30, 0, 0, 0);
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 }
@@ -114,6 +114,7 @@ void Editor::change()
 void Editor::saved()
 {
 	changed = false;
+	tabw->setTabText(cur_tab,findentry(filename));
 }
 
 void Editor::updateLineNumSpaceWidth(int /* newBlockCount */)

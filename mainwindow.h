@@ -62,8 +62,6 @@ private slots:
 
     void on_new_2_triggered();
 
-    void on_action_23_triggered();
-
     void on_run_triggered();
 
     void on_save_as_triggered();
@@ -74,27 +72,11 @@ private slots:
 
 	void writeTweaks();
 
-    void on_action_10_triggered();
-
-    void new_toolButton_clicked();
-
-    void on_toolButton_3_clicked();
-
-    void on_toolButton_5_clicked();
-
-    void on_toolButton_4_clicked();
-
     void on_actionPascal_triggered();
 
     void on_actionC_triggered();
 
-    void on_toolButton_2_clicked();
-
-    void on_action_29_triggered();
-
     void on_stop_triggered();
-
-	void on_toolButton_6_clicked();
 
 	void saveTab(int i);
 
@@ -103,10 +85,6 @@ private slots:
     void on_save_all_triggered();
 
     void on_save_triggered();
-
-    void on_action_triggered();
-
-    void on_on_open_triggered();
 
 	void on_actionAppendix_triggered();
 
@@ -117,6 +95,8 @@ private slots:
 	void on_close_triggered();
 
 	void on_exit_triggered();
+
+	void on_clear_triggered();
 
 public slots:
 
