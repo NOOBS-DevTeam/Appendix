@@ -72,7 +72,7 @@ QString readFile(QString filename); //Чтение файла
 void MainWindow::saveTab(int i)
 {
     QString str = tabs[i]->toPlainText();
-    QString filename;
+	QString filename = tabs[i]->filename;
     QString format;
     switch (tabs[i]->getLang())
     {
@@ -86,7 +86,8 @@ void MainWindow::saveTab(int i)
         format = ".apx";
         break;
     }
-	filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
+	if (filename.toStdString().find("@@@")<=(size_t)filename.length())
+		filename = QFileDialog::getSaveFileName(this,tr("Save Document"),"",tr("Documents (*")+format+")");
 	if (filename.isEmpty())
 		return;
 #ifdef Q_OS_UNIX
@@ -102,10 +103,8 @@ void MainWindow::saveTab(int i)
     out << "\n";
     file.close();
 #endif
-	tabs[cur_tab]->filename=filename;
-	//ui->tabWidget->setCurrentIndex(cur_tab);
-    tabs[cur_tab]->saved();
-	//ui->tabWidget->setTabText(cur_tab,findentry(filename));
+	tabs[i]->filename=filename;
+	tabs[i]->saved(i);
 }
 
 //Запись настроек
@@ -161,7 +160,7 @@ MainWindow::~MainWindow()
 //Закрытие таба
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    if (tabs[index]->changed)
+	if (tabs[index]->changed)
     {
         QMessageBox msgBox;
         msgBox.setWindowTitle("Сохранить изменения");
@@ -238,7 +237,7 @@ void MainWindow::on_open_triggered()
     ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
 	tabs.back()->filename=filename;
     tabs.back()->setPlainText(readFile(filename));
-	tabs.back()->saved();
+	tabs.back()->saved(n-1);
 }
 
 //Создание нового таба
@@ -452,12 +451,16 @@ void MainWindow::on_print_triggered()
 
 void MainWindow::on_save_all_triggered()
 {
-
+	for (int i=0;i<n;i++)
+		saveTab(i);
 }
 
 void MainWindow::on_close_triggered()
 {
-
+	ui->tabWidget->removeTab(cur_tab);
+	delete tabs[cur_tab+1];
+	tabs.erase(tabs.begin()+cur_tab+1);
+	n--;
 }
 
 void MainWindow::on_exit_triggered()
@@ -467,7 +470,7 @@ void MainWindow::on_exit_triggered()
 
 void MainWindow::on_save_triggered()
 {
-    QString fn2=tabs[cur_tab]->filename;
+	/*QString fn2=tabs[cur_tab]->filename;
     QString str = tabs[cur_tab]->toPlainText();
 	if (fn2.toStdString().find("@@@")>(size_t)fn2.length())
     {
@@ -486,11 +489,25 @@ void MainWindow::on_save_triggered()
 	#endif
         tabs[cur_tab]->saved();
     }
-    else
+	else*/
         saveTab(cur_tab);
 }
 
 void MainWindow::on_clear_triggered()
 {
 	ui->textEdit->clear();
+}
+
+void MainWindow::on_close_inactive_triggered()
+{
+	const int n_const=n;
+	int to_save = cur_tab;
+	bool passed = false;
+	for (int i=0;i<n_const;i++)
+		if (i!=to_save)
+		{
+			on_tabWidget_tabCloseRequested(passed?1:0);
+		}
+		else
+			passed = true;
 }

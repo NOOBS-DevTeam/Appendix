@@ -98,6 +98,8 @@ private slots:
 
 	void on_clear_triggered();
 
+	void on_close_inactive_triggered();
+
 public slots:
 
 	void refreshAllTabs();

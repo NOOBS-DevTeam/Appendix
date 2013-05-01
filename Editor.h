@@ -76,7 +76,7 @@ public:
 	explicit Editor(QWidget *parent = 0,lang_t lang = CPP);
 	void setLang(lang_t lng);
 	void refresh();
-	void saved();
+	void saved(int i);
 	lang_t getLang();
 	void lineNumSpacePaintEvent(QPaintEvent *event);
 };

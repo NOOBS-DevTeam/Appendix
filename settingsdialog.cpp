@@ -64,7 +64,6 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 	QVariant qv = tweaks2.value("/Settings/Text/Font",QVariant(QFont("Consolas",10,QFont::Normal)));
 	qv.convert(QVariant::Font);
 	QFont fnt = qv.value<QFont>();
-	qDebug() << fnt;
 	ui->plainTextEdit_4->document()->setDefaultFont(fnt);
 	ui->plainTextEdit_4->setPlainText("Example text preview...");
 	ui->textEdit_2->setLang(PAS);

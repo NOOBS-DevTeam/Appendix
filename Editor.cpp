@@ -111,10 +111,10 @@ void Editor::change()
 	tabw->setTabText(cur_tab,'*'+findentry(filename));
 }
 
-void Editor::saved()
+void Editor::saved(int i)
 {
 	changed = false;
-	tabw->setTabText(cur_tab,findentry(filename));
+	tabw->setTabText(i,findentry(filename));
 }
 
 void Editor::updateLineNumSpaceWidth(int /* newBlockCount */)
