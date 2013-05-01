@@ -204,7 +204,9 @@ void MainWindow::refreshAllTabs()
 {
     for (unsigned i=0;i<tabs.size();i++)
         if (dynamic_cast<Editor*> (tabs[i]))
-            tabs[i]->refresh();
+			tabs[i]->refresh();
+	/*for (int i=0;i<n;i++)
+		tabs[i]->saved(i);*/
 }
 
 //Смена текущего таба
@@ -470,27 +472,7 @@ void MainWindow::on_exit_triggered()
 
 void MainWindow::on_save_triggered()
 {
-	/*QString fn2=tabs[cur_tab]->filename;
-    QString str = tabs[cur_tab]->toPlainText();
-	if (fn2.toStdString().find("@@@")>(size_t)fn2.length())
-    {
-	#ifdef Q_OS_UNIX
-		std::ofstream out(fn2.toStdString().c_str());
-		out << str.toStdString();
-		out << "\n";
-		out.close();
-	#elif Q_OS_WIN
-		QFile file(fn2);
-        file.open(QIODevice::WriteOnly | QIODevice::Text);
-        QTextStream out(&file);
-        out << str;
-        out << "\n";
-        file.close();
-	#endif
-        tabs[cur_tab]->saved();
-    }
-	else*/
-        saveTab(cur_tab);
+	saveTab(cur_tab);
 }
 
 void MainWindow::on_clear_triggered()

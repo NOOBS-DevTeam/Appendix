@@ -182,7 +182,8 @@ void SettingsDialog::on_pushButton_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/C++/prepr",col);
+	changedSettings["/Settings/SyntaxH/C++/prepr"] = QVariant(col);
+	//tweaks2.setValue("/Settings/SyntaxH/C++/prepr",col);
 }
 
 void SettingsDialog::on_pushButton_2_clicked()
@@ -192,7 +193,7 @@ void SettingsDialog::on_pushButton_2_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_2->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/C++/string",col);
+	changedSettings["/Settings/SyntaxH/C++/string"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_3_clicked()
@@ -202,7 +203,7 @@ void SettingsDialog::on_pushButton_3_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_3->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/C++/comment",col);
+	changedSettings["/Settings/SyntaxH/C++/comment"] = QVariant(col);;
 }
 
 void SettingsDialog::on_pushButton_4_clicked()
@@ -212,7 +213,7 @@ void SettingsDialog::on_pushButton_4_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_4->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/C++/number",col);
+	changedSettings["/Settings/SyntaxH/C++/number"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_5_clicked()
@@ -222,7 +223,7 @@ void SettingsDialog::on_pushButton_5_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_5->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/C++/keyword",col);
+	changedSettings["/Settings/SyntaxH/C++/keyword"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_6_clicked()
@@ -232,7 +233,7 @@ void SettingsDialog::on_pushButton_6_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_6->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/PAS/string",col);
+	changedSettings["/Settings/SyntaxH/PAS/string"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_7_clicked()
@@ -242,7 +243,7 @@ void SettingsDialog::on_pushButton_7_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_7->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/PAS/comment",col);
+	changedSettings["/Settings/SyntaxH/PAS/comment"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_8_clicked()
@@ -252,7 +253,7 @@ void SettingsDialog::on_pushButton_8_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_8->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/PAS/number",col);
+	changedSettings["/Settings/SyntaxH/PAS/number"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_9_clicked()
@@ -262,7 +263,7 @@ void SettingsDialog::on_pushButton_9_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_9->setPalette(pal);
     rfrshclrs();
-	tweaks2.setValue("/Settings/SyntaxH/PAS/keyword",col);
+	changedSettings["/Settings/SyntaxH/PAS/keyword"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_10_clicked()
@@ -312,9 +313,19 @@ void SettingsDialog::on_pushButton_10_clicked()
 
 void SettingsDialog::on_buttonBox_accepted()
 {
-	//tweaks2.setValue("/Settings/Text/Font",ui->fontComboBox->);
-	tweaks2.setValue("/Settings/Text/TabSize",ui->spinBox->value());
+	for (std::map<std::string,QVariant>::iterator it=changedSettings.begin();it!=changedSettings.end();it++)
+		tweaks2.setValue((*it).first.c_str(),(*it).second);
 	emit smthChanged();
+}
+
+void SettingsDialog::on_buttonBox_clicked(QAbstractButton *button)
+{
+	if (button->text() == "Apply")
+	{
+		for (std::map<std::string,QVariant>::iterator it=changedSettings.begin();it!=changedSettings.end();it++)
+			tweaks2.setValue((*it).first.c_str(),(*it).second);
+		emit smthChanged();
+	}
 }
 
 void SettingsDialog::on_pushButton_11_clicked()
@@ -324,8 +335,7 @@ void SettingsDialog::on_pushButton_11_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_10->setPalette(pal);
     rfrshclrs();
-    tweaks2.setValue("/Settings/SyntaxH/APX/string",col);
-
+	changedSettings["/Settings/SyntaxH/APX/string"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_12_clicked()
@@ -335,8 +345,7 @@ void SettingsDialog::on_pushButton_12_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_11->setPalette(pal);
     rfrshclrs();
-    tweaks2.setValue("/Settings/SyntaxH/APX/comment",col);
-
+	changedSettings["/Settings/SyntaxH/APX/comment"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_13_clicked()
@@ -346,8 +355,7 @@ void SettingsDialog::on_pushButton_13_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_12->setPalette(pal);
     rfrshclrs();
-    tweaks2.setValue("/Settings/SyntaxH/APX/number",col);
-
+	changedSettings["/Settings/SyntaxH/APX/number"] = QVariant(col);
 }
 
 void SettingsDialog::on_pushButton_14_clicked()
@@ -357,8 +365,7 @@ void SettingsDialog::on_pushButton_14_clicked()
 	pal.setColor(QPalette::Base,col);
 	ui->plainTextEdit_13->setPalette(pal);
     rfrshclrs();
-    tweaks2.setValue("/Settings/SyntaxH/APX/keyword",col);
-
+	changedSettings["/Settings/SyntaxH/APX/keyword"] = QVariant(col);
 }
 
 void SettingsDialog::rfrshclrs()
@@ -451,7 +458,7 @@ void SettingsDialog::on_pushButton_15_clicked()
 	QPalette pal = ui->plainTextEdit_14->palette();
 	QColor col = QColorDialog::getColor();
 	pal.setColor(QPalette::Base,col);
-	tweaks2.setValue("/Settings/Text/BaseColor",QVariant(col));
+	changedSettings["/Settings/Text/BaseColor"] = QVariant(col);
 	ui->plainTextEdit_14->setPalette(pal);
 }
 
@@ -464,7 +471,7 @@ void SettingsDialog::on_pushButton_16_clicked()
 	QFont fnt= QFontDialog::getFont(&bok,initial,this,"Выбирите шрифт");
 	if (bok)
 	{
-		tweaks2.setValue("/Settings/Text/Font",fnt);
+		changedSettings["/Settings/Text/Font"] = QVariant(fnt);
 		ui->plainTextEdit_4->document()->setDefaultFont(fnt);
 	}
 }
@@ -472,4 +479,5 @@ void SettingsDialog::on_pushButton_16_clicked()
 void SettingsDialog::on_spinBox_valueChanged(int arg1)
 {
 	ui->plainTextEdit_15->setTabStopWidth(arg1);
+	changedSettings["/Settings/Text/TabSize"] = QVariant(arg1);
 }

@@ -35,6 +35,10 @@
 
 #include <QDialog>
 #include <QtCore>
+#include <map>
+#include <QVariant>
+#include <QAbstractButton>
+
 namespace Ui {
 	class SettingsDialog;
 }
@@ -46,7 +50,13 @@ class SettingsDialog : public QDialog
 public:
 	explicit SettingsDialog(QWidget *parent = 0);
 	~SettingsDialog();
-	
+
+private:
+	std::map<std::string,QVariant> changedSettings;
+
+	void init_colors();
+	Ui::SettingsDialog *ui;
+
 private slots:
 	void on_listWidget_itemSelectionChanged();
 
@@ -68,9 +78,9 @@ private slots:
 
 	void on_pushButton_9_clicked();
 
-    void on_pushButton_10_clicked();
+	void on_pushButton_10_clicked();
 
-    void on_buttonBox_accepted();
+	void on_buttonBox_accepted();
 
 	void on_pushButton_11_clicked();
 
@@ -85,15 +95,13 @@ private slots:
 	void on_pushButton_15_clicked();
 
 	void on_pushButton_16_clicked();
-/*public slots:
-	void refreshAllTabs();*/
+
 	void on_spinBox_valueChanged(int arg1);
+
+	void on_buttonBox_clicked(QAbstractButton *button);
 
 signals:
 	void smthChanged();
-private:
-	void init_colors();
-	Ui::SettingsDialog *ui;
 };
 
 #endif // SETTINGSDIALOG_H
