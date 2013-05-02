@@ -33,6 +33,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "Editor.h"
+#include <QMessageBox>
 #include <QMainWindow>
 
 extern int cur_tab;
@@ -49,7 +50,13 @@ class MainWindow : public QMainWindow
     
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    ~MainWindow();	
+    void closeEvent ( QCloseEvent * event )
+    {
+        event->ignore();
+        if (FormClose()==1)
+            event->accept();
+    };
     
 private slots:
     void on_tabWidget_tabCloseRequested(int index);
@@ -105,6 +112,8 @@ public slots:
 	void refreshAllTabs();
 
 	void switchRun();
+
+    int FormClose();
 
 private:
 	Ui::MainWindow *ui;

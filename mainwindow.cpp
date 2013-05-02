@@ -47,6 +47,7 @@
 #include <QTabWidget>
 #include <QFile>
 #include <QFont>
+#include <QtWidgets>
 #include <QDebug>
 #include <QTextStream>
 #include <QProcess>
@@ -55,7 +56,7 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 
-int n=0,cur_tab=0;//текущий таб
+int n=0,cur_tab=0,res;//текущий таб
 QString allErrors; //???
 QTabWidget *tabw;
 std::vector<Editor*> tabs; //Табы
@@ -152,9 +153,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     this->writeTweaks(); //Сэйвим геометрию окна
-    for (int i=0;i<n;i++)
-        if (dynamic_cast<Editor*> (tabs[i])) //Если вкладка существует
-            ui->tabWidget->tabCloseRequested(i); //То закрываем!
     delete ui;
 }
 
@@ -162,8 +160,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
     QString format;
-    qDebug() << index;
-    qDebug() << ui->tabWidget->tabText(index);
     switch (tabs[index]->getLang())
     {
     case CPP:
@@ -185,6 +181,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
         msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
         msgBox.exec();
+        res=0;
         int ret = msgBox.result();
         switch (ret)
         {
@@ -203,6 +200,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
             break;
         case QMessageBox::Cancel:
 
+            res=1;
             break;
         }
     }
@@ -213,6 +211,21 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 		tabs.erase(tabs.begin()+index);
 		n--;
 	}
+}
+
+int MainWindow::FormClose()
+{
+    for (int i=0;i<n;)
+    {
+        if (dynamic_cast<Editor*> (tabs[i])) //Если вкладка существует
+            ui->tabWidget->tabCloseRequested(i); //То закрываем!
+        if (res==1) i++;
+    }
+    if (n==0)
+        return 1;
+    else
+        return 0;
+
 }
 
 //Обновление всех табов
@@ -498,6 +511,7 @@ void MainWindow::on_exit_triggered()
 {
 
 }
+
 
 void MainWindow::on_save_triggered()
 {
