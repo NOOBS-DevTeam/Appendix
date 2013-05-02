@@ -107,8 +107,9 @@ lang_t Editor::getLang()
 
 void Editor::change()
 {
-	changed=true;
-	tabw->setTabText(cur_tab,'*'+findentry(filename));
+    if (!changed)
+    tabw->setTabText(cur_tab,'*'+tabw->tabText(cur_tab));
+    changed=true;
 }
 
 void Editor::saved(int i)

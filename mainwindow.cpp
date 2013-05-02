@@ -95,7 +95,8 @@ void MainWindow::saveTab(int i)
 	out << str.toStdString();
 	out << "\n";
 	out.close();
-#elif Q_OS_WIN
+#endif
+#ifdef Q_OS_WIN
 	QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
@@ -160,11 +161,26 @@ MainWindow::~MainWindow()
 //Закрытие таба
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-	if (tabs[index]->changed)
+    QString format;
+    qDebug() << index;
+    qDebug() << ui->tabWidget->tabText(index);
+    switch (tabs[index]->getLang())
+    {
+    case CPP:
+        format = ".cpp";
+        break;
+    case PAS:
+        format = ".pas";
+        break;
+    case APX:
+        format = ".apx";
+        break;
+    }
+    if (tabs[index]->changed)
     {
         QMessageBox msgBox;
         msgBox.setWindowTitle("Сохранить изменения");
-        msgBox.setText("Вы хотите сохранить изменения?");
+        msgBox.setText("Вы хотите сохранить изменения файла "+(ui->tabWidget->tabText(index))+" ?");
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Cancel);
@@ -259,7 +275,20 @@ void MainWindow::on_new_2_triggered()
             cur_lang=APX;
         //-----------------
         tabs.push_back(new Editor(0,cur_lang));
-        ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)));
+        QString format;
+        switch (tabs[n]->getLang())
+        {
+        case CPP:
+            format = ".cpp";
+            break;
+        case PAS:
+            format = ".pas";
+            break;
+        case APX:
+            format = ".apx";
+            break;
+        }
+        ui->tabWidget->addTab(tabs.back(),QString("Tab")+QString(strtoint(n)+format));
         n++;
         tabs.back()->filename=QString("@@@/Tab")+QString(strtoint(n));
     }
