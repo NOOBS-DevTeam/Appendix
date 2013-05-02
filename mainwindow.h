@@ -50,13 +50,7 @@ class MainWindow : public QMainWindow
     
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();	
-    void closeEvent ( QCloseEvent * event )
-    {
-        event->ignore();
-        if (FormClose()==1)
-            event->accept();
-    };
+	~MainWindow();
     
 private slots:
     void on_tabWidget_tabCloseRequested(int index);
@@ -117,6 +111,7 @@ public slots:
 
 private:
 	Ui::MainWindow *ui;
+	void closeEvent (QCloseEvent *event);
 };
 
 #endif // MAINWINDOW_H

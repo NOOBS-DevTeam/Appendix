@@ -213,18 +213,24 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 	}
 }
 
+void MainWindow::closeEvent ( QCloseEvent * event )
+{
+	event->ignore();
+	for (int i=0;i<n;)
+	{
+		if (dynamic_cast<Editor*> (tabs[i])) //Если вкладка существует
+			ui->tabWidget->tabCloseRequested(i); //То закрываем!
+		if (res==1) break;
+	}
+	if (n==0)
+		event->accept();
+	else
+		event->ignore();
+}
+
 int MainWindow::FormClose()
 {
-    for (int i=0;i<n;)
-    {
-        if (dynamic_cast<Editor*> (tabs[i])) //Если вкладка существует
-            ui->tabWidget->tabCloseRequested(i); //То закрываем!
-        if (res==1) i++;
-    }
-    if (n==0)
-        return 1;
-    else
-        return 0;
+
 
 }
 
