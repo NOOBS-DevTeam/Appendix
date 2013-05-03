@@ -233,47 +233,33 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 			}
 			else
 			{
+				bool f1 = false;
 				QString strKeyword = getKeyword(i,str);
 				if (!strKeyword.isEmpty())
+				{
 					if (i && i!=str.length()-1)
 					{
-						if (i+strKeyword.length()<str.length())
-							if (isspace((str[i-1]).toLatin1()) && isspace((str[i+strKeyword.length()]).toLatin1()))
-							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));
-								i+= strKeyword.length()-1;
-							}
-						else
-						{
-							if (isspace((str[i-1]).toLatin1()))
-							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));
-								i+= strKeyword.length()-1;
-							}
-						}
+						if (isspace((str[i-1]).toLatin1())||ispunct((str[i-1]).toLatin1()))
+							f1 = true;
+						if (i==strKeyword.length())
+							f1=true;
 					}
 					else if (!i)
 					{
 						if (i+strKeyword.length()<str.length())
-							if (isspace((str[i+strKeyword.length()]).toLatin1()))
-							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));
-								i+= strKeyword.length()-1;
-							}
-						else
-							{
-								setFormat(i, strKeyword.length(), what_color(lng,4));
-								i+= strKeyword.length()-1;
-							}
+							if (isspace((str[i+strKeyword.length()]).toLatin1())||ispunct((str[i+strKeyword.length()]).toLatin1()))
+								f1 = true;
 					}
-					else
+					if (str.length()==i+strKeyword.length())
 					{
-						if (isspace((str[i-1]).toLatin1()))
-						{
-							setFormat(i, strKeyword.length(), what_color(lng,4));
-							i+= strKeyword.length()-1;
-						}
+						f1 = true;
 					}
+				}
+				if (f1)
+				{
+					setFormat(i, strKeyword.length(), what_color(lng,4));
+					i+= strKeyword.length()-1;
+				}
 			}
 		}
 	}
@@ -291,9 +277,22 @@ void SyntaxHighlighter::highlightBlock(const QString& str)
 QString SyntaxHighlighter::getKeyword(int nPos, const QString& str) const
 {
 	QString strTemp = "";
+	bool f1=false,f2=false;
+	if (!nPos)
+		f1 = true;
+	if (nPos==str.length()-1)
+		f2 = true;
 	foreach (QString strKeyword, keywords)
 	{
-		if (str.mid(nPos,strKeyword.length()) == strKeyword)
+		bool f = false;
+		if (!f1)
+			if (!isspace((str[nPos-1]).toLatin1())&&!ispunct((str[nPos-1]).toLatin1()))
+				f=true;
+		if (!f2)
+			if (nPos+strKeyword.length()<str.length())
+				if (!isspace((str[nPos+strKeyword.length()]).toLatin1())&&!ispunct((str[nPos+strKeyword.length()]).toLatin1()))
+					f=true;
+		if (str.mid(nPos,strKeyword.length()) == strKeyword && !f)
 		{
 			strTemp = strKeyword;
 			break;

@@ -107,8 +107,6 @@ public slots:
 
 	void switchRun();
 
-    int FormClose();
-
 private:
 	Ui::MainWindow *ui;
 	void closeEvent (QCloseEvent *event);

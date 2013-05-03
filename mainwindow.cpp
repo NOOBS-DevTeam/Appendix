@@ -228,12 +228,6 @@ void MainWindow::closeEvent ( QCloseEvent * event )
 		event->ignore();
 }
 
-int MainWindow::FormClose()
-{
-
-
-}
-
 //Обновление всех табов
 void MainWindow::refreshAllTabs()
 {

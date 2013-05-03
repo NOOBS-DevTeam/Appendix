@@ -108,7 +108,7 @@ lang_t Editor::getLang()
 void Editor::change()
 {
     if (!changed)
-    tabw->setTabText(cur_tab,'*'+tabw->tabText(cur_tab));
+		tabw->setTabText(cur_tab,'*'+tabw->tabText(cur_tab));
     changed=true;
 }
 
