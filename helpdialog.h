@@ -34,6 +34,8 @@
 #define HELPDIALOG_H
 
 #include <QDialog>
+#include <QtGui>
+#include <QTreeWidget>
 
 namespace Ui {
 	class helpdialog;
@@ -42,11 +44,19 @@ namespace Ui {
 class helpdialog : public QDialog
 {
 	Q_OBJECT
+
+    void AddRoot(QString name);
+    void AddChild(QTreeWidgetItem *parent, QString name);
 	
 public:
 	explicit helpdialog(QWidget *parent = 0);
 	~helpdialog();
 	
+private slots:
+    void on_pushButton_clicked();
+
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+
 private:
 	Ui::helpdialog *ui;
 };

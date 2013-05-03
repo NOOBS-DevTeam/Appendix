@@ -14,24 +14,24 @@
    <string>Dialog</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset resource="../../../Appendix/Appendix/resources.qrc">
     <normaloff>:/res/ico/main.ico</normaloff>:/res/ico/main.ico</iconset>
   </property>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>170</x>
      <y>10</y>
-     <width>341</width>
-     <height>231</height>
+     <width>381</width>
+     <height>341</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>250</y>
+     <x>170</x>
+     <y>420</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -40,9 +40,24 @@
     <string>PushButton</string>
    </property>
   </widget>
+  <widget class="QTreeWidget" name="treeWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>161</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string notr="true">1</string>
+    </property>
+   </column>
+  </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../../../Appendix/Appendix/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

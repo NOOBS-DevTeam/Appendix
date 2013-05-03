@@ -36,6 +36,7 @@
 #include <QUrl>
 #include <QStringList>
 #include <QDebug>
+#include <QDialog>
 #include <QTextCodec>
 QString readFile(QString filename);
 
@@ -48,13 +49,49 @@ helpdialog::helpdialog(QWidget *parent) :
 	qstl.append(QString(":/doc/"));
 	ui->setupUi(this);
 	ui->textBrowser->setSearchPaths(QStringList() << ":/doc");
-	ui->textBrowser->setSource(QUrl("index.html"));
-	qDebug()<< ui->textBrowser->source();
-    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(close()));
-
+    ui->textBrowser->setSource(QUrl("index.html"));
+    //qDebug()<< ui->textBrowser->source();
+    AddRoot("Main");
+    ui->treeWidget->setHeaderLabel("Appendix");
 }
 
 helpdialog::~helpdialog()
 {
 	delete ui;
+}
+
+void helpdialog::AddRoot(QString name)
+{
+    QTreeWidgetItem *itm=new QTreeWidgetItem(ui->treeWidget);
+    itm->setText(0,name);
+    ui->treeWidget->addTopLevelItem(itm);
+    AddChild(itm,"Struct");
+    AddChild(itm,"Index");
+
+}
+
+void helpdialog::AddChild(QTreeWidgetItem *parent, QString name)
+{
+    QTreeWidgetItem *itm=new QTreeWidgetItem(parent);
+    itm->setText(0,name);
+    parent->addChild(itm);
+
+}
+
+void helpdialog::on_pushButton_clicked()
+{
+    //ui->treeWidget->currentItem()->;
+}
+
+void helpdialog::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
+{
+    QStringList qstl;
+    qstl.append(QString(":/doc/"));
+    ui->textBrowser->setSearchPaths(QStringList() << ":/doc");
+    if (item->text(0)=="Struct")
+            ui->textBrowser->setSource(QUrl("struct.html"));
+    if (item->text(0)=="Index")
+            ui->textBrowser->setSource(QUrl("index.html"));
+    if (item->text(0)=="Main")
+            ui->textBrowser->clear();
 }
