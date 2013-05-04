@@ -45,10 +45,8 @@ helpdialog::helpdialog(QWidget *parent) :
 	ui(new Ui::helpdialog)
 {
 
-	QStringList qstl;
-	qstl.append(QString(":/doc/"));
 	ui->setupUi(this);
-	ui->textBrowser->setSearchPaths(QStringList() << ":/doc");
+    ui->textBrowser->setSearchPaths(QStringList() << ":/doc/");
     ui->textBrowser->setSource(QUrl("index.html"));
     //qDebug()<< ui->textBrowser->source();
     AddRoot("Main");
@@ -75,7 +73,6 @@ void helpdialog::AddChild(QTreeWidgetItem *parent, QString name)
     QTreeWidgetItem *itm=new QTreeWidgetItem(parent);
     itm->setText(0,name);
     parent->addChild(itm);
-
 }
 
 void helpdialog::on_pushButton_clicked()
@@ -85,9 +82,7 @@ void helpdialog::on_pushButton_clicked()
 
 void helpdialog::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-    QStringList qstl;
-    qstl.append(QString(":/doc/"));
-    ui->textBrowser->setSearchPaths(QStringList() << ":/doc");
+    ui->textBrowser->setSearchPaths(QStringList() << ":/doc/");
     if (item->text(0)=="Struct")
             ui->textBrowser->setSource(QUrl("struct.html"));
     if (item->text(0)=="Index")

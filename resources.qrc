@@ -26,5 +26,6 @@
         <file>res/ico/replace.ico</file>
         <file>res/ico/clear.ico</file>
         <file>res/ico/main.ico</file>
+        <file>doc/struct.html</file>
     </qresource>
 </RCC>
