@@ -38,10 +38,13 @@
 #include <QObject>
 #include <QFile>
 
+extern bool fuckinSetupInProgress;
+
 QString src_cpp="#include <iostream>\n\nusing namespace std;\n\nint main()\n\{\n\tcout << \"Hello world!\" << endl;\n\treturn 0;\n}";
 QString src_pas="program hello_world;\n\nbegin\n\twriteln('HELLO WORLD!');\nend.";
 QString src_apx="int main()\n{\n\tout (\"Hello world!\");\n\treturn 0\n}";
 QSettings tweaks4("NOOBS-DevTeam","Appendix");
+
 Editor::Editor(QWidget *parent,lang_t lng) : QPlainTextEdit(parent)
 {
 	lang = lng;
@@ -72,7 +75,6 @@ Editor::Editor(QWidget *parent,lang_t lng) : QPlainTextEdit(parent)
 	highlightCurrentLine();
 	this->setLineWrapMode(QPlainTextEdit::NoWrap);
 	connect(this,SIGNAL(textChanged()), this, SLOT(change()));
-	//connect(this,SIGNAL(updateRequest(QRect,int)),this,SLOT(change()));
 	setViewportMargins(30, 0, 0, 0);
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 }
@@ -107,8 +109,8 @@ lang_t Editor::getLang()
 
 void Editor::change()
 {
-    if (!changed)
-		tabw->setTabText(cur_tab,'*'+tabw->tabText(cur_tab));
+    if (!changed && !fuckinSetupInProgress)
+        tabw->setTabText(cur_tab,'*'+tabw->tabText(cur_tab));
     changed=true;
 }
 
@@ -134,7 +136,6 @@ void Editor::updateLineNumSpace(const QRect &rect, int dy)
 
 	if (rect.contains(viewport()->rect()))
 		updateLineNumSpaceWidth(0);
-
 }
 
 

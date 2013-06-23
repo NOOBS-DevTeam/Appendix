@@ -42,15 +42,16 @@
 #include <QDebug>
 #include <QColor>
 
-
+bool fuckinSetupInProgress = false;
 QSettings tweaks2("NOOBS-DevTeam","Appendix");
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::SettingsDialog)
 {
-	ui->setupUi(this);
-
+    fuckinSetupInProgress=true;
+    ui->setupUi(this);
+    fuckinSetupInProgress=false;
 	QStringList lst;
 	QListWidgetItem *pitem = 0;
 	ui->listWidget->setIconSize(QSize(48,48));
