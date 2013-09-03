@@ -397,7 +397,10 @@ QString findentry(QString s)
 //Сохрание тек. таба
 void MainWindow::on_save_as_triggered()
 {
-    saveTab(cur_tab);
+	if (n)
+		saveTab(cur_tab);
+	else
+		QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
 //Чтение стандартного потока запущенного процесса
@@ -495,7 +498,9 @@ void MainWindow::on_print_triggered()
 
 void MainWindow::on_save_all_triggered()
 {
-	for (int i=0;i<n;i++)
+	if (!n)
+		QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
+	for (int i = 0;i < n;i++)
 		saveTab(i);
 }
 
@@ -515,7 +520,10 @@ void MainWindow::on_exit_triggered()
 
 void MainWindow::on_save_triggered()
 {
-	saveTab(cur_tab);
+	if (n)
+		saveTab(cur_tab);
+	else
+		QMessageBox::warning(ui->tabWidget,"Error","Возможно вы не открыли/создали ни одного файла",QMessageBox::Yes,QMessageBox::Yes);
 }
 
 void MainWindow::on_clear_triggered()
